@@ -74,7 +74,10 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily: {
-        serif: ["Georgia", "serif"],
+        conte: "var(--font-conte)",
+        tiempos: "var(--font-tiempos)",
+        "5by7": "var(--font-5by7)",
+        serif: ["var(--font-tiempos)", "serif"],
       },
     },
   },

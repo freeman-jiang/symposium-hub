@@ -1,5 +1,7 @@
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +12,48 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Optimize font loading by defining fonts outside the component
+const fivebyseven = localFont({
+  src: [
+    {
+      path: "../fonts/FiveBySeven.ttf",
+      weight: "400",
+    },
+    {
+      path: "../fonts/FiveBySevenBold.ttf",
+      weight: "600",
+    },
+  ],
+  variable: "--font-5by7",
+  preload: true,
+});
+
+const tiempos = localFont({
+  src: [
+    {
+      path: "../fonts/Tiempos.otf",
+      style: "normal",
+    },
+    {
+      path: "../fonts/TiemposItalic.otf",
+      style: "italic",
+    },
+  ],
+  variable: "--font-tiempos",
+  preload: true,
+});
+
+const conte = localFont({
+  src: [
+    {
+      path: "../fonts/Conte.otf",
+      style: "normal",
+    },
+  ],
+  variable: "--font-conte",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -25,7 +69,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={cn(
+          geistSans.variable,
+          geistMono.variable,
+          fivebyseven.variable,
+          tiempos.variable,
+          conte.variable,
+          "antialiased"
+        )}
       >
         {children}
       </body>
