@@ -1,135 +1,47 @@
 import FeatureCard from "@/components/feature-card";
+import FeatureButton from "@/components/FeatureButton";
 import InfoSection from "@/components/info-section";
+import NavigationBar from "@/components/NavigationBar";
 import OrbitalAnimation from "@/components/orbital-animation";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <header className="container mx-auto px-4 py-6 flex justify-between items-start">
-        <div>
-          <h1 className="text-4xl font-serif">Symposium Hub</h1>
-          <p className="text-sm mt-1">info, for the love of making :)</p>
+    <main className="min-h-screen bg-[#f8f3e3] text-black font-tiempos p-4 md:p-8">
+      {/* Top section */}
+      <NavigationBar />
 
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <p className="uppercase text-xs font-medium">March 19, 2023</p>
-              <p className="uppercase text-xs font-medium">
-                Waterloo Rec Center
-              </p>
-            </div>
-            <div>
-              <p className="uppercase text-xs font-medium">
-                Waterloo Memorial Recreation Complex
-              </p>
-              <p className="uppercase text-xs font-medium">
-                In-person & Virtual
-              </p>
-            </div>
+      {/* Main content */}
+      <div className="max-w-6xl mx-auto mt-28">
+        <h1 className="text-6xl md:text-7xl font-tiempos font-normal">
+          Symposium Hub
+        </h1>
+        <p className="text-lg mt-2">info, for the love of making ;)</p>
+
+        <div className="mt-20 space-y-6">
+          <div className="font-[var(--font-5by7)] text-xl tracking-wider uppercase">
+            MARCH 19, 2025
+            <br />
+            WATERLOO REC CENTER
+          </div>
+
+          <div className="font-[var(--font-5by7)] text-xl tracking-wider uppercase mt-8">
+            WATERLOO MEMORIAL RECREATION COMPLEX
+            <br />
+            IN-PERSON & VIRTUAL
+          </div>
+
+          <div className="mt-28">
+            <Link
+              href="#"
+              className="inline-flex items-center gap-2 bg-black text-white px-12 py-4 font-[var(--font-5by7)] text-xl"
+            >
+              <span className="font-conte text-xl">**</span>
+              GET TICKETS
+            </Link>
           </div>
         </div>
-
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="icon"
-            className="rounded-none border-white/20"
-          >
-            <span className="sr-only">Search</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-search"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.3-4.3" />
-            </svg>
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="rounded-none border-white/20"
-          >
-            <span className="sr-only">Menu</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-menu"
-            >
-              <line x1="4" x2="20" y1="12" y2="12" />
-              <line x1="4" x2="20" y1="6" y2="6" />
-              <line x1="4" x2="20" y1="18" y2="18" />
-            </svg>
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="rounded-none border-white/20"
-          >
-            <span className="sr-only">Settings</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-settings"
-            >
-              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="rounded-none border-white/20"
-          >
-            <span className="sr-only">Grid</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-layout-grid"
-            >
-              <rect width="7" height="7" x="3" y="3" rx="1" />
-              <rect width="7" height="7" x="14" y="3" rx="1" />
-              <rect width="7" height="7" x="14" y="14" rx="1" />
-              <rect width="7" height="7" x="3" y="14" rx="1" />
-            </svg>
-          </Button>
-        </div>
-      </header>
-
-      <div className="container mx-auto px-4 flex justify-end mt-4">
-        <Button className="bg-black text-white border border-white hover:bg-white hover:text-black rounded-none px-6">
-          GET TICKETS
-        </Button>
       </div>
 
       {/* Hero Section with Orbital Animation */}
@@ -177,85 +89,97 @@ export default function Home() {
       {/* Feature Buttons */}
       <section className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Button className="bg-black/50 backdrop-blur-sm border border-white/10 text-white rounded-none py-6 flex items-center gap-2 hover:bg-black/70 hover:border-white/20 shadow-[0_0_10px_rgba(255,255,255,0.1)]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-users"
-            >
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
+          <FeatureButton
+            icon={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-users"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            }
+          >
             FIND PEOPLE
-          </Button>
-          <Button className="bg-black/50 backdrop-blur-sm border border-white/10 text-white rounded-none py-6 flex items-center gap-2 hover:bg-black/70 hover:border-white/20 shadow-[0_0_10px_rgba(255,255,255,0.1)]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-presentation"
-            >
-              <path d="M2 3h20" />
-              <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3" />
-              <path d="m7 21 5-5 5 5" />
-            </svg>
+          </FeatureButton>
+          <FeatureButton
+            icon={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-presentation"
+              >
+                <path d="M2 3h20" />
+                <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3" />
+                <path d="m7 21 5-5 5 5" />
+              </svg>
+            }
+          >
             STAGE DEMOS
-          </Button>
-          <Button className="bg-black/50 backdrop-blur-sm border border-white/10 text-white rounded-none py-6 flex items-center gap-2 hover:bg-black/70 hover:border-white/20 shadow-[0_0_10px_rgba(255,255,255,0.1)]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-network"
-            >
-              <rect x="16" y="16" width="6" height="6" rx="1" />
-              <rect x="2" y="16" width="6" height="6" rx="1" />
-              <rect x="9" y="2" width="6" height="6" rx="1" />
-              <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
-              <path d="M12 12V8" />
-            </svg>
+          </FeatureButton>
+          <FeatureButton
+            icon={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-network"
+              >
+                <rect x="16" y="16" width="6" height="6" rx="1" />
+                <rect x="2" y="16" width="6" height="6" rx="1" />
+                <rect x="9" y="2" width="6" height="6" rx="1" />
+                <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
+                <path d="M12 12V8" />
+              </svg>
+            }
+          >
             MATCHMAKING GRAPH
-          </Button>
-          <Button className="bg-black/50 backdrop-blur-sm border border-white/10 text-white rounded-none py-6 flex items-center gap-2 hover:bg-black/70 hover:border-white/20 shadow-[0_0_10px_rgba(255,255,255,0.1)]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-presentation"
-            >
-              <path d="M2 3h20" />
-              <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3" />
-              <path d="m7 21 5-5 5 5" />
-            </svg>
+          </FeatureButton>
+          <FeatureButton
+            icon={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-presentation"
+              >
+                <path d="M2 3h20" />
+                <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3" />
+                <path d="m7 21 5-5 5 5" />
+              </svg>
+            }
+          >
             BOOTH DEMOS
-          </Button>
+          </FeatureButton>
         </div>
       </section>
 
