@@ -3,10 +3,10 @@ import NavIcon from "./NavIcon";
 
 export default function NavigationBar() {
   return (
-    <div className="flex justify-between items-center w-full">
+    <div className="flex justify-between items-center w-full px-6 py-6">
       {/* Logo */}
-      <div className="bg-red-200">
-        <SocraticaLogo className="size-8" />
+      <div className="">
+        <SocraticaLogo className="size-7" />
       </div>
 
       {/* Navigation icons */}

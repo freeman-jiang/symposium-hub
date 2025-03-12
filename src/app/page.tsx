@@ -4,42 +4,43 @@ import InfoSection from "@/components/info-section";
 import NavigationBar from "@/components/NavigationBar";
 import OrbitalAnimation from "@/components/orbital-animation";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#f8f3e3] text-black font-tiempos p-4 md:p-8">
+    <main className="min-h-screen bg-[#f8f3e3] text-black md:p-8">
       {/* Top section */}
       <NavigationBar />
 
       {/* Main content */}
-      <div className="max-w-6xl mx-auto mt-28">
-        <h1 className="text-6xl md:text-7xl font-tiempos font-normal">
+      <div className="max-w-6xl mx-auto mt-8 px-6 mb-12">
+        <h1 className="text-4xl md:text-5xl font-tiempos tracking-tight font-normal">
           Symposium Hub
         </h1>
-        <p className="text-lg mt-2">info, for the love of making ;)</p>
+        {/* <p className="text-lg mt-2">info, for the love of making ;)</p> */}
 
-        <div className="mt-20 space-y-6">
-          <div className="font-[var(--font-5by7)] text-xl tracking-wider uppercase">
+        <div className="mt-8 space-y-12 font-5by7 font-bold uppercase tracking-wider opacity-90 text-sm">
+          <div className="uppercase">
             MARCH 19, 2025
             <br />
-            WATERLOO REC CENTER
+            <div className="text-zinc-500">WATERLOO REC CENTER</div>
           </div>
 
-          <div className="font-[var(--font-5by7)] text-xl tracking-wider uppercase mt-8">
+          <div className="">
             WATERLOO MEMORIAL RECREATION COMPLEX
             <br />
-            IN-PERSON & VIRTUAL
+            <div className="text-zinc-500">IN-PERSON & VIRTUAL</div>
           </div>
 
-          <div className="mt-28">
-            <Link
-              href="#"
-              className="inline-flex items-center gap-2 bg-black text-white px-12 py-4 font-[var(--font-5by7)] text-xl"
-            >
-              <span className="font-conte text-xl">**</span>
-              GET TICKETS
-            </Link>
+          <div
+            id="buttons"
+            className="w-full items-center flex flex-row gap-[16px]"
+          >
+            <div className="glassmorphic-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12">
+              <img src="socraticalogo.svg" className="w-[16px]" />
+              <div className="text-[#F5F1E2] tracking-widest font-5by7 font-bold uppercase text-[11px] sm:text-[16px]">
+                Get tickets
+              </div>
+            </div>
           </div>
         </div>
       </div>
