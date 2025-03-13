@@ -83,7 +83,7 @@ export default function Home() {
       </motion.section>
 
       {/* Feature Cards with improved desktop spacing */}
-      <section className="container px-4 mx-auto py-16 md:py-24 lg:py-32 text-white">
+      <section className="container py-16 md:py-24 lg:py-32 text-white">
         <motion.h2
           className="font-tiempos text-3xl md:text-4xl lg:text-5xl text-center mb-16 md:mb-24"
           initial={{ opacity: 0, y: 30 }}

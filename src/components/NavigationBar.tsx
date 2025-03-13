@@ -8,10 +8,13 @@ import {
 } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { SocraticaLogo } from "./icons/SocraticaLogo";
 import NavIcon from "./NavIcon";
 
 export default function NavigationBar() {
+  const pathname = usePathname();
+
   return (
     <motion.div
       className="flex justify-between items-center w-full px-6 py-6 container dot-pattern"
@@ -37,23 +40,23 @@ export default function NavigationBar() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <NavIcon href="#" active={true}>
+        <NavIcon href="/" active={pathname === "/"}>
           <HouseIcon className="size-5" />
         </NavIcon>
 
-        <NavIcon href="#">
+        <NavIcon href="/people" active={pathname === "/people"}>
           <UsersIcon className="size-5" />
         </NavIcon>
 
-        <NavIcon href="#">
+        <NavIcon href="/demos" active={pathname === "/demos"}>
           <SparklesIcon className="size-5" />
         </NavIcon>
 
-        <NavIcon href="#">
+        <NavIcon href="/graph" active={pathname === "/graph"}>
           <WaypointsIcon className="size-5" />
         </NavIcon>
 
-        <NavIcon href="#">
+        <NavIcon href="/stage" active={pathname === "/stage"}>
           <PresentationIcon className="size-5" />
         </NavIcon>
       </motion.div>
