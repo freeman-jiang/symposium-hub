@@ -2,7 +2,6 @@
 import { Button } from "@/components/Button";
 import { SocraticaLogo } from "@/components/icons/SocraticaLogo";
 import { InfoLink } from "@/components/InfoLink";
-import NavigationBar from "@/components/NavigationBar";
 import { Presentation, Sparkles, Users, Waypoints } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -22,8 +21,6 @@ export default function Home() {
     <main className="min-h-screen bg-gradient-to-b from-zinc-950 to-zinc-900 text-black">
       {/* Header section with improved desktop spacing */}
       <div className="bg-[#f8f3e3]">
-        <NavigationBar />
-
         {/* Main content with improved desktop layout */}
         <div className="max-w-7xl mx-auto mt-8 px-6 pb-16 md:pb-24 md:flex md:items-end md:justify-between">
           <motion.div
@@ -308,7 +305,7 @@ export default function Home() {
       </section>
 
       {/* Sponsors with improved desktop spacing */}
-      <div className="bg-[#f8f3e3]">
+      <div className="bg-[#f8f3e3] grid-pattern-vignette">
         <footer className="container mx-auto px-4 py-16 md:py-24 text-center">
           <motion.p
             className="uppercase text-xs md:text-sm text-zinc-600 mb-8 md:mb-12 font-5by7 font-bold tracking-wider"
