@@ -1,42 +1,40 @@
 import { Button } from "@/components/Button";
+import { InfoLink } from "@/components/InfoLink";
 import NavigationBar from "@/components/NavigationBar";
 import { Presentation, Sparkles, Users, Waypoints } from "lucide-react";
-import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#f8f3e3] text-black md:p-8">
-      {/* Top section */}
-      <NavigationBar />
-
-      {/* Main content */}
-      <div className="max-w-6xl mx-auto mt-8 px-6 mb-12">
-        <h1 className="text-4xl md:text-5xl font-tiempos tracking-tight font-normal">
-          Symposium Hub
-        </h1>
-        {/* <p className="text-lg mt-2">info, for the love of making ;)</p> */}
-
-        <div className="mt-8 space-y-12 font-5by7 font-bold uppercase tracking-wider opacity-90 text-sm">
-          <div className="uppercase">
-            MARCH 19, 2025
-            <br />
-            <div className="text-zinc-500">WATERLOO REC CENTER</div>
-          </div>
-
-          <div className="">
-            WATERLOO MEMORIAL RECREATION COMPLEX
-            <br />
-            <div className="text-zinc-500">IN-PERSON & VIRTUAL</div>
-          </div>
-
-          <div
-            id="buttons"
-            className="w-full items-center flex flex-row gap-[16px]"
-          >
-            <div className="glassmorphic-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12">
-              <img src="socraticalogo.svg" className="w-[16px]" />
-              <div className="text-[#F5F1E2] tracking-widest font-5by7 font-bold uppercase text-[11px] sm:text-[16px]">
-                Get tickets
+    <main className="min-h-screen bg-zinc-950 text-black">
+      <div className="bg-[#f8f3e3]">
+        {/* Top section */}
+        <NavigationBar />
+        {/* Main content */}
+        <div className="max-w-6xl mx-auto mt-8 px-6 pb-12">
+          <h1 className="text-4xl md:text-5xl font-tiempos tracking-tight font-normal">
+            Symposium Hub
+          </h1>
+          {/* <p className="text-lg mt-2">info, for the love of making ;)</p> */}
+          <div className="mt-8 space-y-12 font-5by7 font-bold uppercase tracking-wider opacity-90 text-sm">
+            <div className="uppercase">
+              MARCH 19, 2025
+              <br />
+              <div className="text-zinc-500">WATERLOO REC CENTER</div>
+            </div>
+            <div className="">
+              WATERLOO MEMORIAL RECREATION COMPLEX
+              <br />
+              <div className="text-zinc-500">IN-PERSON & VIRTUAL</div>
+            </div>
+            <div
+              id="buttons"
+              className="w-full items-center flex flex-row gap-[16px]"
+            >
+              <div className="glassmorphic-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12">
+                <img src="socraticalogo.svg" className="w-[16px]" />
+                <div className="text-[#F5F1E2] tracking-widest font-5by7 font-bold uppercase text-[11px] sm:text-[16px]">
+                  Get tickets
+                </div>
               </div>
             </div>
           </div>
@@ -95,7 +93,7 @@ export default function Home() {
           </div>
           <div>
             <div className="px-12">
-              <img src="BoothDemos.svg" className="w-full -rotate-6" />
+              <img src="BoothDemos.svg" className="w-full rotate-6" />
             </div>
             <div className="mt-5">
               <h3 className="font-tiempos text-2xl">Booth Demos</h3>
@@ -110,208 +108,97 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Feature Buttons */}
-      {/* <section className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <FeatureButton
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-users"
-              >
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
-            }
-          >
-            FIND PEOPLE
-          </FeatureButton>
-          <FeatureButton
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-presentation"
-              >
-                <path d="M2 3h20" />
-                <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3" />
-                <path d="m7 21 5-5 5 5" />
-              </svg>
-            }
-          >
-            STAGE DEMOS
-          </FeatureButton>
-          <FeatureButton
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-network"
-              >
-                <rect x="16" y="16" width="6" height="6" rx="1" />
-                <rect x="2" y="16" width="6" height="6" rx="1" />
-                <rect x="9" y="2" width="6" height="6" rx="1" />
-                <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
-                <path d="M12 12V8" />
-              </svg>
-            }
-          >
-            MATCHMAKING GRAPH
-          </FeatureButton>
-          <FeatureButton
-            icon={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-presentation"
-              >
-                <path d="M2 3h20" />
-                <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3" />
-                <path d="m7 21 5-5 5 5" />
-              </svg>
-            }
-          >
-            BOOTH DEMOS
-          </FeatureButton>
-        </div>
-      </section> */}
-
       {/* Socratica Section */}
-      {/* <section className="container mx-auto px-4 py-16">
-        <div className="flex justify-center mb-16">
-          <h2 className="text-8xl font-serif">Socratica</h2>
-          <div className="ml-4">
-            <Image
-              src="/placeholder.svg?height=100&width=100"
-              alt="Burrito icon"
-              width={100}
-              height={100}
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <InfoSection
-            title="GETTING TO WATERLOO"
-            description="IN-PERSON & VIRTUAL"
-            hasArrow={true}
+      <section className="container mx-auto px-4 py-16">
+        <img src="/g1.svg" className="w-full px-4" />
+        <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-1 text-white">
+          <InfoLink
+            title="Getting to Waterloo"
+            description="In-person & Virtual"
+            url="https://www.google.com"
           />
-          <InfoSection
-            title="ACCOMMODATION"
-            description="SOME HOTELS NEAR WATERLOO"
-            hasArrow={true}
+          <InfoLink
+            title="Accommodation"
+            description="Places to stay in Waterloo."
+            url="https://www.google.com"
           />
-          <InfoSection
-            title="CALENDAR"
-            description="EVENTS BOARD"
-            hasArrow={true}
+          <InfoLink
+            title="Calendar"
+            description="Events board"
+            url="https://calendar.symposium.com"
           />
-          <InfoSection
-            title="LOCAL ATTRACTIONS & DINING"
-            description="THINGS TO DO COURTESY OF DRSCH"
-            hasArrow={true}
+          <InfoLink
+            title="Local Attractions & Dining"
+            description="Things to do and eat in Waterloo."
+            url="https://local.symposium.com"
           />
-          <InfoSection
-            title="ABOUT SOCRATICA"
-            description="LEARN MORE ABOUT SOCRATICA AND THE SOCRATICA COMMONS"
-            hasArrow={true}
+          <InfoLink
+            title="About Socratica"
+            description="Learn more about Socratica and the Socratica Commons"
+            url="https://socratica.org"
           />
-          <InfoSection
-            title="OUR CODE OF CONDUCT"
-            description="SET OF GUIDELINES YOU'LL NEED TO ADHERE TO AT OUR EVENTS"
-            hasArrow={true}
+          <InfoLink
+            title="Our Code of Conduct"
+            description="Set of guidelines you'll need to adhere to at our events."
+            url="https://symposium.com/code-of-conduct"
           />
         </div>
-      </section> */}
-
-      {/* Footer */}
-      <footer className="container mx-auto px-4 py-16 border-t border-white/20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="uppercase text-sm font-medium mb-4">Navigation</h3>
-          </div>
-          <div>
-            <h3 className="uppercase text-sm font-medium mb-4">Questions?</h3>
-            <p className="text-sm text-gray-400 mb-4">
-              If you have any additional questions please{" "}
-              <a href="mailto:email@example.com" className="underline">
-                email us
-              </a>
-              . If you need any more urgent information on the day of, please
-              text or call +1 (519) 572-4047.
-            </p>
-          </div>
-          <div>
-            <h3 className="uppercase text-sm font-medium mb-4">Discord</h3>
-            <p className="text-sm text-gray-400 mb-4">
-              Looking to meet other attendees during the week? Want to know what
-              events happening throughout the week without checking the
-              calendar? Join the Symposium Discord!
-            </p>
-          </div>
-        </div>
-      </footer>
+      </section>
 
       {/* Sponsors */}
-      <section className="container mx-auto px-4 py-16 text-center">
-        <p className="uppercase text-xs text-gray-400 mb-8">
+      <footer className="container mx-auto px-4 py-16 text-center bg-[#f8f3e3]">
+        <p className="uppercase text-xs text-zinc-600 mb-8 font-5by7 font-bold tracking-wider">
           This event would not be possible without...
         </p>
-        <div className="flex flex-wrap justify-center items-center gap-12">
-          <Image
-            src="/placeholder.svg?height=60&width=150"
-            alt="Shopify"
-            width={150}
-            height={60}
-          />
-          <Image
-            src="/placeholder.svg?height=40&width=100"
-            alt="Sponsor"
-            width={100}
-            height={40}
-          />
-          <Image
-            src="/placeholder.svg?height=40&width=100"
-            alt="Vercel"
-            width={100}
-            height={40}
-          />
+        <img
+          src="/ShopifyGuy.svg"
+          alt="Shopify"
+          className="mx-auto h-[6.3rem] w-auto"
+        />
+        <div className="items-center justify-between md:justify-center md:gap-6 flex flex-row px-2 mt-10">
+          <a href="https://vapi.ai/" target="_blank" rel="noopener noreferrer">
+            <img
+              src="/VAPI.svg"
+              className="transition-transform duration-300 hover:scale-105 h-[18px]"
+            />
+          </a>
+          <div className="bg-zinc-400 h-[24px] w-[1px]"></div>
+          <a
+            href="https://www.velocityincubator.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/velocity.png"
+              className="transition-transform duration-300 hover:scale-105 h-[26px] invert-0 brightness-0 mb-1"
+            />
+          </a>
+          <div className="bg-zinc-400 h-[24px] w-[1px]"></div>
+          <a
+            href="https://vercel.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/VercelLogo.svg"
+              className="transition-transform duration-300 hover:scale-105 h-[20px] text-black invert-0 brightness-0"
+            />
+          </a>
         </div>
-        <p className="text-xs text-gray-400 mt-12">
-          DESIGN HELEN + DEV FREEDOM
-        </p>
-      </section>
+
+        <div
+          className="mt-12 px-4 py-2.5 border border-[#A4A4A4]/30 bg-white transition-shadow duration-300 font-5by7 font-medium uppercase tracking-wider w-fit mx-auto text-zinc-600"
+          style={{
+            boxShadow:
+              "0px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 7px rgba(0, 0, 0, 0.08);",
+          }}
+        >
+          <p className="text-xs">
+            DEV <span className="font-semibold">FREEMAN</span> ✗ DESIGN{" "}
+            <span className="font-semibold">AILEEN</span>
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }
