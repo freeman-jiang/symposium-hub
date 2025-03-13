@@ -1,0 +1,93 @@
+"use client";
+
+import { Search } from "@/components/Search";
+import NavigationBar from "@/components/NavigationBar";
+import { motion } from "motion/react";
+import { SocraticaLogo } from "@/components/icons/SocraticaLogo";
+
+export default function PeoplePage() {
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-zinc-950 to-zinc-900 text-black">
+      {/* Header section with improved desktop spacing */}
+      <div className="bg-[#f8f3e3]">
+        <NavigationBar />
+        
+        {/* Main content with improved desktop layout */}
+        <div className="max-w-7xl mx-auto px-6 pt-8 pb-16 md:pb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-center"
+          >
+            <div className="flex justify-center mb-4">
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
+                <SocraticaLogo className="size-12" />
+              </motion.div>
+            </div>
+            
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-tiempos tracking-tight font-normal">
+              The People of Symposium
+            </h1>
+            <div className="mt-4 space-y-2 font-5by7 font-bold uppercase tracking-wider opacity-90 text-[0.95rem] md:text-base">
+              <motion.div
+                className="uppercase"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+              >
+                WATERLOO, ON, CANADA
+              </motion.div>
+              <motion.div
+                className="text-zinc-500"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+              >
+                BROWSE ALL PARTICIPANTS BELOW OR USE THE SEARCH
+              </motion.div>
+              <motion.div
+                className="text-zinc-500"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
+              >
+                POWERED BY SHOPIFY
+              </motion.div>
+            </div>
+          </motion.div>
+          
+          <div className="w-full mt-8">
+            <Search />
+          </div>
+        </div>
+      </div>
+      
+      {/* Branding footer - removed Shopify, kept only Socratica */}
+      <div className="fixed bottom-4 right-4 z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.5 }}
+          className="text-xs text-white/70 flex flex-col items-end gap-1"
+        >
+          <div className="flex items-center gap-1">
+            <span>Powered by</span>
+            <a 
+              href="https://socratica.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="font-bold hover:text-white transition-colors"
+            >
+              Socratica
+            </a>
+          </div>
+        </motion.div>
+      </div>
+    </main>
+  );
+}
