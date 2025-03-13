@@ -14,7 +14,7 @@ import StageDemosSvg from "@/components/svg/StageDemos.svg";
 
 import BurritoSvg from "@/components/svg/burrito.svg";
 import ShopifyGuySvg from "@/components/svg/ShopifyGuy.svg";
-import VapiSvg from "@/components/svg/Vapi.svg";
+import VapiSvg from "@/components/svg/VAPI.svg";
 import VercelSvg from "@/components/svg/VercelLogo.svg";
 
 export default function Home() {
