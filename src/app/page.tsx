@@ -1,8 +1,6 @@
-import FeatureCard from "@/components/feature-card";
-import FeatureButton from "@/components/FeatureButton";
-import InfoSection from "@/components/info-section";
+import { Button } from "@/components/Button";
 import NavigationBar from "@/components/NavigationBar";
-import OrbitalAnimation from "@/components/orbital-animation";
+import { Presentation, Sparkles, Users, Waypoints } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
@@ -46,49 +44,74 @@ export default function Home() {
       </div>
 
       {/* Hero Section with Orbital Animation */}
-      <section className="relative h-[500px] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 opacity-80"></div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <OrbitalAnimation />
-        </div>
+      <section className="relative h-[500px] w-full overflow-hidden bg-indigo-700 flex items-center justify-center text-white">
+        Graphic
       </section>
 
       {/* Feature Cards */}
-      <section className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <FeatureCard
-            title="Find People"
-            description="Short blurb."
-            color="blue"
-            icon="users"
-            contactText="If you have any additional questions please email us. If you need any more information on the day of, please text or call +1 (519) 572-4047."
-          />
-          <FeatureCard
-            title="Stage Demos"
-            description="If you have any additional questions please email us. If you need any more information on the day of, please text or call +1 (519) 572-4047."
-            color="green"
-            icon="presentation"
-            contactText="If you have any additional questions please email us. If you need any more information on the day of, please text or call +1 (519) 572-4047."
-          />
-          <FeatureCard
-            title="Matchmaking Graph"
-            description="If you have any additional questions please email us. If you need any more information on the day of, please text or call +1 (519) 572-4047."
-            color="orange"
-            icon="network"
-            contactText="If you have any additional questions please email us. If you need any more information on the day of, please text or call +1 (519) 572-4047."
-          />
-          <FeatureCard
-            title="Booth Demos"
-            description="If you have any additional questions please email us. If you need any more information on the day of, please text or call +1 (519) 572-4047."
-            color="red"
-            icon="presentation-play"
-            contactText="If you have any additional questions please email us. If you need any more information on the day of, please text or call +1 (519) 572-4047."
-          />
+      <section className="container mx-auto py-16 bg-zinc-950 text-white">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-4">
+          <div>
+            <div className="px-12">
+              <img src="FindPeople.svg" className="w-full -rotate-6" />
+            </div>
+            <div className="mt-5">
+              <h3 className="font-tiempos text-2xl">Find People</h3>
+              <p>Short blurb.</p>
+              <Button
+                icon={<Users className="size-4" />}
+                text="Find people"
+                className="mt-4"
+              />
+            </div>
+          </div>
+          <div>
+            <div className="px-12">
+              <img src="StageDemos.svg" className="w-full rotate-6" />
+            </div>
+            <div className="mt-5">
+              <h3 className="font-tiempos text-2xl">Stage Demos</h3>
+              <p>Short blurb.</p>
+              <Button
+                icon={<Sparkles className="size-4" />}
+                text="Stage Demos"
+                className="mt-4"
+              />
+            </div>
+          </div>
+          <div>
+            <div className="px-12">
+              <img src="MatchmakingGraph.svg" className="w-full -rotate-6" />
+            </div>
+            <div className="mt-5">
+              <h3 className="font-tiempos text-2xl">Matchmaking Graph</h3>
+              <p>Short blurb.</p>
+              <Button
+                icon={<Waypoints className="size-4" />}
+                text="Matchmaking Graph"
+                className="mt-4"
+              />
+            </div>
+          </div>
+          <div>
+            <div className="px-12">
+              <img src="BoothDemos.svg" className="w-full -rotate-6" />
+            </div>
+            <div className="mt-5">
+              <h3 className="font-tiempos text-2xl">Booth Demos</h3>
+              <p>Short blurb.</p>
+              <Button
+                icon={<Presentation className="size-4" />}
+                text="Booth Demos"
+                className="mt-4"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Feature Buttons */}
-      <section className="container mx-auto px-4 py-8">
+      {/* <section className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <FeatureButton
             icon={
@@ -182,10 +205,10 @@ export default function Home() {
             BOOTH DEMOS
           </FeatureButton>
         </div>
-      </section>
+      </section> */}
 
       {/* Socratica Section */}
-      <section className="container mx-auto px-4 py-16">
+      {/* <section className="container mx-auto px-4 py-16">
         <div className="flex justify-center mb-16">
           <h2 className="text-8xl font-serif">Socratica</h2>
           <div className="ml-4">
@@ -230,7 +253,7 @@ export default function Home() {
             hasArrow={true}
           />
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <footer className="container mx-auto px-4 py-16 border-t border-white/20">
