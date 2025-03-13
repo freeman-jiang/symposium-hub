@@ -20,21 +20,22 @@ const nextConfig: NextConfig = {
     return config;
   },
   // Enable experimental features for Turbo compatibility
-  experimental: {
-    turbo: {
-      rules: {
-        // Add Turbo-specific rules for SVG handling
-        "*.svg": {
-          loaders: ["@svgr/webpack"],
-          as: "react",
-        },
-        "*.svg?url": {
-          loaders: [],
-          as: "url",
-        },
-      },
-    },
-  },
+  // JK we cant use turbopack it doesnt work with svgr
+  // experimental: {
+  //   turbo: {
+  //     rules: {
+  //       // Add Turbo-specific rules for SVG handling
+  //       "*.svg": {
+  //         loaders: ["@svgr/webpack"],
+  //         as: "react",
+  //       },
+  //       "*.svg?url": {
+  //         loaders: [],
+  //         as: "url",
+  //       },
+  //     },
+  //   },
+  // },
 };
 
 export default nextConfig;

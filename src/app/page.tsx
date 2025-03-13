@@ -1,10 +1,14 @@
 "use client";
 import { Button } from "@/components/Button";
+import { SocraticaLogo } from "@/components/icons/SocraticaLogo";
 import { InfoLink } from "@/components/InfoLink";
 import NavigationBar from "@/components/NavigationBar";
-import BurritoSvg from "@/components/svg/burrito.svg";
 import { Presentation, Sparkles, Users, Waypoints } from "lucide-react";
 import { motion } from "motion/react";
+
+// Svgs
+import BurritoSvg from "@/components/svg/burrito.svg";
+import FindPeopleSvg from "@/components/svg/FindPeople.svg";
 
 export default function Home() {
   return (
@@ -55,7 +59,7 @@ export default function Home() {
             transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
           >
             <div className="glassmorphic-light-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12 md:px-16 transition-transform">
-              <img src="socraticalogo.svg" className="w-[16px] md:w-[20px]" />
+              <SocraticaLogo className="w-[16px] md:w-[20px] text-white" />
               <div className="text-[#F5F1E2] tracking-widest font-5by7 font-bold uppercase text-[11px] sm:text-[16px]">
                 Get tickets
               </div>
@@ -95,7 +99,8 @@ export default function Home() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, delay: 0.1 }}
             >
-              <motion.div
+              <FindPeopleSvg className="px-8 md:px-6 w-full max-w-[300px]" />
+              {/* <motion.div
                 className="px-8 md:px-6 w-full max-w-[300px]"
                 initial={{ rotate: -6 }}
                 whileHover={{ rotate: 0 }}
@@ -105,7 +110,7 @@ export default function Home() {
                   src="FindPeople.svg"
                   className="w-full transition-transform"
                 />
-              </motion.div>
+              </motion.div> */}
               <div className="mt-5 text-center md:text-left">
                 <h3 className="font-tiempos text-2xl md:text-3xl">
                   Find People
@@ -221,14 +226,6 @@ export default function Home() {
       {/* Socratica Section with improved grid for desktop */}
       <section className="container mx-auto px-4 py-16 md:py-24 lg:py-32">
         <div className="max-w-5xl mx-auto">
-          <motion.img
-            src="/burrito.svg"
-            className="w-full px-4 md:px-0 md:max-w-4xl md:mx-auto"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7 }}
-          />
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
