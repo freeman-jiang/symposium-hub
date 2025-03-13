@@ -5,7 +5,7 @@ import { Presentation, Sparkles, Users, Waypoints } from "lucide-react";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-zinc-950 text-black">
+    <main className="min-h-screen bg-gradient-to-b from-zinc-950 to-zinc-900 text-black">
       <div className="bg-[#f8f3e3]">
         {/* Top section */}
         <NavigationBar />
@@ -47,7 +47,7 @@ export default function Home() {
       </section>
 
       {/* Feature Cards */}
-      <section className="container px-4 mx-auto py-16 bg-zinc-950 text-white">
+      <section className="container px-4 mx-auto py-16 text-white">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-4">
           <div>
             <div className="px-12">
