@@ -95,7 +95,7 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.1 }}
             >
               <motion.div
-                className="px-12 md:px-6 lg:px-12 w-full max-w-[300px]"
+                className="px-8 md:px-6 w-full max-w-[300px]"
                 initial={{ rotate: -6 }}
                 whileHover={{ rotate: 0 }}
                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
@@ -127,7 +127,7 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.2 }}
             >
               <motion.div
-                className="px-12 md:px-6 lg:px-12 w-full max-w-[300px]"
+                className="px-8 md:px-6 w-full max-w-[300px]"
                 initial={{ rotate: 6 }}
                 whileHover={{ rotate: 0 }}
                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
@@ -159,7 +159,7 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.3 }}
             >
               <motion.div
-                className="px-12 md:px-6 lg:px-12 w-full max-w-[300px]"
+                className="px-8 md:px-6 w-full max-w-[300px]"
                 initial={{ rotate: -6 }}
                 whileHover={{ rotate: 0 }}
                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
@@ -191,7 +191,7 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.4 }}
             >
               <motion.div
-                className="px-12 md:px-6 lg:px-12 w-full max-w-[300px]"
+                className="px-8 md:px-6 w-full max-w-[300px]"
                 initial={{ rotate: 6 }}
                 whileHover={{ rotate: 0 }}
                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
