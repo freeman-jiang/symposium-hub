@@ -138,7 +138,7 @@ export default function Home() {
       <section className="container mx-auto px-4 py-16 md:py-24 lg:py-32">
         <div className="max-w-5xl mx-auto">
           <img
-            src="/g1.svg"
+            src="/burrito.svg"
             className="w-full px-4 md:px-0 md:max-w-4xl md:mx-auto"
           />
           <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-white">
