@@ -10,7 +10,7 @@ export const InfoLink = ({ title, description, url }: Props) => {
   return (
     <a
       href={url}
-      className="px-4 py-4 hover:bg-white/5 transition-colors block"
+      className="px-4 py-4 hover:bg-white/5 transition-colors block w-full h-full"
     >
       <h3 className="font-5by7 font-bold text-lg uppercase tracking-wide flex items-center text-white">
         {title}{" "}
