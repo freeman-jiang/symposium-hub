@@ -2,6 +2,7 @@
 import { Button } from "@/components/Button";
 import { InfoLink } from "@/components/InfoLink";
 import NavigationBar from "@/components/NavigationBar";
+import BurritoSvg from "@/components/svg/burrito.svg";
 import { Presentation, Sparkles, Users, Waypoints } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -228,6 +229,15 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
           />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+          >
+            <BurritoSvg className="w-full px-4 md:px-0 md:max-w-4xl md:mx-auto" />
+          </motion.div>
+
           <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-white">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
