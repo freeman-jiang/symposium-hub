@@ -1,13 +1,14 @@
+import Link from "next/link";
 import { SocraticaLogo } from "./icons/SocraticaLogo";
 import NavIcon from "./NavIcon";
 
 export default function NavigationBar() {
   return (
-    <div className="flex justify-between items-center w-full px-6 py-6">
+    <div className="flex justify-between items-center w-full px-6 py-6 container">
       {/* Logo */}
-      <div className="">
+      <Link href="/">
         <SocraticaLogo className="size-7" />
-      </div>
+      </Link>
 
       {/* Navigation icons */}
       <div className="flex gap-2">

@@ -47,7 +47,7 @@ export default function Home() {
       </section>
 
       {/* Feature Cards */}
-      <section className="container mx-auto py-16 bg-zinc-950 text-white">
+      <section className="container px-4 mx-auto py-16 bg-zinc-950 text-white">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-4">
           <div>
             <div className="px-12">
@@ -146,59 +146,64 @@ export default function Home() {
       </section>
 
       {/* Sponsors */}
-      <footer className="container mx-auto px-4 py-16 text-center bg-[#f8f3e3]">
-        <p className="uppercase text-xs text-zinc-600 mb-8 font-5by7 font-bold tracking-wider">
-          This event would not be possible without...
-        </p>
-        <img
-          src="/ShopifyGuy.svg"
-          alt="Shopify"
-          className="mx-auto h-[6.3rem] w-auto"
-        />
-        <div className="items-center justify-between md:justify-center md:gap-6 flex flex-row px-2 mt-10">
-          <a href="https://vapi.ai/" target="_blank" rel="noopener noreferrer">
-            <img
-              src="/VAPI.svg"
-              className="transition-transform duration-300 hover:scale-105 h-[18px]"
-            />
-          </a>
-          <div className="bg-zinc-400 h-[24px] w-[1px]"></div>
-          <a
-            href="https://www.velocityincubator.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="/velocity.png"
-              className="transition-transform duration-300 hover:scale-105 h-[26px] invert-0 brightness-0 mb-1"
-            />
-          </a>
-          <div className="bg-zinc-400 h-[24px] w-[1px]"></div>
-          <a
-            href="https://vercel.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="/VercelLogo.svg"
-              className="transition-transform duration-300 hover:scale-105 h-[20px] text-black invert-0 brightness-0"
-            />
-          </a>
-        </div>
-
-        <div
-          className="mt-12 px-4 py-2.5 border border-[#A4A4A4]/30 bg-white transition-shadow duration-300 font-5by7 font-medium uppercase tracking-wider w-fit mx-auto text-zinc-600"
-          style={{
-            boxShadow:
-              "0px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 7px rgba(0, 0, 0, 0.08);",
-          }}
-        >
-          <p className="text-xs">
-            DEV <span className="font-semibold">FREEMAN</span> ✗ DESIGN{" "}
-            <span className="font-semibold">AILEEN</span>
+      <div className="bg-[#f8f3e3]">
+        <footer className="container mx-auto px-4 py-16 text-center">
+          <p className="uppercase text-xs text-zinc-600 mb-8 font-5by7 font-bold tracking-wider">
+            This event would not be possible without...
           </p>
-        </div>
-      </footer>
+          <img
+            src="/ShopifyGuy.svg"
+            alt="Shopify"
+            className="mx-auto h-[6.3rem] w-auto"
+          />
+          <div className="items-center justify-between md:justify-center md:gap-6 flex flex-row px-2 mt-10">
+            <a
+              href="https://vapi.ai/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/VAPI.svg"
+                className="transition-transform duration-300 hover:scale-105 h-[18px]"
+              />
+            </a>
+            <div className="bg-zinc-400 h-[24px] w-[1px]"></div>
+            <a
+              href="https://www.velocityincubator.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/velocity.png"
+                className="transition-transform duration-300 hover:scale-105 h-[26px] invert-0 brightness-0 mb-1"
+              />
+            </a>
+            <div className="bg-zinc-400 h-[24px] w-[1px]"></div>
+            <a
+              href="https://vercel.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/VercelLogo.svg"
+                className="transition-transform duration-300 hover:scale-105 h-[20px] text-black invert-0 brightness-0"
+              />
+            </a>
+          </div>
+          <div
+            className="mt-12 px-4 py-2.5 border border-[#A4A4A4]/30 bg-white transition-shadow duration-300 font-5by7 font-medium uppercase tracking-wider w-fit mx-auto text-zinc-600"
+            style={{
+              boxShadow:
+                "0px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 7px rgba(0, 0, 0, 0.08);",
+            }}
+          >
+            <p className="text-xs">
+              DEV <span className="font-semibold">FREEMAN</span> ✗ DESIGN{" "}
+              <span className="font-semibold">AILEEN</span>
+            </p>
+          </div>
+        </footer>
+      </div>
     </main>
   );
 }
