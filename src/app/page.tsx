@@ -15,7 +15,7 @@ export default function Home() {
             Symposium Hub
           </h1>
           {/* <p className="text-lg mt-2">info, for the love of making ;)</p> */}
-          <div className="mt-8 space-y-12 font-5by7 font-bold uppercase tracking-wider opacity-90 text-sm">
+          <div className="mt-8 space-y-12 font-5by7 font-bold uppercase tracking-wider opacity-90 text-[0.95rem]">
             <div className="uppercase">
               MARCH 19, 2025
               <br />
@@ -30,7 +30,7 @@ export default function Home() {
               id="buttons"
               className="w-full items-center flex flex-row gap-[16px]"
             >
-              <div className="glassmorphic-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12">
+              <div className="glassmorphic-light-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12">
                 <img src="socraticalogo.svg" className="w-[16px]" />
                 <div className="text-[#F5F1E2] tracking-widest font-5by7 font-bold uppercase text-[11px] sm:text-[16px]">
                   Get tickets
