@@ -7,6 +7,7 @@ interface TickerProps extends HTMLAttributes<HTMLDivElement> {
   backgroundColor?: string;
   textColor?: string;
   duration?: number;
+  fadeInDelay?: number;
 }
 
 export default function Ticker({
@@ -14,6 +15,7 @@ export default function Ticker({
   backgroundColor = "black",
   textColor = "white",
   duration = 15,
+  fadeInDelay = 0.4,
   className,
   ...props
 }: TickerProps) {
@@ -26,14 +28,23 @@ export default function Ticker({
       <div className="whitespace-nowrap overflow-hidden">
         <motion.div
           className="inline-block"
+          initial={{ opacity: 0, x: "0rem" }}
           animate={{
+            opacity: 1,
             x: "-40rem",
           }}
           transition={{
-            duration,
-            ease: "linear",
-            repeat: Infinity,
-            repeatType: "loop",
+            x: {
+              duration,
+              ease: "linear",
+              repeat: Infinity,
+              repeatType: "loop",
+              delay: fadeInDelay,
+            },
+            opacity: {
+              duration: 0.8,
+              delay: fadeInDelay,
+            },
           }}
         >
           {/* lol this is not actually infinite but good enough */}

@@ -28,13 +28,7 @@ export default function Page() {
         </motion.h2>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-      >
-        <Ticker text="STAGE DEMOS" className="mt-8" />
-      </motion.div>
+      <Ticker text="STAGE DEMOS" className="mt-8" />
 
       <div className="py-8 md:py-16 bg-zinc-950">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
