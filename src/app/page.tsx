@@ -182,11 +182,13 @@ export default function Home() {
           <p className="uppercase text-xs md:text-sm text-zinc-600 mb-8 md:mb-12 font-5by7 font-bold tracking-wider">
             This event would not be possible without...
           </p>
-          <img
-            src="/ShopifyGuy.svg"
-            alt="Shopify"
-            className="mx-auto h-[6.3rem] md:h-[8rem] w-auto"
-          />
+          <a href="https://shopify.com" className="inline-block">
+            <img
+              src="/ShopifyGuy.svg"
+              alt="Shopify"
+              className="mx-auto h-[6.3rem] md:h-[8rem] w-auto transition-transform duration-300 hover:scale-102"
+            />
+          </a>
           <div className="items-center justify-between md:justify-center md:gap-10 lg:gap-16 flex flex-row px-2 mt-10 md:mt-16">
             <a
               href="https://vapi.ai/"
@@ -196,7 +198,7 @@ export default function Home() {
             >
               <img
                 src="/VAPI.svg"
-                className="transition-transform duration-300 group-hover:scale-110 h-[18px] md:h-[22px]"
+                className="transition-transform duration-300 group-hover:scale-103 h-[18px] md:h-[22px]"
               />
             </a>
             <div className="bg-zinc-400 h-[24px] w-[1px]"></div>
@@ -208,7 +210,7 @@ export default function Home() {
             >
               <img
                 src="/velocity.png"
-                className="transition-transform duration-300 group-hover:scale-110 h-[26px] md:h-[32px] invert-0 brightness-0 mb-1"
+                className="transition-transform duration-300 group-hover:scale-103 h-[26px] md:h-[32px] invert-0 brightness-0 mb-1"
               />
             </a>
             <div className="bg-zinc-400 h-[24px] w-[1px]"></div>
@@ -220,7 +222,7 @@ export default function Home() {
             >
               <img
                 src="/VercelLogo.svg"
-                className="transition-transform duration-300 group-hover:scale-110 h-[20px] md:h-[24px] text-black invert-0 brightness-0"
+                className="transition-transform duration-300 group-hover:scale-103 h-[20px] md:h-[24px] text-black invert-0 brightness-0"
               />
             </a>
           </div>
@@ -232,8 +234,28 @@ export default function Home() {
             }}
           >
             <p className="text-xs md:text-sm">
-              DEV <span className="font-semibold">FREEMAN</span> ✗ DESIGN{" "}
-              <span className="font-semibold">AILEEN</span>
+              DEV{" "}
+              <a
+                href="https://twitter.com/freemanjiangg"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold relative inline-block transition-colors hover:text-zinc-500/90"
+              >
+                <span className="relative inline-block transition-transform">
+                  FREEMAN
+                </span>
+              </a>{" "}
+              ✗ DESIGN{" "}
+              <a
+                href="https://twitter.com/userisgrotesque"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold relative inline-block transition-colors hover:text-zinc-500/90"
+              >
+                <span className="relative inline-block transition-transform">
+                  AILEEN
+                </span>
+              </a>
             </p>
           </div>
         </footer>
