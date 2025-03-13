@@ -7,8 +7,11 @@ import { Presentation, Sparkles, Users, Waypoints } from "lucide-react";
 import { motion } from "motion/react";
 
 // Svgs
+import BoothDemosSvg from "@/components/svg/BoothDemos.svg";
 import BurritoSvg from "@/components/svg/burrito.svg";
 import FindPeopleSvg from "@/components/svg/FindPeople.svg";
+import MatchmakingGraphSvg from "@/components/svg/MatchmakingGraph.svg";
+import StageDemosSvg from "@/components/svg/StageDemos.svg";
 
 export default function Home() {
   return (
@@ -99,18 +102,13 @@ export default function Home() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, delay: 0.1 }}
             >
-              <FindPeopleSvg className="px-8 md:px-6 w-full max-w-[300px]" />
-              {/* <motion.div
-                className="px-8 md:px-6 w-full max-w-[300px]"
-                initial={{ rotate: -6 }}
-                whileHover={{ rotate: 0 }}
+              <motion.div
+                initial={{ rotate: -4.5 }}
                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                whileHover={{ rotate: 0 }}
               >
-                <img
-                  src="FindPeople.svg"
-                  className="w-full transition-transform"
-                />
-              </motion.div> */}
+                <FindPeopleSvg className="px-8 md:px-6 w-full max-w-[300px]" />
+              </motion.div>
               <div className="mt-5 text-center md:text-left">
                 <h3 className="font-tiempos text-2xl md:text-3xl">
                   Find People
@@ -133,15 +131,11 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.2 }}
             >
               <motion.div
-                className="px-8 md:px-6 w-full max-w-[300px]"
-                initial={{ rotate: 6 }}
-                whileHover={{ rotate: 0 }}
+                initial={{ rotate: 6.2 }}
                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                whileHover={{ rotate: 0 }}
               >
-                <img
-                  src="StageDemos.svg"
-                  className="w-full transition-transform"
-                />
+                <StageDemosSvg className="px-8 md:px-6 w-full max-w-[300px]" />
               </motion.div>
               <div className="mt-5 text-center md:text-left">
                 <h3 className="font-tiempos text-2xl md:text-3xl">
@@ -165,15 +159,11 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.3 }}
             >
               <motion.div
-                className="px-8 md:px-6 w-full max-w-[300px]"
-                initial={{ rotate: -6 }}
-                whileHover={{ rotate: 0 }}
+                initial={{ rotate: -5.8 }}
                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                whileHover={{ rotate: 0 }}
               >
-                <img
-                  src="MatchmakingGraph.svg"
-                  className="w-full transition-transform"
-                />
+                <MatchmakingGraphSvg className="px-8 md:px-6 w-full max-w-[300px]" />
               </motion.div>
               <div className="mt-5 text-center md:text-left">
                 <h3 className="font-tiempos text-2xl md:text-3xl">
@@ -197,15 +187,11 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.4 }}
             >
               <motion.div
-                className="px-8 md:px-6 w-full max-w-[300px]"
-                initial={{ rotate: 6 }}
-                whileHover={{ rotate: 0 }}
+                initial={{ rotate: 4.7 }}
                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                whileHover={{ rotate: 0 }}
               >
-                <img
-                  src="BoothDemos.svg"
-                  className="w-full transition-transform"
-                />
+                <BoothDemosSvg className="px-8 md:px-6 w-full max-w-[300px]" />
               </motion.div>
               <div className="mt-5 text-center md:text-left">
                 <h3 className="font-tiempos text-2xl md:text-3xl">
