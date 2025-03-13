@@ -8,10 +8,14 @@ import { motion } from "motion/react";
 
 // Svgs
 import BoothDemosSvg from "@/components/svg/BoothDemos.svg";
-import BurritoSvg from "@/components/svg/burrito.svg";
 import FindPeopleSvg from "@/components/svg/FindPeople.svg";
 import MatchmakingGraphSvg from "@/components/svg/MatchmakingGraph.svg";
 import StageDemosSvg from "@/components/svg/StageDemos.svg";
+
+import BurritoSvg from "@/components/svg/burrito.svg";
+import ShopifyGuySvg from "@/components/svg/ShopifyGuy.svg";
+import VapiSvg from "@/components/svg/Vapi.svg";
+import VercelSvg from "@/components/svg/VercelLogo.svg";
 
 export default function Home() {
   return (
@@ -323,11 +327,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            <img
-              src="/ShopifyGuy.svg"
-              alt="Shopify"
-              className="mx-auto h-[6.3rem] md:h-[8rem] w-auto transition-transform hover:scale-102 duration-300"
-            />
+            <ShopifyGuySvg className="mx-auto h-[6.3rem] md:h-[8rem] w-auto" />
           </motion.a>
           <div className="items-center justify-between md:justify-center md:gap-10 lg:gap-16 flex flex-row px-2 mt-10 md:mt-16">
             <motion.a
@@ -340,7 +340,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, delay: 0.1 }}
             >
-              <img src="/VAPI.svg" className="h-[18px] md:h-[22px]" />
+              <VapiSvg className="h-[18px] md:h-[22px]" />
             </motion.a>
             <motion.div
               className="bg-zinc-400 h-[24px] w-[1px]"
@@ -353,7 +353,7 @@ export default function Home() {
               href="https://www.velocityincubator.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group"
+              className="group block"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -361,7 +361,7 @@ export default function Home() {
             >
               <img
                 src="/velocity.png"
-                className="h-[26px] md:h-[32px] invert-0 brightness-0 mb-1"
+                className="h-[27px] md:h-[33px] invert-0 brightness-0 mb-1"
               />
             </motion.a>
             <motion.div
@@ -381,10 +381,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, delay: 0.3 }}
             >
-              <img
-                src="/VercelLogo.svg"
-                className="h-[20px] md:h-[24px] text-black invert-0 brightness-0"
-              />
+              <VercelSvg className="h-[20px] md:h-[23px] invert-0 brightness-0" />
             </motion.a>
           </div>
           <motion.div
