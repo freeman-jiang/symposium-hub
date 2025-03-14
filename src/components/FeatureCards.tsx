@@ -14,8 +14,11 @@ interface FeatureCardsProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
 }
 
-const DAMPING = 11;
-const STIFFNESS = 350;
+// Strength of opposing force. If set to 0, spring will oscillate indefinitely. Set to 10 by default.
+const DAMPING = 12;
+
+// Stiffness of the spring. Higher values will create more sudden movement. Set to 100 by default.
+const STIFFNESS = 400;
 
 export default function FeatureCards({
   title = "Welcome to the World's Best Demo Day.",
@@ -26,8 +29,6 @@ export default function FeatureCards({
   const [card2Hovered, setCard2Hovered] = useState(false);
   const [card3Hovered, setCard3Hovered] = useState(false);
   const [card4Hovered, setCard4Hovered] = useState(false);
-
-  console.log(card1Hovered, card2Hovered, card3Hovered, card4Hovered);
 
   return (
     <section
