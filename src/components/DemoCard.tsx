@@ -2,22 +2,24 @@ import BlueGuy from "@/components/svg/blueguy.svg";
 import { HTMLAttributes } from "react";
 import { cn } from "../lib/utils";
 
-interface DemoCardProps extends HTMLAttributes<HTMLDivElement> {
+export interface DemoCardProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   author: string;
   description: string;
+  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 
 export default function DemoCard({
   title,
   author,
   description,
+  icon: Icon = BlueGuy,
   className,
   ...props
 }: DemoCardProps) {
   return (
     <div className={cn("", className)} {...props}>
-      <BlueGuy className="w-28" />
+      <Icon className="w-28" />
 
       <div className="bg-black text-white max-w-md rounded-lg mt-4 p-4">
         <h3

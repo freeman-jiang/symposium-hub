@@ -1,9 +1,92 @@
 "use client";
 
-import DemoCard from "@/components/DemoCard";
+import DemoCard, { DemoCardProps } from "@/components/DemoCard";
 import { Footer } from "@/components/Footer";
+import Arielle from "@/components/svg/demos/arielle.svg";
+import Brian from "@/components/svg/demos/brian.svg";
+import Georgia from "@/components/svg/demos/georgia.svg";
+import HackerFab from "@/components/svg/demos/hackerfab.svg";
+import Jasmine from "@/components/svg/demos/jasmine.svg";
+import Kevin from "@/components/svg/demos/kevin.svg";
+import Prism from "@/components/svg/demos/prism.svg";
+import Rikard from "@/components/svg/demos/rikard.svg";
+import Rishi from "@/components/svg/demos/rishi.svg";
+import Santiago from "@/components/svg/demos/santiago.svg";
 import Ticker from "@/components/Ticker";
 import { motion } from "motion/react";
+
+const DEMO_DATA: DemoCardProps[] = [
+  {
+    title: "Googly Eyes",
+    author: "Arielle Lok",
+    description:
+      "The humorous story of putting googly eyes on a train to raise awareness for public transit, and possibly the story of starting 3+ Socratica nodes.",
+    icon: Arielle,
+  },
+  {
+    title: "Bracket Bots",
+    author: "Brian Machado & Ivan Yevenko",
+    description:
+      "BracketBot: An open source robotics kit, the interesting and humorous story behind them.",
+    icon: Brian,
+  },
+  {
+    title: "Human Powered Exoskeleton",
+    author: "Santiago Del Solar",
+    description:
+      "A fully body exoskeleton, and the inspirational story behind becoming an inventor, how baby steps can lead to a big project.",
+    icon: Santiago,
+  },
+  {
+    title: "Photo Book of Waterloo",
+    author: "Kevin Zhang",
+    description:
+      "A photobook of Waterloo, and the interesting story behind a long gone historian of Waterloo. Will be showing off a lot of interesting photographs.",
+    icon: Kevin,
+  },
+  {
+    title: "HackerFab",
+    author: "Yash, Arjun, and Team",
+    description:
+      "A group of students who are fabricating their own computer chips (an incredibly challenging feat), and the humorous story of starting in an apartment and now a full design team on campus.",
+    icon: HackerFab,
+  },
+  {
+    title: "Alternative Proteins",
+    author: "Rikard Saqe",
+    description:
+      "The humorous yet awe-inspiring story behind conducting research in lab-grown/cell-based meat for the last 2+ years, and a discussion of alternative proteins and their necessity for our future.",
+    icon: Rikard,
+  },
+  {
+    title: "Art Progression",
+    author: "Jasmine Ju",
+    description:
+      "The inspirational journey of pursuing art over the years, taking risks, and making things that are intrinsic to oneself, regardless of technical perfection.",
+    icon: Jasmine,
+  },
+  {
+    title: "Writing Journey",
+    author: "Georgia Berg",
+    description:
+      "The inspirational story of pursuing writing, and finding what one is truly passionate about.",
+    icon: Georgia,
+  },
+  {
+    title: "Arterial",
+    author: "Rishi Kothari",
+    description:
+      "The inspirational story of starting a company that is modernizing urban planning and policy, and bringing more awareness to the importance of this field.",
+    icon: Rishi,
+  },
+  {
+    title: "PRISM Collective",
+    author: "Binalpreet Kalra, Olivia Zheng, and Team",
+    description:
+      "The inspirational story of starting a new collective in the combination of art+tech at Waterloo, and challenges encountered along the way.",
+    icon: Prism,
+  },
+];
 
 export default function Page() {
   return (
@@ -32,26 +115,25 @@ export default function Page() {
       <Ticker text="STAGE DEMOS" className="mt-8" />
 
       <div className="py-8 md:py-16 bg-zinc-950">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-          {Array(12)
-            .fill(0)
-            .map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.7, delay: (i % 6) * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="h-full"
-              >
-                <DemoCard
-                  title="Neural Interface for Creative Expression"
-                  author="Marcus Lee & Team"
-                  description="Experience a groundbreaking neural interface that translates brain activity directly into visual and musical expression. This demo showcases how the gap between imagination and creation can be bridged with non-invasive BCI technology."
-                />
-              </motion.div>
-            ))}
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center justify-items-center">
+          {DEMO_DATA.map((demo, i) => (
+            <motion.div
+              key={demo.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, delay: i < 4 ? i * 0.15 : 0.15 }}
+              whileHover={{ y: -5 }}
+              className="h-full"
+            >
+              <DemoCard
+                title={demo.title}
+                author={demo.author}
+                description={demo.description}
+                icon={demo.icon}
+              />
+            </motion.div>
+          ))}
         </div>
       </div>
       <Footer />
