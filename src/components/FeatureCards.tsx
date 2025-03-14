@@ -64,6 +64,7 @@ export default function FeatureCards({
               }}
               whileHover={{ rotate: 0 }}
               onHoverStart={() => setCard1Hovered(true)}
+              onTap={() => setCard1Hovered(!card1Hovered)}
             >
               <FindPeopleSvg className="px-8 md:px-6 w-full max-w-[300px]" />
             </motion.div>
@@ -97,6 +98,7 @@ export default function FeatureCards({
               }}
               whileHover={{ rotate: 0 }}
               onHoverStart={() => setCard2Hovered(true)}
+              onTap={() => setCard2Hovered(!card2Hovered)}
             >
               <StageDemosSvg className="px-8 md:px-6 w-full max-w-[300px]" />
             </motion.div>
@@ -130,6 +132,7 @@ export default function FeatureCards({
               }}
               whileHover={{ rotate: 0 }}
               onHoverStart={() => setCard3Hovered(true)}
+              onTap={() => setCard3Hovered(!card3Hovered)}
             >
               <MatchmakingGraphSvg className="px-8 md:px-6 w-full max-w-[300px]" />
             </motion.div>
@@ -165,6 +168,7 @@ export default function FeatureCards({
               }}
               whileHover={{ rotate: 0 }}
               onHoverStart={() => setCard4Hovered(true)}
+              onTap={() => setCard4Hovered(!card4Hovered)}
             >
               <BoothDemosSvg className="px-8 md:px-6 w-full max-w-[300px]" />
             </motion.div>
