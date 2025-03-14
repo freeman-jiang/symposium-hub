@@ -103,6 +103,16 @@ export function Footer() {
             >
               <span className="relative inline-block">FREEMAN</span>
             </a>{" "}
+            &
+            {" "}
+            <a
+              href="https://twitter.com/_rajanagarwal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold relative inline-block transition-colors hover:text-zinc-500/90"
+            >
+              <span className="relative inline-block">RAJAN</span>
+            </a>{" "}
             ✗ DESIGN{" "}
             <a
               href="https://twitter.com/userisgrotesque"
