@@ -113,11 +113,13 @@ export default function Home() {
                   Find People
                 </h3>
                 <p className="mt-2 text-zinc-300">Short blurb.</p>
-                <Button
-                  icon={<Users className="size-4" />}
-                  text="Find people"
-                  className="mt-4"
-                />
+                <a href="/people">
+                  <Button
+                    icon={<Users className="size-4" />}
+                    text="Find people"
+                    className="mt-4"
+                  />
+                </a>
               </div>
             </motion.div>
 
@@ -141,11 +143,13 @@ export default function Home() {
                   Stage Demos
                 </h3>
                 <p className="mt-2 text-zinc-300">Short blurb.</p>
-                <Button
-                  icon={<Sparkles className="size-4" />}
-                  text="Stage Demos"
-                  className="mt-4"
-                />
+                <a href="/demos">
+                  <Button
+                    icon={<Sparkles className="size-4" />}
+                    text="Stage Demos"
+                    className="mt-4"
+                  />
+                </a>
               </div>
             </motion.div>
 
@@ -169,11 +173,13 @@ export default function Home() {
                   Matchmaking Graph
                 </h3>
                 <p className="mt-2 text-zinc-300">Short blurb.</p>
-                <Button
-                  icon={<Waypoints className="size-4" />}
-                  text="Graph"
-                  className="mt-4"
-                />
+                <a href="/graph">
+                  <Button
+                    icon={<Waypoints className="size-4" />}
+                    text="Graph"
+                    className="mt-4"
+                  />
+                </a>
               </div>
             </motion.div>
 
@@ -197,11 +203,13 @@ export default function Home() {
                   Booth Demos
                 </h3>
                 <p className="mt-2 text-zinc-300">Short blurb.</p>
-                <Button
-                  icon={<Presentation className="size-4" />}
-                  text="Booth Demos"
-                  className="mt-4"
-                />
+                <a href="/booths">
+                  <Button
+                    icon={<Presentation className="size-4" />}
+                    text="Booth Demos"
+                    className="mt-4"
+                  />
+                </a>
               </div>
             </motion.div>
           </div>

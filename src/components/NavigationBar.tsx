@@ -56,7 +56,7 @@ export default function NavigationBar() {
           <WaypointsIcon className="size-5" />
         </NavIcon>
 
-        <NavIcon href="/stage" active={pathname === "/stage"}>
+        <NavIcon href="/booths" active={pathname === "/booths"}>
           <PresentationIcon className="size-5" />
         </NavIcon>
       </motion.div>
