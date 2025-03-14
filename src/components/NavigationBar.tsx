@@ -14,10 +14,10 @@ import NavIcon from "./NavIcon";
 
 export default function NavigationBar() {
   const pathname = usePathname();
-  
+
   return (
     <motion.div
-      className="flex justify-between items-center w-full px-6 py-6 container"
+      className="flex justify-between items-center w-full px-6 py-6 container dot-pattern"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
@@ -48,15 +48,16 @@ export default function NavigationBar() {
           <UsersIcon className="size-5" />
         </NavIcon>
 
-        <NavIcon href="#" active={pathname === "/sparks"}>
+        <NavIcon href="/demos" active={pathname === "/demos"}>
           <SparklesIcon className="size-5" />
         </NavIcon>
 
-        <NavIcon href="#" active={pathname === "/waypoints"}>
+        <NavIcon href="/graph" active={pathname === "/graph"}>
           <WaypointsIcon className="size-5" />
         </NavIcon>
 
-        <NavIcon href="#" active={pathname === "/presentations"}>
+        <NavIcon href="/stage" active={pathname === "/stage"}>
+          
           <PresentationIcon className="size-5" />
         </NavIcon>
       </motion.div>

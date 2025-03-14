@@ -1,17 +1,26 @@
 "use client";
 import { Button } from "@/components/Button";
+import { SocraticaLogo } from "@/components/icons/SocraticaLogo";
 import { InfoLink } from "@/components/InfoLink";
-import NavigationBar from "@/components/NavigationBar";
 import { Presentation, Sparkles, Users, Waypoints } from "lucide-react";
 import { motion } from "motion/react";
+
+// Svgs
+import BoothDemosSvg from "@/components/svg/BoothDemos.svg";
+import FindPeopleSvg from "@/components/svg/FindPeople.svg";
+import MatchmakingGraphSvg from "@/components/svg/MatchmakingGraph.svg";
+import StageDemosSvg from "@/components/svg/StageDemos.svg";
+
+import BurritoSvg from "@/components/svg/burrito.svg";
+import ShopifyGuySvg from "@/components/svg/ShopifyGuy.svg";
+import VapiSvg from "@/components/svg/VAPI.svg";
+import VercelSvg from "@/components/svg/VercelLogo.svg";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-zinc-950 to-zinc-900 text-black">
       {/* Header section with improved desktop spacing */}
       <div className="bg-[#f8f3e3]">
-        <NavigationBar />
-
         {/* Main content with improved desktop layout */}
         <div className="max-w-7xl mx-auto mt-8 px-6 pb-16 md:pb-24 md:flex md:items-end md:justify-between">
           <motion.div
@@ -54,7 +63,7 @@ export default function Home() {
             transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
           >
             <div className="glassmorphic-light-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12 md:px-16 transition-transform">
-              <img src="socraticalogo.svg" className="w-[16px] md:w-[20px]" />
+              <SocraticaLogo className="w-[16px] md:w-[20px] text-white" />
               <div className="text-[#F5F1E2] tracking-widest font-5by7 font-bold uppercase text-[11px] sm:text-[16px]">
                 Get tickets
               </div>
@@ -74,7 +83,7 @@ export default function Home() {
       </motion.section>
 
       {/* Feature Cards with improved desktop spacing */}
-      <section className="container px-4 mx-auto py-16 md:py-24 lg:py-32 text-white">
+      <section className="container py-16 md:py-24 lg:py-32 text-white">
         <motion.h2
           className="font-tiempos text-3xl md:text-4xl lg:text-5xl text-center mb-16 md:mb-24"
           initial={{ opacity: 0, y: 30 }}
@@ -95,15 +104,11 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.1 }}
             >
               <motion.div
-                className="px-8 md:px-6 w-full max-w-[300px]"
-                initial={{ rotate: -6 }}
-                whileHover={{ rotate: 0 }}
+                initial={{ rotate: -4.5 }}
                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                whileHover={{ rotate: 0 }}
               >
-                <img
-                  src="FindPeople.svg"
-                  className="w-full transition-transform"
-                />
+                <FindPeopleSvg className="px-8 md:px-6 w-full max-w-[300px]" />
               </motion.div>
               <div className="mt-5 text-center md:text-left">
                 <h3 className="font-tiempos text-2xl md:text-3xl">
@@ -127,15 +132,11 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.2 }}
             >
               <motion.div
-                className="px-8 md:px-6 w-full max-w-[300px]"
-                initial={{ rotate: 6 }}
-                whileHover={{ rotate: 0 }}
+                initial={{ rotate: 6.2 }}
                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                whileHover={{ rotate: 0 }}
               >
-                <img
-                  src="StageDemos.svg"
-                  className="w-full transition-transform"
-                />
+                <StageDemosSvg className="px-8 md:px-6 w-full max-w-[300px]" />
               </motion.div>
               <div className="mt-5 text-center md:text-left">
                 <h3 className="font-tiempos text-2xl md:text-3xl">
@@ -159,15 +160,11 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.3 }}
             >
               <motion.div
-                className="px-8 md:px-6 w-full max-w-[300px]"
-                initial={{ rotate: -6 }}
-                whileHover={{ rotate: 0 }}
+                initial={{ rotate: -5.8 }}
                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                whileHover={{ rotate: 0 }}
               >
-                <img
-                  src="MatchmakingGraph.svg"
-                  className="w-full transition-transform"
-                />
+                <MatchmakingGraphSvg className="px-8 md:px-6 w-full max-w-[300px]" />
               </motion.div>
               <div className="mt-5 text-center md:text-left">
                 <h3 className="font-tiempos text-2xl md:text-3xl">
@@ -191,15 +188,11 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.4 }}
             >
               <motion.div
-                className="px-8 md:px-6 w-full max-w-[300px]"
-                initial={{ rotate: 6 }}
-                whileHover={{ rotate: 0 }}
+                initial={{ rotate: 4.7 }}
                 transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                whileHover={{ rotate: 0 }}
               >
-                <img
-                  src="BoothDemos.svg"
-                  className="w-full transition-transform"
-                />
+                <BoothDemosSvg className="px-8 md:px-6 w-full max-w-[300px]" />
               </motion.div>
               <div className="mt-5 text-center md:text-left">
                 <h3 className="font-tiempos text-2xl md:text-3xl">
@@ -220,14 +213,15 @@ export default function Home() {
       {/* Socratica Section with improved grid for desktop */}
       <section className="container mx-auto px-4 py-16 md:py-24 lg:py-32">
         <div className="max-w-5xl mx-auto">
-          <motion.img
-            src="/burrito.svg"
-            className="w-full px-4 md:px-0 md:max-w-4xl md:mx-auto"
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
-          />
+          >
+            <BurritoSvg className="w-full px-4 md:px-0 md:max-w-4xl md:mx-auto" />
+          </motion.div>
+
           <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-white">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -311,7 +305,7 @@ export default function Home() {
       </section>
 
       {/* Sponsors with improved desktop spacing */}
-      <div className="bg-[#f8f3e3]">
+      <div className="bg-[#f8f3e3] grid-pattern-vignette">
         <footer className="container mx-auto px-4 py-16 md:py-24 text-center">
           <motion.p
             className="uppercase text-xs md:text-sm text-zinc-600 mb-8 md:mb-12 font-5by7 font-bold tracking-wider"
@@ -330,11 +324,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            <img
-              src="/ShopifyGuy.svg"
-              alt="Shopify"
-              className="mx-auto h-[6.3rem] md:h-[8rem] w-auto transition-transform hover:scale-102 duration-300"
-            />
+            <ShopifyGuySvg className="mx-auto h-[6.3rem] md:h-[8rem] w-auto" />
           </motion.a>
           <div className="items-center justify-between md:justify-center md:gap-10 lg:gap-16 flex flex-row px-2 mt-10 md:mt-16">
             <motion.a
@@ -347,7 +337,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, delay: 0.1 }}
             >
-              <img src="/VAPI.svg" className="h-[18px] md:h-[22px]" />
+              <VapiSvg className="h-[18px] md:h-[22px]" />
             </motion.a>
             <motion.div
               className="bg-zinc-400 h-[24px] w-[1px]"
@@ -360,7 +350,7 @@ export default function Home() {
               href="https://www.velocityincubator.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group"
+              className="group block"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -368,7 +358,7 @@ export default function Home() {
             >
               <img
                 src="/velocity.png"
-                className="h-[26px] md:h-[32px] invert-0 brightness-0 mb-1"
+                className="h-[27px] md:h-[33px] invert-0 brightness-0 mb-1"
               />
             </motion.a>
             <motion.div
@@ -388,17 +378,14 @@ export default function Home() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, delay: 0.3 }}
             >
-              <img
-                src="/VercelLogo.svg"
-                className="h-[20px] md:h-[24px] text-black invert-0 brightness-0"
-              />
+              <VercelSvg className="h-[20px] md:h-[23px] invert-0 brightness-0" />
             </motion.a>
           </div>
           <motion.div
             className="mt-12 md:mt-16 px-4 py-2.5 border border-[#A4A4A4]/30 bg-white transition-shadow duration-300 font-5by7 font-medium uppercase tracking-wider w-fit mx-auto text-zinc-600"
             style={{
               boxShadow:
-                "0px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 7px rgba(0, 0, 0, 0.08);",
+                "boxShadow: 0px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 7px rgba(0, 0, 0, 0.08)",
             }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
