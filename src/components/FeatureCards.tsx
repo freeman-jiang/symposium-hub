@@ -9,6 +9,7 @@ import BoothDemosSvg from "@/components/svg/BoothDemos.svg";
 import FindPeopleSvg from "@/components/svg/FindPeople.svg";
 import MatchmakingGraphSvg from "@/components/svg/MatchmakingGraph.svg";
 import StageDemosSvg from "@/components/svg/StageDemos.svg";
+import StarsSvg from "@/components/svg/stars.svg";
 
 interface FeatureCardsProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
@@ -32,12 +33,25 @@ export default function FeatureCards({
 
   return (
     <section
-      className={cn("container py-16 md:py-24 lg:py-32 text-white", className)}
+      className={cn(
+        "container py-16 md:py-24 lg:py-32 text-white relative",
+        className
+      )}
       {...props}
     >
+      {/* Stars background */}
+      <motion.div
+        className="absolute inset-0 w-full h-full opacity-60 pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 3, delay: 0 }}
+      >
+        <StarsSvg className="w-full h-full" />
+      </motion.div>
+
       {title && (
         <motion.h2
-          className="font-tiempos text-3xl md:text-4xl lg:text-5xl text-center mb-16 md:mb-24"
+          className="font-tiempos text-3xl md:text-4xl lg:text-5xl text-center mb-16 md:mb-24 relative z-10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -46,7 +60,7 @@ export default function FeatureCards({
           {title}
         </motion.h2>
       )}
-      <div className="flex w-full justify-center">
+      <div className="flex w-full justify-center relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 md:gap-8 max-w-7xl mx-auto">
           {/* Feature card 1 */}
           <motion.div
