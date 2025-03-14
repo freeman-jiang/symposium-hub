@@ -17,7 +17,7 @@ import { motion } from "motion/react";
 
 const DEMO_DATA: DemoCardProps[] = [
   {
-    title: "Googly Eyes",
+    title: "Eyes on the T",
     author: "Arielle Lok",
     description:
       "The humorous story of putting googly eyes on a train to raise awareness for public transit, and possibly the story of starting 3+ Socratica nodes.",
