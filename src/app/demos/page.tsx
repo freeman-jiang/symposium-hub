@@ -114,8 +114,8 @@ export default function Page() {
 
       <Ticker text="STAGE DEMOS" className="mt-8" />
 
-      <div className="py-8 md:py-16 bg-zinc-950">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center justify-items-center">
+      <div className="py-8 md:py-16 bg-zinc-950 px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center max-w-5xl mx-auto gap-8 md:gap-12 justify-items-center">
           {DEMO_DATA.map((demo, i) => (
             <motion.div
               key={demo.title}
@@ -123,7 +123,6 @@ export default function Page() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, delay: i < 4 ? i * 0.15 : 0.15 }}
-              whileHover={{ y: -5 }}
               className="h-full"
             >
               <DemoCard

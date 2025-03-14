@@ -16,7 +16,7 @@ export default function NavIcon({
     <Link
       href={href}
       className={`${
-        active ? "bg-black text-white" : "border border-black/20 text-black"
+        active ? "bg-zinc-950 text-white" : "border border-black/20 text-black"
       } size-10 flex items-center justify-center`}
     >
       {children}
