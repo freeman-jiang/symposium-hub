@@ -15,7 +15,6 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { 
   Search as SearchIcon, 
   Shuffle, 
-  X, 
   Bot,
   Palette, 
   Brain, 
@@ -47,6 +46,11 @@ interface Link {
   value: number;
 }
 
+interface GraphLink {
+  source: string;
+  target: string;
+}
+
 interface CustomNode extends Node {
   links: Link[];
   data: NodeData & {
@@ -54,9 +58,13 @@ interface CustomNode extends Node {
   };
 }
 
+interface GraphDataNode extends Node {
+  data: NodeData;
+}
+
 // Create hashmap of id -> node and attach links to each node
 const nodeMap = new Map<string, CustomNode>();
-graphData.nodes.forEach((node: any) => {
+graphData.nodes.forEach((node: GraphDataNode) => {
   nodeMap.set(node.id, {
     ...node,
     data: {
@@ -67,16 +75,16 @@ graphData.nodes.forEach((node: any) => {
   });
 });
 
-graphData.links.forEach((link: any) => {
+graphData.links.forEach((link: GraphLink) => {
   const sourceNode = nodeMap.get(link.source);
   const targetNode = nodeMap.get(link.target);
 
   if (sourceNode) {
-    sourceNode.links.push(link);
+    sourceNode.links.push({ ...link, value: 1 });
   }
 
   if (targetNode) {
-    targetNode.links.push(link);
+    targetNode.links.push({ ...link, value: 1 });
   }
 });
 
@@ -96,7 +104,7 @@ const pastelColors = [
 ];
 
 // Assign colors to majors
-graphData.nodes.forEach((node: any) => {
+graphData.nodes.forEach((node: GraphDataNode) => {
   const major = node.data.major === "N/A" ? "Other" : node.data.major;
   if (!majorColors.has(major)) {
     const colorIndex = majorColors.size % pastelColors.length;
@@ -107,14 +115,24 @@ graphData.nodes.forEach((node: any) => {
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<CustomNode[]>([]);
-  const [allPeople, setAllPeople] = useState<CustomNode[]>([]);
+  const [allPeople, setAllPeople] = useState<CustomNode[]>(
+    graphData.nodes.map((node: GraphDataNode) => {
+      const existingNode = nodeMap.get(node.id);
+      return {
+        ...node,
+        data: {
+          ...node.data,
+          originalResponse: "",
+        },
+        links: existingNode?.links || [],
+      };
+    })
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPersonIndex, setSelectedPersonIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [visibleRange, setVisibleRange] = useState({ start: 0, end: 40 });
-  const [isShuffled, setIsShuffled] = useState(true);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
-  const [isSearchSticky, setIsSearchSticky] = useState(false);
   
   // Define interest tags with icons
   const interestTags = [
@@ -156,23 +174,6 @@ export const Search = () => {
   const gridRef = useRef<HTMLDivElement>(null);
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
-  // Handle scroll to make search sticky
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!searchContainerRef.current) return;
-      
-      const { top } = searchContainerRef.current.getBoundingClientRect();
-      if (top <= 0 && !isSearchSticky) {
-        setIsSearchSticky(true);
-      } else if (top > 0 && isSearchSticky) {
-        setIsSearchSticky(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isSearchSticky]);
-
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
     // Reset visible range when search changes
@@ -195,35 +196,26 @@ export const Search = () => {
     setVisibleRange({ start: 0, end: 40 });
   };
 
-  const fuseOptions = {
+  const fuseOptions = useMemo(() => ({
     keys: ["data.name", "data.response", "data.major"],
     includeScore: true,
     isCaseSensitive: false,
     findAllMatches: true,
     threshold: 0.4, // adjust this to be more lenient with search
-  };
+  }), []);
 
-  const fuse = useMemo(() => new Fuse(graphData.nodes, fuseOptions), []);
+  const fuse = useMemo(() => new Fuse(graphData.nodes, fuseOptions), [fuseOptions]);
 
   useEffect(() => {
     // Initialize all people on component mount
     setIsLoading(true);
     
-    // Simulate loading for a smoother experience
+    // Simulate loading for a smoother experience and shuffle on client-side only
     setTimeout(() => {
-      // Get all people and shuffle them by default
-      const initialPeople = graphData.nodes
-        .map((node: any) => ({
-          ...node,
-          data: {
-            ...node.data,
-            originalResponse: "",
-          },
-          links: [],
-        }))
-        .sort(() => Math.random() - 0.5); // Shuffle the array
-      
-      setAllPeople(initialPeople);
+      setAllPeople(prev => [...prev].map(node => ({
+        ...node,
+        links: node.links || [],
+      })).sort(() => Math.random() - 0.5)); // Shuffle the array
       setIsLoading(false);
     }, 300);
   }, []);
@@ -233,13 +225,17 @@ export const Search = () => {
       // If search is empty, show all people
       setSearchResults([]);
     } else {
-      const results = fuse.search(searchTerm).map((result: any) => ({
-        ...result.item,
-        data: {
-          ...result.item.data,
-          originalResponse: "",
-        },
-      }));
+      const results = fuse.search(searchTerm).map((result: { item: GraphDataNode }) => {
+        const node = nodeMap.get(result.item.id);
+        return {
+          ...result.item,
+          data: {
+            ...result.item.data,
+            originalResponse: "",
+          },
+          links: node?.links || [],
+        };
+      });
       setSearchResults(results);
     }
   }, [searchTerm, fuse]);
@@ -363,7 +359,6 @@ export const Search = () => {
   const shufflePeople = () => {
     setAllPeople(prev => [...prev].sort(() => Math.random() - 0.5));
     setVisibleRange({ start: 0, end: 40 });
-    setIsShuffled(true);
   };
 
   // Function to truncate long program names
@@ -377,8 +372,8 @@ export const Search = () => {
   return (
     <div className="font-sans max-w-6xl w-full mx-auto">
       <div ref={searchContainerRef}>
-        <div className={`${isSearchSticky ? 'fixed top-0 left-0 right-0 z-20 bg-[#f8f3e3] py-4 px-6 shadow-md' : ''}`}>
-          <div className={`relative max-w-6xl mx-auto ${isSearchSticky ? '' : ''}`}>
+        <div className="relative max-w-6xl mx-auto">
+          <div className="relative">
             <motion.div 
               className="relative"
               initial={{ opacity: 0, y: -20 }}
@@ -392,7 +387,7 @@ export const Search = () => {
                 onChange={handleSearch}
                 value={searchTerm}
               />
-              <div className="absolute left-5 top-1/2 transform -translate-y-1/2 text-zinc-400">
+              <div className="absolute left-5 top-1/2 transform -translate-y-1 text-zinc-400">
                 <SearchIcon className="h-5 w-5" />
               </div>
             </motion.div>
@@ -436,9 +431,6 @@ export const Search = () => {
         </div>
       </div>
       
-      {/* Add padding when search is sticky */}
-      {isSearchSticky && <div className="h-32"></div>}
-      
       {isLoading ? (
         <div className="flex justify-center items-center h-64">
           <motion.div 
@@ -462,7 +454,7 @@ export const Search = () => {
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
               {searchTerm.trim() !== "" ? (
-                <span>Found {displayedPeople.length} {displayedPeople.length === 1 ? 'person' : 'people'} matching "{searchTerm}"</span>
+                <span>Found {displayedPeople.length} {displayedPeople.length === 1 ? 'person' : 'people'} matching &ldquo;{searchTerm}&rdquo;</span>
               ) : selectedTag ? (
                 <span>Showing {visiblePeople.length} of {displayedPeople.length} people interested in {selectedTag}</span>
               ) : (

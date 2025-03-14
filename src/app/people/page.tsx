@@ -1,18 +1,13 @@
 "use client";
 
 import { Search } from "@/components/Search";
-import NavigationBar from "@/components/NavigationBar";
 import { motion } from "motion/react";
 import { SocraticaLogo } from "@/components/icons/SocraticaLogo";
 
 export default function PeoplePage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-zinc-950 to-zinc-900 text-black">
-      {/* Header section with improved desktop spacing */}
       <div className="bg-[#f8f3e3]">
-        <NavigationBar />
-        
-        {/* Main content with improved desktop layout */}
         <div className="max-w-7xl mx-auto px-6 pt-8 pb-16 md:pb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
