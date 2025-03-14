@@ -21,7 +21,7 @@ export default function DemoCard({
     <div className={cn("", className)} {...props}>
       <Icon className="w-28" />
 
-      <div className="bg-black text-white max-w-md rounded-lg mt-4 p-4">
+      <div className="bg-black text-white max-w-md rounded-lg mt-4 md:p-4">
         <h3
           className="text-[1.7rem] font-tiempos mb-2 text-white"
           style={{

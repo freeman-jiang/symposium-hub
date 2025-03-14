@@ -34,14 +34,15 @@ const Page = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, delay: 0.1 }}
         >
-          Explore innovative projects spanning art, tech, and engineering.
+          Explore {booths.length} innovative projects spanning art, tech, and
+          engineering.
         </motion.h2>
       </div>
 
       <Ticker text="EXHIBITION BOOTHS" className="mt-8" />
 
       <div className="py-8 md:py-16 bg-zinc-950">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-items-center">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-items-center gap-12 md:gap-0">
           {booths.map((booth, i) => (
             <motion.div
               key={booth.title}
