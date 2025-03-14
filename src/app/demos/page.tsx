@@ -93,7 +93,7 @@ export default function Page() {
     <main className="min-h-screen">
       <div className="container py-8">
         <motion.h1
-          className="text-4xl font-medium tracking-tight font-tiempos"
+          className="text-4xl md:text-5xl font-medium tracking-tight font-tiempos"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -102,13 +102,13 @@ export default function Page() {
           Stage Demos
         </motion.h1>
         <motion.h2
-          className="text-base tracking-tight mt-2"
+          className="text-lg tracking-tight mt-2"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, delay: 0.1 }}
         >
-          12 demos spanning art, tech, engineering.
+          12 demos spanning art, tech, and engineering.
         </motion.h2>
       </div>
 
