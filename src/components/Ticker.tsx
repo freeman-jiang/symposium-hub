@@ -32,7 +32,10 @@ export default function Ticker({
 
   return (
     <div
-      className={cn("w-full pb-3 pt-1 overflow-hidden bg-zinc-950", className)}
+      className={cn(
+        "w-full pb-3 pt-[1.5px] overflow-hidden bg-zinc-950",
+        className
+      )}
       {...props}
     >
       <div className="whitespace-nowrap overflow-hidden">
