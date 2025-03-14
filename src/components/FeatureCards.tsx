@@ -9,6 +9,7 @@ import BoothDemosSvg from "@/components/svg/BoothDemos.svg";
 import FindPeopleSvg from "@/components/svg/FindPeople.svg";
 import MatchmakingGraphSvg from "@/components/svg/MatchmakingGraph.svg";
 import StageDemosSvg from "@/components/svg/StageDemos.svg";
+import Link from "next/link";
 import { StarsBackground } from "./StarsBackground";
 
 interface FeatureCardsProps extends HTMLAttributes<HTMLDivElement> {
@@ -16,7 +17,7 @@ interface FeatureCardsProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 // Strength of opposing force. If set to 0, spring will oscillate indefinitely. Set to 10 by default.
-const DAMPING = 13;
+const DAMPING = 15;
 
 // Stiffness of the spring. Higher values will create more sudden movement. Set to 100 by default.
 const STIFFNESS = 450;
@@ -79,13 +80,13 @@ export default function FeatureCards({
             <div className="mt-5 text-center md:text-left">
               <h3 className="font-tiempos text-2xl md:text-3xl">Find People</h3>
               <p className="mt-2 text-zinc-300">Short blurb.</p>
-              <a href="/people">
+              <Link href="/people">
                 <Button
                   icon={<Users className="size-4" />}
                   text="Find people"
                   className="mt-4"
                 />
-              </a>
+              </Link>
             </div>
           </motion.div>
 
@@ -113,13 +114,13 @@ export default function FeatureCards({
             <div className="mt-5 text-center md:text-left">
               <h3 className="font-tiempos text-2xl md:text-3xl">Stage Demos</h3>
               <p className="mt-2 text-zinc-300">Short blurb.</p>
-              <a href="/demos">
+              <Link href="/stage">
                 <Button
                   icon={<Sparkles className="size-4" />}
                   text="Stage Demos"
                   className="mt-4"
                 />
-              </a>
+              </Link>
             </div>
           </motion.div>
 
@@ -149,13 +150,13 @@ export default function FeatureCards({
                 Symposium Garden
               </h3>
               <p className="mt-2 text-zinc-300">Short blurb.</p>
-              <a href="/garden">
+              <Link href="/garden">
                 <Button
                   icon={<SproutIcon className="size-4" />}
                   text="Garden"
                   className="mt-4"
                 />
-              </a>
+              </Link>
             </div>
           </motion.div>
 
@@ -183,13 +184,13 @@ export default function FeatureCards({
             <div className="mt-5 text-center md:text-left">
               <h3 className="font-tiempos text-2xl md:text-3xl">Booth Demos</h3>
               <p className="mt-2 text-zinc-300">Short blurb.</p>
-              <a href="/booths">
+              <Link href="/booths">
                 <Button
                   icon={<Presentation className="size-4" />}
                   text="Booth Demos"
                   className="mt-4"
                 />
-              </a>
+              </Link>
             </div>
           </motion.div>
         </div>

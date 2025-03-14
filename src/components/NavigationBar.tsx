@@ -52,7 +52,7 @@ export default function NavigationBar() {
           <TreesIcon className="size-5" />
         </NavIcon>
 
-        <NavIcon href="/demos" active={pathname === "/demos"}>
+        <NavIcon href="/stage" active={pathname === "/stage"}>
           <TheaterIcon className="size-5" />
         </NavIcon>
 

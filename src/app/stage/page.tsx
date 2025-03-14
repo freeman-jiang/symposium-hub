@@ -94,7 +94,7 @@ export default function Page() {
       <div className="container py-8">
         <motion.h1
           className="text-4xl md:text-5xl font-medium tracking-tight font-tiempos"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
@@ -103,7 +103,7 @@ export default function Page() {
         </motion.h1>
         <motion.h2
           className="text-lg tracking-tight mt-2"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, delay: 0.1 }}
