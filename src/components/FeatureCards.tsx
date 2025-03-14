@@ -16,10 +16,10 @@ interface FeatureCardsProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 // Strength of opposing force. If set to 0, spring will oscillate indefinitely. Set to 10 by default.
-const DAMPING = 12;
+const DAMPING = 13;
 
 // Stiffness of the spring. Higher values will create more sudden movement. Set to 100 by default.
-const STIFFNESS = 400;
+const STIFFNESS = 450;
 
 export default function FeatureCards({
   title = "Welcome to the World's Best Demo Day.",
