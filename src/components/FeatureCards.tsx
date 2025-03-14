@@ -1,5 +1,5 @@
 import { Button } from "@/components/Button";
-import { Presentation, Sparkles, Users, Waypoints } from "lucide-react";
+import { Presentation, Sparkles, SproutIcon, Users } from "lucide-react";
 import { motion } from "motion/react";
 import { HTMLAttributes, useState } from "react";
 import { cn } from "../lib/utils";
@@ -146,13 +146,13 @@ export default function FeatureCards({
             </motion.div>
             <div className="mt-5 text-center md:text-left">
               <h3 className="font-tiempos text-2xl md:text-3xl">
-                Matchmaking Graph
+                Symposium Garden
               </h3>
               <p className="mt-2 text-zinc-300">Short blurb.</p>
-              <a href="/graph">
+              <a href="/garden">
                 <Button
-                  icon={<Waypoints className="size-4" />}
-                  text="Graph"
+                  icon={<SproutIcon className="size-4" />}
+                  text="Garden"
                   className="mt-4"
                 />
               </a>

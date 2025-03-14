@@ -3,8 +3,8 @@ import {
   HouseIcon,
   PresentationIcon,
   TheaterIcon,
+  TreesIcon,
   UsersIcon,
-  WaypointsIcon,
 } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -48,12 +48,12 @@ export default function NavigationBar() {
           <UsersIcon className="size-5" />
         </NavIcon>
 
-        <NavIcon href="/demos" active={pathname === "/demos"}>
-          <TheaterIcon className="size-5" />
+        <NavIcon href="/garden" active={pathname === "/garden"}>
+          <TreesIcon className="size-5" />
         </NavIcon>
 
-        <NavIcon href="/graph" active={pathname === "/graph"}>
-          <WaypointsIcon className="size-5" />
+        <NavIcon href="/demos" active={pathname === "/demos"}>
+          <TheaterIcon className="size-5" />
         </NavIcon>
 
         <NavIcon href="/booths" active={pathname === "/booths"}>

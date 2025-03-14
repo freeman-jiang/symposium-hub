@@ -1,4 +1,4 @@
-import NavigationBar from "@/components/NavigationBar";
+import LayoutWrapper from "@/components/LayoutWrapper";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -79,8 +79,7 @@ export default function RootLayout({
           "antialiased"
         )}
       >
-        <NavigationBar />
-        {children}
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );
