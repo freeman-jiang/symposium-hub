@@ -2,7 +2,7 @@
 import {
   HouseIcon,
   PresentationIcon,
-  SparklesIcon,
+  TheaterIcon,
   UsersIcon,
   WaypointsIcon,
 } from "lucide-react";
@@ -49,7 +49,7 @@ export default function NavigationBar() {
         </NavIcon>
 
         <NavIcon href="/demos" active={pathname === "/demos"}>
-          <SparklesIcon className="size-5" />
+          <TheaterIcon className="size-5" />
         </NavIcon>
 
         <NavIcon href="/graph" active={pathname === "/graph"}>
