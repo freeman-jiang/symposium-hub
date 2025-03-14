@@ -1,12 +1,13 @@
 "use client";
 
 import DemoCard from "@/components/DemoCard";
+import { Footer } from "@/components/Footer";
 import Ticker from "@/components/Ticker";
 import { motion } from "motion/react";
 
 export default function Page() {
   return (
-    <div className="min-h-screen">
+    <main className="min-h-screen">
       <div className="container py-8">
         <motion.h1
           className="text-4xl font-medium tracking-tight font-tiempos"
@@ -53,6 +54,7 @@ export default function Page() {
             ))}
         </div>
       </div>
-    </div>
+      <Footer />
+    </main>
   );
 }
