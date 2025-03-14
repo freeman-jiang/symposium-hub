@@ -9,7 +9,7 @@ import BoothDemosSvg from "@/components/svg/BoothDemos.svg";
 import FindPeopleSvg from "@/components/svg/FindPeople.svg";
 import MatchmakingGraphSvg from "@/components/svg/MatchmakingGraph.svg";
 import StageDemosSvg from "@/components/svg/StageDemos.svg";
-import StarsSvg from "@/components/svg/stars.svg";
+import { StarsBackground } from "./StarsBackground";
 
 interface FeatureCardsProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
@@ -40,14 +40,7 @@ export default function FeatureCards({
       {...props}
     >
       {/* Stars background */}
-      <motion.div
-        className="absolute inset-0 w-full h-full opacity-60 pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 3, delay: 0 }}
-      >
-        <StarsSvg className="w-full h-full" />
-      </motion.div>
+      <StarsBackground />
 
       {title && (
         <motion.h2
