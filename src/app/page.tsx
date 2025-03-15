@@ -47,9 +47,9 @@ export default function Home() {
 
           <motion.div
             className="mt-10 md:mt-0"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
+            transition={{ delay: 0.63, duration: 0.5, ease: "easeOut" }}
           >
             <div className="glassmorphic-light-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12 md:px-16 transition-transform">
               <SocraticaLogo className="w-[16px] md:w-[20px] text-white" />
