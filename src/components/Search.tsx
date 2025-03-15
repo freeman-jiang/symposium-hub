@@ -4,14 +4,13 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  DialogTitle
 } from "@/components/ui/dialog";
 import { titleCase } from "@/lib/utils";
 import Fuse from "fuse.js";
 import { useHotkeys } from "react-hotkeys-hook";
 import { motion } from "motion/react";
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { 
   Search as SearchIcon, 
   Shuffle, 
@@ -21,11 +20,18 @@ import {
   GraduationCap, 
   DollarSign, 
   Gamepad2,
-  Code
+  Code,
+  Utensils,
+  Music as MusicIcon,
+  Plane,
+  Briefcase,
+  Users,
+  Pen,
+  Laptop
 } from "lucide-react";
 
 // Import graphData from the public directory
-import graphData from "../../public/graphData.json";
+import graphData from "../../public/summarizedGraphData.json";
 
 // Define interfaces for the data structure
 interface NodeData {
@@ -33,6 +39,8 @@ interface NodeData {
   major: string;
   response: string;
   topMatch: string;
+  summarizedResponse: string;
+  categories: string[];
 }
 
 interface Node {
@@ -114,19 +122,28 @@ graphData.nodes.forEach((node: GraphDataNode) => {
 
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<CustomNode[]>([]);
   const [allPeople, setAllPeople] = useState<CustomNode[]>(
-    graphData.nodes.map((node: GraphDataNode) => {
-      const existingNode = nodeMap.get(node.id);
-      return {
-        ...node,
-        data: {
-          ...node.data,
-          originalResponse: "",
-        },
-        links: existingNode?.links || [],
-      };
-    })
+    graphData.nodes
+      .filter((node: GraphDataNode) => 
+        // Filter out entries without responses or categories
+        node.data.summarizedResponse && 
+        node.data.summarizedResponse.trim() !== '' &&
+        node.data.categories &&
+        node.data.categories.length > 0
+      )
+      .map((node: GraphDataNode) => {
+        const existingNode = nodeMap.get(node.id);
+        return {
+          ...node,
+          data: {
+            ...node.data,
+            originalResponse: "",
+          },
+          links: existingNode?.links || [],
+        };
+      })
   );
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPersonIndex, setSelectedPersonIndex] = useState<number | null>(null);
@@ -134,55 +151,129 @@ export const Search = () => {
   const [visibleRange, setVisibleRange] = useState({ start: 0, end: 40 });
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   
-  // Define interest tags with icons
-  const interestTags = [
-    { 
-      name: "All", 
-      icon: <SearchIcon className="h-4 w-4" />
-    },
-    { 
-      name: "Robotics", 
-      icon: <Bot className="h-4 w-4" />
-    },
-    { 
-      name: "Art", 
-      icon: <Palette className="h-4 w-4" />
-    },
-    { 
-      name: "AI", 
-      icon: <Brain className="h-4 w-4" />
-    },
-    { 
-      name: "Education", 
-      icon: <GraduationCap className="h-4 w-4" />
-    },
-    { 
-      name: "Finance", 
-      icon: <DollarSign className="h-4 w-4" />
-    },
-    { 
-      name: "Gaming", 
-      icon: <Gamepad2 className="h-4 w-4" />
-    },
-    { 
-      name: "Programming", 
-      icon: <Code className="h-4 w-4" />
-    },
-  ];
-  
-  const searchInputRef = useRef<HTMLInputElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const searchContainerRef = useRef<HTMLDivElement>(null);
+  // Get unique categories from all nodes and sort them by frequency
+  const allCategories = useMemo(() => {
+    const categoryCount = new Map<string, number>();
+    
+    // Count occurrences of each category
+    allPeople.forEach(person => {
+      person.data.categories?.forEach(category => {
+        categoryCount.set(category, (categoryCount.get(category) || 0) + 1);
+      });
+    });
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-    // Reset visible range when search changes
-    setVisibleRange({ start: 0, end: 40 });
-    // Reset selection when search changes
-    setSelectedPersonIndex(null);
-    // Reset tag selection when searching
-    setSelectedTag(null);
+    // Convert to array, sort by count, and take top 6
+    const sortedCategories = Array.from(categoryCount.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 6)
+      .map(([category]) => category);
+
+    // Add manual categories if they're not already included
+    const manualCategories = ["Food", "Music", "Travel", "Robotics"];
+    manualCategories.forEach(category => {
+      if (!sortedCategories.includes(category)) {
+        sortedCategories.push(category);
+      }
+    });
+
+    return ["All", ...sortedCategories].sort((a, b) => {
+      if (a === "All") return -1;
+      if (b === "All") return 1;
+      return a.localeCompare(b);
+    });
+  }, [allPeople]);
+
+  // Get icon for a category
+  const getCategoryIcon = (category: string) => {
+    switch (category.toLowerCase()) {
+      case "all":
+        return <SearchIcon className="h-4 w-4" />;
+      case "robotics":
+        return <Bot className="h-4 w-4" />;
+      case "art":
+        return <Palette className="h-4 w-4" />;
+      case "ai":
+        return <Brain className="h-4 w-4" />;
+      case "education":
+        return <GraduationCap className="h-4 w-4" />;
+      case "finance":
+        return <DollarSign className="h-4 w-4" />;
+      case "gaming":
+        return <Gamepad2 className="h-4 w-4" />;
+      case "programming":
+        return <Code className="h-4 w-4" />;
+      // New icons
+      case "food":
+        return <Utensils className="h-4 w-4" />;
+      case "music":
+        return <MusicIcon className="h-4 w-4" />;
+      case "travel":
+        return <Plane className="h-4 w-4" />;
+      case "business":
+        return <Briefcase className="h-4 w-4" />;
+      case "community":
+        return <Users className="h-4 w-4" />;
+      case "design":
+        return <Pen className="h-4 w-4" />;
+      case "software":
+        return <Laptop className="h-4 w-4" />;
+      case "robotics":
+        return <Bot className="h-4 w-4" />;
+      default:
+        return <SearchIcon className="h-4 w-4" />;
+    }
   };
+
+  const fuseOptions = useMemo(() => ({
+    keys: [
+      "data.name",
+      "data.major",
+      "data.summarizedResponse",
+      "data.categories",
+      { name: 'data.categories', weight: 2 } // Give more weight to category matches
+    ],
+    includeScore: true,
+    isCaseSensitive: false,
+    findAllMatches: true,
+    threshold: 0.4,
+  }), []);
+
+  const fuse = useMemo(() => new Fuse(allPeople, fuseOptions), [allPeople, fuseOptions]);
+
+  // Filter people based on selected tag and search term
+  const getFilteredPeople = useCallback(() => {
+    let filtered = allPeople;
+    
+    // Apply search filter
+    if (searchTerm.trim() !== "") {
+      const searchResults = fuse.search(searchTerm);
+      filtered = searchResults.map(result => ({
+        ...result.item,
+        data: {
+          ...result.item.data,
+          originalResponse: "",
+        },
+        links: result.item.links || [],
+      }));
+    }
+    
+    // Apply tag filter
+    if (selectedTag && selectedTag !== "All") {
+      filtered = filtered.filter(person => 
+        person.data.categories?.some(category => 
+          category.toLowerCase() === selectedTag.toLowerCase()
+        )
+      );
+    }
+    
+    return filtered;
+  }, [allPeople, searchTerm, selectedTag, fuse]);
+
+  // Get visible people for rendering
+  const visiblePeople = useMemo(() => {
+    const filtered = getFilteredPeople();
+    return filtered.slice(visibleRange.start, visibleRange.end);
+  }, [getFilteredPeople, visibleRange]);
 
   // Handle tag selection
   const handleTagSelect = (tagName: string) => {
@@ -190,21 +281,33 @@ export const Search = () => {
       setSelectedTag(null);
     } else {
       setSelectedTag(tagName);
-      // In the future, this would filter by tag
+      // Clear search when selecting a tag
+      setSearchTerm("");
     }
-    // Reset visible range when tag changes
     setVisibleRange({ start: 0, end: 40 });
   };
 
-  const fuseOptions = useMemo(() => ({
-    keys: ["data.name", "data.response", "data.major"],
-    includeScore: true,
-    isCaseSensitive: false,
-    findAllMatches: true,
-    threshold: 0.4, // adjust this to be more lenient with search
-  }), []);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
 
-  const fuse = useMemo(() => new Fuse(graphData.nodes, fuseOptions), [fuseOptions]);
+  // Debounce search term
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 300); // 300ms delay
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    // Reset visible range when search changes
+    setVisibleRange({ start: 0, end: 40 });
+    // Reset selection when search changes
+    setSelectedPersonIndex(null);
+    // Don't reset tag selection when searching anymore
+  };
 
   useEffect(() => {
     // Initialize all people on component mount
@@ -221,11 +324,11 @@ export const Search = () => {
   }, []);
 
   useEffect(() => {
-    if (searchTerm.trim() === "") {
+    if (debouncedSearchTerm.trim() === "") {
       // If search is empty, show all people
       setSearchResults([]);
     } else {
-      const results = fuse.search(searchTerm).map((result: { item: GraphDataNode }) => {
+      const results = fuse.search(debouncedSearchTerm).map((result: { item: GraphDataNode }) => {
         const node = nodeMap.get(result.item.id);
         return {
           ...result.item,
@@ -238,7 +341,7 @@ export const Search = () => {
       });
       setSearchResults(results);
     }
-  }, [searchTerm, fuse]);
+  }, [debouncedSearchTerm, fuse]);
 
   // Handle scroll to load more items
   useEffect(() => {
@@ -350,11 +453,6 @@ export const Search = () => {
   // Determine which list of people to display
   const displayedPeople = searchTerm.trim() === "" ? allPeople : searchResults;
   
-  // Get visible people for rendering
-  const visiblePeople = useMemo(() => {
-    return displayedPeople.slice(visibleRange.start, visibleRange.end);
-  }, [displayedPeople, visibleRange]);
-
   // Function to shuffle people
   const shufflePeople = () => {
     setAllPeople(prev => [...prev].sort(() => Math.random() - 0.5));
@@ -368,6 +466,16 @@ export const Search = () => {
     }
     return major;
   };
+
+  // Handle person selection
+  const handlePersonSelect = useCallback((index: number) => {
+    setSelectedPersonIndex(index);
+  }, []);
+
+  // Handle dialog close
+  const handleDialogClose = useCallback(() => {
+    setSelectedPersonIndex(null);
+  }, []);
 
   return (
     <div className="font-sans max-w-6xl w-full mx-auto">
@@ -383,7 +491,7 @@ export const Search = () => {
               <input
                 ref={searchInputRef}
                 className="text-lg mt-4 w-full pl-12 py-3 rounded-full border-2 border-zinc-300 focus:border-zinc-500 focus:ring-2 focus:ring-zinc-200 transition-all bg-white"
-                placeholder="Search by name, response, or major (Ctrl+K)"
+                placeholder="Search for people"
                 onChange={handleSearch}
                 value={searchTerm}
               />
@@ -400,15 +508,15 @@ export const Search = () => {
               transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
             >
               <div className="flex flex-wrap gap-2 md:gap-3">
-                {interestTags.map((tag, index) => (
+                {allCategories.map((category, index) => (
                   <motion.button
-                    key={tag.name}
+                    key={category}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                      selectedTag === tag.name
+                      selectedTag === category
                         ? "bg-[#f8f3e3] text-zinc-800 border border-zinc-300"
                         : "bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-50"
                     }`}
-                    onClick={() => handleTagSelect(tag.name)}
+                    onClick={() => handleTagSelect(category)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     initial={{ opacity: 0, y: 10 }}
@@ -419,10 +527,10 @@ export const Search = () => {
                       ease: "easeOut"
                     }}
                   >
-                    <span className={`${selectedTag === tag.name ? "text-zinc-800" : "text-zinc-500"}`}>
-                      {tag.icon}
+                    <span className={`${selectedTag === category ? "text-zinc-800" : "text-zinc-500"}`}>
+                      {getCategoryIcon(category)}
                     </span>
-                    <span>{tag.name}</span>
+                    <span>{category}</span>
                   </motion.button>
                 ))}
               </div>
@@ -454,12 +562,12 @@ export const Search = () => {
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
               {searchTerm.trim() !== "" ? (
-                <span>Found {displayedPeople.length} {displayedPeople.length === 1 ? 'person' : 'people'} matching &ldquo;{searchTerm}&rdquo;</span>
+                <span>Found {getFilteredPeople().length} {getFilteredPeople().length === 1 ? 'person' : 'people'} matching &ldquo;{searchTerm}&rdquo;</span>
               ) : selectedTag ? (
-                <span>Showing {visiblePeople.length} of {displayedPeople.length} people interested in {selectedTag}</span>
+                <span>Showing {getFilteredPeople().length} people interested in {selectedTag}</span>
               ) : (
                 <span>
-                  Showing {visiblePeople.length} of {displayedPeople.length} people
+                  Showing {visiblePeople.length} of {getFilteredPeople().length} people
                 </span>
               )}
             </motion.div>
@@ -495,133 +603,64 @@ export const Search = () => {
               const node = nodeMap.get(item.id);
               
               return (
-                <Dialog key={`entry-${item.id}`} open={isDialogOpen && isSelected} onOpenChange={setIsDialogOpen}>
-                  <DialogTrigger asChild>
-                    <div
-                      className="h-full flex"
-                      onClick={() => {
-                        setSelectedPersonIndex(actualIndex);
-                        setIsDialogOpen(true);
-                      }}
-                    >
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ 
-                          opacity: 1, 
-                          y: 0,
-                          scale: isSelected ? 1.02 : 1
-                        }}
-                        transition={{ 
-                          duration: 0.4, 
-                          delay: 0.2 + (index * 0.05),
-                          type: "spring",
-                          stiffness: 100,
-                          damping: 15
-                        }}
-                        whileHover={{ 
-                          scale: 1.03,
-                          transition: { duration: 0.2 } 
-                        }}
-                        style={{
-                          boxShadow: "0px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 7px rgba(0, 0, 0, 0.08)"
-                        }}
-                        className={`h-full w-full p-4 rounded-xl border ${
-                          isSelected 
-                            ? "border-zinc-400 ring-2 ring-zinc-300 bg-white" 
-                            : "border-zinc-200 bg-white hover:border-zinc-300 transition-all"
-                        } cursor-pointer`}
-                      >
-                        <div className="flex flex-col h-full">
-                          <div>
-                            <h3 className="font-tiempos text-lg font-medium text-zinc-900">
-                              {item.data.name}
-                            </h3>
-                            <span className={`text-xs px-2 py-0.5 rounded-full ${majorColor} inline-block mt-1 max-w-full truncate`} title={major}>
-                              {formatMajor(major)}
-                            </span>
-                          </div>
-                          <div className="mt-2 flex-grow">
-                            <p className="text-sm text-zinc-600 line-clamp-4">
-                              {item.data.response}
-                            </p>
-                          </div>
-                          <div className="mt-3 pt-2 border-t border-zinc-100 text-xs text-zinc-400">
-                            {node?.links.length || 0} connections
-                          </div>
-                        </div>
-                      </motion.div>
-                    </div>
-                  </DialogTrigger>
-                  
-                  <DialogContent className="sm:max-w-2xl">
-                    <DialogHeader>
-                      <DialogTitle className="font-tiempos text-2xl">
-                        {item.data.name}
-                      </DialogTitle>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className={`text-xs px-2 py-0.5 rounded-full ${majorColor} inline-block`}>
-                          {major}
+                <div
+                  key={`entry-${item.id}`}
+                  className="h-full flex"
+                  onClick={() => handlePersonSelect(actualIndex)}
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ 
+                      opacity: 1, 
+                      y: 0,
+                      scale: isSelected ? 1.02 : 1
+                    }}
+                    transition={{ 
+                      duration: 0.2,
+                      delay: 0.05 + (index * 0.02)
+                    }}
+                    whileHover={{ scale: 1.02 }}
+                    style={{
+                      boxShadow: "0px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 7px rgba(0, 0, 0, 0.08)"
+                    }}
+                    className={`h-full w-full p-4 rounded-xl border ${
+                      isSelected 
+                        ? "border-zinc-400 ring-2 ring-zinc-300 bg-white" 
+                        : "border-zinc-200 bg-white hover:border-zinc-300"
+                    } cursor-pointer`}
+                  >
+                    <div className="flex flex-col h-full">
+                      <div>
+                        <h3 className="font-tiempos text-lg font-medium text-zinc-900">
+                          {item.data.name}
+                        </h3>
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${majorColor} inline-block mt-1 max-w-full truncate`} title={major}>
+                          {formatMajor(major)}
                         </span>
                       </div>
-                    </DialogHeader>
-                    
-                    <div className="mt-4">
-                      <h3 className="text-sm font-medium text-zinc-500 mb-1">Response:</h3>
-                      <p className="text-zinc-700">
-                        {item.data.response}
-                      </p>
-                    </div>
-                    
-                    {node && node.links.length > 0 && (
-                      <div className="mt-6">
-                        <h3 className="text-sm font-medium text-zinc-500 mb-3">
-                          All Connections ({node.links.length}):
-                        </h3>
-                        <div className="max-h-[300px] overflow-y-auto pr-2">
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            {node.links.map((link, linkIndex) => {
-                              const connectedNodeId = link.source === item.id ? link.target : link.source;
-                              const connectedNode = nodeMap.get(connectedNodeId);
-                              
-                              if (!connectedNode) return null;
-                              
-                              const connectedMajor = connectedNode.data.major === "N/A" ? "Other" : titleCase(connectedNode.data.major || "");
-                              const connectedColor = majorColors.get(connectedMajor) || majorColors.get("Other") || pastelColors[0];
-                              
-                              return (
-                                <motion.div
-                                  key={`connection-${connectedNode.id}-${item.id}-${linkIndex}`}
-                                  className="p-3 bg-opacity-30 rounded-lg border border-zinc-200"
-                                  initial={{ opacity: 0, y: 10 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ 
-                                    duration: 0.3, 
-                                    delay: 0.1 + (Math.min(linkIndex, 5) * 0.1),
-                                    ease: "easeOut"
-                                  }}
-                                >
-                                  <div className="flex flex-col">
-                                    <h4 className="font-medium text-zinc-900 truncate">
-                                      {connectedNode.data.name}
-                                    </h4>
-                                    <span className={`text-xs px-2 py-0.5 rounded-full ${connectedColor} inline-block w-fit mt-1 max-w-full truncate`} title={connectedMajor}>
-                                      {formatMajor(connectedMajor)}
-                                    </span>
-                                  </div>
-                                  <div className="mt-1">
-                                    <p className="text-sm text-zinc-600 line-clamp-1">
-                                      {connectedNode.data.response}
-                                    </p>
-                                  </div>
-                                </motion.div>
-                              );
-                            })}
-                          </div>
+                      <div className="mt-2 flex-grow">
+                        <p className="text-sm text-zinc-600 line-clamp-4">
+                          {item.data.summarizedResponse}
+                        </p>
+                      </div>
+                      <div className="mt-3 pt-2 border-t border-zinc-100">
+                        <div className="flex flex-wrap gap-1.5">
+                          {item.data.categories?.map((category, idx) => (
+                            <span 
+                              key={`${item.id}-${category}-${idx}`}
+                              className="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-600 rounded-full"
+                            >
+                              {category}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="mt-2 text-xs text-zinc-400">
+                          {node?.links.length || 0} connections
                         </div>
                       </div>
-                    )}
-                  </DialogContent>
-                </Dialog>
+                    </div>
+                  </motion.div>
+                </div>
               );
             })}
           </div>
@@ -647,6 +686,129 @@ export const Search = () => {
           )}
         </motion.div>
       )}
+
+      {/* Separate Dialog component */}
+      <Dialog 
+        open={selectedPersonIndex !== null} 
+        onOpenChange={(open) => {
+          if (!open) handleDialogClose();
+        }}
+      >
+        <DialogContent className="sm:max-w-2xl">
+          {selectedPersonIndex !== null && (() => {
+            const selectedPerson = allPeople[selectedPersonIndex];
+            const node = nodeMap.get(selectedPerson.id);
+            const major = selectedPerson.data.major === "N/A" ? "Other" : titleCase(selectedPerson.data.major || "");
+            const majorColor = majorColors.get(major) || majorColors.get("Other") || pastelColors[0];
+
+            return (
+              <>
+                <DialogHeader>
+                  <DialogTitle className="font-tiempos text-2xl">
+                    {selectedPerson.data.name}
+                  </DialogTitle>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${majorColor} inline-block`}>
+                      {major}
+                    </span>
+                  </div>
+                </DialogHeader>
+                
+                <div className="mt-4">
+                  <h3 className="text-sm font-medium text-zinc-500 mb-1">Response:</h3>
+                  <p className="text-zinc-700">
+                    {selectedPerson.data.summarizedResponse}
+                  </p>
+                  {selectedPerson.data.categories?.length > 0 && (
+                    <div className="mt-4">
+                      <h3 className="text-sm font-medium text-zinc-500 mb-2">Categories:</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedPerson.data.categories.map((category, idx) => (
+                          <span 
+                            key={`dialog-${selectedPerson.id}-${category}-${idx}`}
+                            className="text-sm px-3 py-1 bg-zinc-100 text-zinc-700 rounded-full"
+                          >
+                            {category}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                
+                {node && node.links.length > 0 && (
+                  <div className="mt-6">
+                    <h3 className="text-sm font-medium text-zinc-500 mb-3">
+                      All Connections ({node.links.length}):
+                    </h3>
+                    <div className="max-h-[300px] overflow-y-auto pr-2">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {node.links.map((link, linkIndex) => {
+                          const connectedNodeId = link.source === selectedPerson.id ? link.target : link.source;
+                          const connectedNode = nodeMap.get(connectedNodeId);
+                          
+                          if (!connectedNode) return null;
+                          
+                          const connectedMajor = connectedNode.data.major === "N/A" ? "Other" : titleCase(connectedNode.data.major || "");
+                          const connectedColor = majorColors.get(connectedMajor) || majorColors.get("Other") || pastelColors[0];
+                          
+                          return (
+                            <motion.div
+                              key={`connection-${connectedNode.id}-${selectedPerson.id}-${linkIndex}`}
+                              className="p-3 bg-opacity-30 rounded-lg border border-zinc-200 hover:border-zinc-300 cursor-pointer transition-all"
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ 
+                                duration: 0.3, 
+                                delay: 0.1 + (Math.min(linkIndex, 5) * 0.1),
+                                ease: "easeOut"
+                              }}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                const connectedIndex = allPeople.findIndex(p => p.id === connectedNodeId);
+                                if (connectedIndex !== -1) {
+                                  handlePersonSelect(connectedIndex);
+                                }
+                              }}
+                            >
+                              <div className="flex flex-col">
+                                <h4 className="font-medium text-zinc-900">
+                                  {connectedNode.data.name}
+                                </h4>
+                                <span className={`text-xs px-2 py-0.5 rounded-full ${connectedColor} inline-block w-fit mt-1`}>
+                                  {connectedMajor}
+                                </span>
+                              </div>
+                              <div className="mt-2">
+                                <p className="text-sm text-zinc-600">
+                                  {connectedNode.data.summarizedResponse}
+                                </p>
+                                {connectedNode.data.categories?.length > 0 && (
+                                  <div className="mt-2 flex flex-wrap gap-1.5">
+                                    {connectedNode.data.categories.map((category, idx) => (
+                                      <span 
+                                        key={`connection-category-${connectedNode.id}-${category}-${idx}`}
+                                        className="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-600 rounded-full"
+                                      >
+                                        {category}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            );
+          })()}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }; 

@@ -15,13 +15,28 @@ export default function PeoplePage() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="text-center"
           >
-            <div className="flex justify-center mb-4">
+            <div className="flex justify-center mb-4 items-center gap-4">
               <motion.div
                 initial={{ scale: 0.4, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
                 <SocraticaLogo className="size-12" />
+              </motion.div>
+              <motion.div
+                initial={{ scale: 0.4, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+                className="text-zinc-600 font-medium text-2xl"
+              >
+                ✗
+              </motion.div>
+              <motion.div
+                initial={{ scale: 0.4, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+              >
+                <img src="/shopify-logo.svg" alt="Shopify" className="h-12 w-auto" />
               </motion.div>
             </div>
 
@@ -38,15 +53,15 @@ export default function PeoplePage() {
                 WATERLOO, ON, CANADA
               </motion.div> */}
               <motion.div
-                className="text-zinc-500"
+                className="text-zinc-500 text-balance"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
               >
-                BROWSE ALL PARTICIPANTS BELOW OR USE SEARCH
+                BROWSE AND SEARCH ALL PARTICIPANTS
               </motion.div>
               <motion.div
-                className="text-zinc-500"
+                className="text-zinc-500 text-balance"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
