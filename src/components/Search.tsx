@@ -666,8 +666,8 @@ export const Search = () => {
             ref={gridRef}
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
           >
-            {visiblePeople.map((item, index) => {
-              const isSelected = selectedPersonId === item.id;
+            {visiblePeople.map((item) => {
+              // const isSelected = selectedPersonId === item.id;
               const major =
                 item.data.major === "N/A"
                   ? "Other"
