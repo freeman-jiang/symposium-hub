@@ -740,71 +740,84 @@ export const Search = () => {
                   )}
                 </div>
                 
-                {node && node.links.length > 0 && (
-                  <div className="mt-6">
-                    <h3 className="text-sm font-medium text-zinc-500 mb-3">
-                      All Connections ({node.links.length}):
-                    </h3>
-                    <div className="max-h-[300px] overflow-y-auto pr-2">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {node.links.map((link, linkIndex) => {
-                          const connectedNodeId = link.source === selectedPerson.id ? link.target : link.source;
-                          const connectedNode = nodeMap.get(connectedNodeId);
-                          
-                          if (!connectedNode) return null;
-                          
-                          const connectedMajor = connectedNode.data.major === "N/A" ? "Other" : titleCase(connectedNode.data.major || "");
-                          const connectedColor = majorColors.get(connectedMajor) || majorColors.get("Other") || pastelColors[0];
-                          
-                          return (
-                            <motion.div
-                              key={`connection-${connectedNode.id}-${selectedPerson.id}-${linkIndex}`}
-                              className="p-3 bg-opacity-30 rounded-lg border border-zinc-200 hover:border-zinc-300 cursor-pointer transition-all"
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ 
-                                duration: 0.3, 
-                                delay: 0.1 + (Math.min(linkIndex, 5) * 0.1),
-                                ease: "easeOut"
-                              }}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                handlePersonSelect(connectedNodeId);
-                              }}
-                            >
-                              <div className="flex flex-col">
-                                <h4 className="font-medium text-zinc-900">
-                                  {connectedNode.data.name}
-                                </h4>
-                                <span className={`text-xs px-2 py-0.5 rounded-full ${connectedColor} inline-block w-fit mt-1`}>
-                                  {connectedMajor}
-                                </span>
-                              </div>
-                              <div className="mt-2">
-                                <p className="text-sm text-zinc-600">
-                                  {connectedNode.data.summarizedResponse}
-                                </p>
-                                {connectedNode.data.categories?.length > 0 && (
-                                  <div className="mt-2 flex flex-wrap gap-1.5">
-                                    {connectedNode.data.categories.map((category, idx) => (
-                                      <span 
-                                        key={`connection-category-${connectedNode.id}-${category}-${idx}`}
-                                        className="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-600 rounded-full"
-                                      >
-                                        {category}
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
-                              </div>
-                            </motion.div>
-                          );
-                        })}
+                {node && node.links.length > 0 && (() => {
+                  // Create a Set to track unique connected node IDs
+                  const uniqueConnections = new Set<string>();
+                  const uniqueLinks = node.links.filter(link => {
+                    const connectedNodeId = link.source === selectedPerson.id ? link.target : link.source;
+                    if (uniqueConnections.has(connectedNodeId)) {
+                      return false;
+                    }
+                    uniqueConnections.add(connectedNodeId);
+                    return true;
+                  });
+
+                  return (
+                    <div className="mt-6">
+                      <h3 className="text-sm font-medium text-zinc-500 mb-3">
+                        All Connections ({uniqueConnections.size}):
+                      </h3>
+                      <div className="max-h-[300px] overflow-y-auto pr-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {uniqueLinks.map((link, linkIndex) => {
+                            const connectedNodeId = link.source === selectedPerson.id ? link.target : link.source;
+                            const connectedNode = nodeMap.get(connectedNodeId);
+                            
+                            if (!connectedNode) return null;
+                            
+                            const connectedMajor = connectedNode.data.major === "N/A" ? "Other" : titleCase(connectedNode.data.major || "");
+                            const connectedColor = majorColors.get(connectedMajor) || majorColors.get("Other") || pastelColors[0];
+                            
+                            return (
+                              <motion.div
+                                key={`connection-${connectedNode.id}-${selectedPerson.id}-${linkIndex}`}
+                                className="p-3 bg-opacity-30 rounded-lg border border-zinc-200 hover:border-zinc-300 cursor-pointer transition-all"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ 
+                                  duration: 0.3, 
+                                  delay: 0.1 + (Math.min(linkIndex, 5) * 0.1),
+                                  ease: "easeOut"
+                                }}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  handlePersonSelect(connectedNodeId);
+                                }}
+                              >
+                                <div className="flex flex-col">
+                                  <h4 className="font-medium text-zinc-900">
+                                    {connectedNode.data.name}
+                                  </h4>
+                                  <span className={`text-xs px-2 py-0.5 rounded-full ${connectedColor} inline-block w-fit mt-1`}>
+                                    {connectedMajor}
+                                  </span>
+                                </div>
+                                <div className="mt-2">
+                                  <p className="text-sm text-zinc-600">
+                                    {connectedNode.data.summarizedResponse}
+                                  </p>
+                                  {connectedNode.data.categories?.length > 0 && (
+                                    <div className="mt-2 flex flex-wrap gap-1.5">
+                                      {connectedNode.data.categories.map((category, idx) => (
+                                        <span 
+                                          key={`connection-category-${connectedNode.id}-${category}-${idx}`}
+                                          className="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-600 rounded-full"
+                                        >
+                                          {category}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              </motion.div>
+                            );
+                          })}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
               </>
             );
           })()}
