@@ -146,7 +146,7 @@ export const Search = () => {
       })
   );
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedPersonIndex, setSelectedPersonIndex] = useState<number | null>(null);
+  const [selectedPersonId, setSelectedPersonId] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [visibleRange, setVisibleRange] = useState({ start: 0, end: 40 });
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
@@ -305,7 +305,7 @@ export const Search = () => {
     // Reset visible range when search changes
     setVisibleRange({ start: 0, end: 40 });
     // Reset selection when search changes
-    setSelectedPersonIndex(null);
+    setSelectedPersonId(null);
     // Don't reset tag selection when searching anymore
   };
 
@@ -374,14 +374,15 @@ export const Search = () => {
 
   // Navigate through grid with arrow keys
   useHotkeys("down", () => {
-    const displayedPeople = searchTerm.trim() === "" ? allPeople : searchResults;
-    if (displayedPeople.length === 0) return;
+    const filtered = getFilteredPeople();
+    if (filtered.length === 0) return;
     
-    if (selectedPersonIndex === null) {
-      setSelectedPersonIndex(0);
+    if (selectedPersonId === null) {
+      handlePersonSelect(filtered[0].id);
     } else {
-      const nextIndex = Math.min(selectedPersonIndex + 4, displayedPeople.length - 1);
-      setSelectedPersonIndex(nextIndex);
+      const currentIndex = filtered.findIndex(p => p.id === selectedPersonId);
+      const nextIndex = Math.min(currentIndex + 4, filtered.length - 1);
+      handlePersonSelect(filtered[nextIndex].id);
       
       // Ensure the selected item is in view
       ensureInView(nextIndex);
@@ -389,23 +390,27 @@ export const Search = () => {
   }, { preventDefault: true });
 
   useHotkeys("up", () => {
-    if (selectedPersonIndex === null) return;
-    const nextIndex = Math.max(selectedPersonIndex - 4, 0);
-    setSelectedPersonIndex(nextIndex);
+    const filtered = getFilteredPeople();
+    if (selectedPersonId === null) return;
+    
+    const currentIndex = filtered.findIndex(p => p.id === selectedPersonId);
+    const nextIndex = Math.max(currentIndex - 4, 0);
+    handlePersonSelect(filtered[nextIndex].id);
     
     // Ensure the selected item is in view
     ensureInView(nextIndex);
   }, { preventDefault: true });
 
   useHotkeys("right", () => {
-    const displayedPeople = searchTerm.trim() === "" ? allPeople : searchResults;
-    if (displayedPeople.length === 0) return;
+    const filtered = getFilteredPeople();
+    if (filtered.length === 0) return;
     
-    if (selectedPersonIndex === null) {
-      setSelectedPersonIndex(0);
+    if (selectedPersonId === null) {
+      handlePersonSelect(filtered[0].id);
     } else {
-      const nextIndex = Math.min(selectedPersonIndex + 1, displayedPeople.length - 1);
-      setSelectedPersonIndex(nextIndex);
+      const currentIndex = filtered.findIndex(p => p.id === selectedPersonId);
+      const nextIndex = Math.min(currentIndex + 1, filtered.length - 1);
+      handlePersonSelect(filtered[nextIndex].id);
       
       // Ensure the selected item is in view
       ensureInView(nextIndex);
@@ -413,16 +418,19 @@ export const Search = () => {
   }, { preventDefault: true });
 
   useHotkeys("left", () => {
-    if (selectedPersonIndex === null) return;
-    const nextIndex = Math.max(selectedPersonIndex - 1, 0);
-    setSelectedPersonIndex(nextIndex);
+    const filtered = getFilteredPeople();
+    if (selectedPersonId === null) return;
+    
+    const currentIndex = filtered.findIndex(p => p.id === selectedPersonId);
+    const nextIndex = Math.max(currentIndex - 1, 0);
+    handlePersonSelect(filtered[nextIndex].id);
     
     // Ensure the selected item is in view
     ensureInView(nextIndex);
   }, { preventDefault: true });
 
   useHotkeys("enter", () => {
-    if (selectedPersonIndex !== null) {
+    if (selectedPersonId !== null) {
       setIsDialogOpen(true);
     }
   }, { preventDefault: true });
@@ -431,7 +439,7 @@ export const Search = () => {
     if (isDialogOpen) {
       setIsDialogOpen(false);
     } else {
-      setSelectedPersonIndex(null);
+      handleDialogClose();
     }
   }, { preventDefault: true });
 
@@ -450,9 +458,22 @@ export const Search = () => {
     }
   };
 
-  // Determine which list of people to display
-  const displayedPeople = searchTerm.trim() === "" ? allPeople : searchResults;
-  
+  // Handle person selection
+  const handlePersonSelect = useCallback((id: string) => {
+    setSelectedPersonId(id);
+  }, []);
+
+  // Handle dialog close
+  const handleDialogClose = useCallback(() => {
+    setSelectedPersonId(null);
+  }, []);
+
+  // Get selected person
+  const selectedPerson = useMemo(() => {
+    if (!selectedPersonId) return null;
+    return allPeople.find(person => person.id === selectedPersonId);
+  }, [selectedPersonId, allPeople]);
+
   // Function to shuffle people
   const shufflePeople = () => {
     setAllPeople(prev => [...prev].sort(() => Math.random() - 0.5));
@@ -466,16 +487,6 @@ export const Search = () => {
     }
     return major;
   };
-
-  // Handle person selection
-  const handlePersonSelect = useCallback((index: number) => {
-    setSelectedPersonIndex(index);
-  }, []);
-
-  // Handle dialog close
-  const handleDialogClose = useCallback(() => {
-    setSelectedPersonIndex(null);
-  }, []);
 
   return (
     <div className="font-sans max-w-6xl w-full mx-auto">
@@ -592,21 +603,15 @@ export const Search = () => {
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
           >
             {visiblePeople.map((item, index) => {
-              const actualIndex = index + visibleRange.start;
-              const isSelected = selectedPersonIndex === actualIndex;
-              
-              // Get major and color
+              const isSelected = selectedPersonId === item.id;
               const major = item.data.major === "N/A" ? "Other" : titleCase(item.data.major || "");
               const majorColor = majorColors.get(major) || majorColors.get("Other") || pastelColors[0];
-              
-              // Get node from map to access links
-              const node = nodeMap.get(item.id);
               
               return (
                 <div
                   key={`entry-${item.id}`}
                   className="h-full flex"
-                  onClick={() => handlePersonSelect(actualIndex)}
+                  onClick={() => handlePersonSelect(item.id)}
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -655,7 +660,7 @@ export const Search = () => {
                           ))}
                         </div>
                         <div className="mt-2 text-xs text-zinc-400">
-                          {node?.links.length || 0} connections
+                          {item.links.length || 0} connections
                         </div>
                       </div>
                     </div>
@@ -666,13 +671,13 @@ export const Search = () => {
           </div>
           
           {/* Load more indicator */}
-          {visibleRange.end < displayedPeople.length && (
+          {visibleRange.end < getFilteredPeople().length && (
             <div className="flex justify-center mt-8">
               <motion.button
                 className="px-4 py-2 bg-[#f8f3e3] hover:bg-[#f0e9d6] text-zinc-700 rounded-full text-sm font-medium"
                 onClick={() => setVisibleRange(prev => ({
                   start: prev.start,
-                  end: Math.min(prev.end + 20, displayedPeople.length)
+                  end: Math.min(prev.end + 20, getFilteredPeople().length)
                 }))}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -689,14 +694,13 @@ export const Search = () => {
 
       {/* Separate Dialog component */}
       <Dialog 
-        open={selectedPersonIndex !== null} 
+        open={selectedPerson !== null} 
         onOpenChange={(open) => {
           if (!open) handleDialogClose();
         }}
       >
         <DialogContent className="sm:max-w-2xl">
-          {selectedPersonIndex !== null && (() => {
-            const selectedPerson = allPeople[selectedPersonIndex];
+          {selectedPerson && (() => {
             const node = nodeMap.get(selectedPerson.id);
             const major = selectedPerson.data.major === "N/A" ? "Other" : titleCase(selectedPerson.data.major || "");
             const majorColor = majorColors.get(major) || majorColors.get("Other") || pastelColors[0];
@@ -766,10 +770,7 @@ export const Search = () => {
                               onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                const connectedIndex = allPeople.findIndex(p => p.id === connectedNodeId);
-                                if (connectedIndex !== -1) {
-                                  handlePersonSelect(connectedIndex);
-                                }
+                                handlePersonSelect(connectedNodeId);
                               }}
                             >
                               <div className="flex flex-col">
