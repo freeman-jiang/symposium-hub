@@ -3,12 +3,18 @@ import FeatureCards from "@/components/FeatureCards";
 import { Footer } from "@/components/Footer";
 import { SocraticaLogo } from "@/components/icons/SocraticaLogo";
 import { InfoSection } from "@/components/InfoSection";
+import { LoadingScreen } from "@/components/LoadingScreen";
 import { Hero } from "@/components/rive/Hero";
-import { motion } from "motion/react";
+import { useRiveStore } from "@/stores/riveStore";
+import { AnimatePresence, motion } from "motion/react";
 
 export default function Home() {
+  const { isRiveLoaded } = useRiveStore();
+
   return (
     <main className="min-h-screen bg-gradient-to-b text-black">
+      <AnimatePresence>{!isRiveLoaded && <LoadingScreen />}</AnimatePresence>
+
       {/* Header section with improved desktop spacing */}
       <div className="bg-[#f8f3e3] pb-16">
         {/* Main content with improved desktop layout */}

@@ -1,17 +1,76 @@
 "use client";
-import { useRiveStore } from "@/stores/riveStore";
+import { motion } from "motion/react";
+import { SocraticaLogo } from "./icons/SocraticaLogo";
 
 export const LoadingScreen = () => {
-  const { isRiveLoaded } = useRiveStore();
-
-  if (isRiveLoaded) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 transition-opacity duration-500">
-      <div className="text-center">
-        <div className="w-16 h-16 border-4 border-t-transparent border-white rounded-full animate-spin mx-auto mb-4"></div>
-        <p className="text-white text-lg">Loading experience...</p>
-      </div>
-    </div>
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7, ease: "easeInOut" }}
+    >
+      <motion.div
+        className=""
+        initial={{ opacity: 0, filter: "blur(0px)" }}
+        animate={{ opacity: 1, filter: "blur(0px)" }}
+        exit={{
+          opacity: 0,
+          filter: "blur(20px)",
+          transition: {
+            opacity: { delay: 0.3, duration: 0.5 },
+            filter: { duration: 0.5 },
+          },
+        }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
+        <div className="relative flex flex-col items-center justify-center">
+          {/* Main logo */}
+          <motion.div
+            className="flex items-center justify-center"
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{
+              scale: [0.95, 1.05, 0.95],
+              opacity: [0.8, 1, 0.8],
+            }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              opacity: { delay: 0.1 },
+            }}
+          >
+            <SocraticaLogo className="text-white w-24 h-24 md:w-32 md:h-32" />
+          </motion.div>
+          <motion.p
+            className="text-white text-3xl font-conte mt-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0.3, 0.8, 0.3] }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.2,
+            }}
+          >
+            SYMPOSIUM W25
+          </motion.p>
+          {/* <motion.p
+            className="text-white text-2xl font-5by7 mt-2 font-medium uppercase tracking-widest"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0.3, 0.8, 0.3] }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.7,
+            }}
+          >
+            INITIALIZING
+          </motion.p> */}
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
