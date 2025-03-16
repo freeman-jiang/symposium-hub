@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { titleCase } from "@/lib/utils";
+import { cn, titleCase } from "@/lib/utils";
 import Fuse from "fuse.js";
 import {
   Bot,
@@ -538,9 +538,9 @@ export const Search = () => {
           <div className="relative">
             <motion.div
               className="relative"
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              transition={{ duration: 0.5 }}
             >
               <input
                 ref={searchInputRef}
@@ -565,32 +565,39 @@ export const Search = () => {
                 {allCategories.map((category, index) => (
                   <motion.button
                     key={category}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                    className={cn(
+                      "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium",
                       selectedTag === category
                         ? "bg-[#f8f3e3] text-zinc-800 border border-zinc-300"
-                        : "bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-50"
-                    }`}
+                        : "bg-white text-zinc-700 border border-zinc-200"
+                    )}
                     onClick={() => handleTagSelect(category)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
-                      duration: 0.3,
+                      duration: 0.4,
                       delay: 0.1 + index * 0.05,
-                      ease: "easeOut",
+                      ease: [0.25, 0.1, 0.25, 1],
                     }}
+                    layout
                   >
-                    <span
-                      className={`${
+                    <motion.span
+                      className={cn(
                         selectedTag === category
                           ? "text-zinc-800"
                           : "text-zinc-500"
-                      }`}
+                      )}
+                      animate={{
+                        color: selectedTag === category ? "#27272a" : "#71717a",
+                      }}
+                      transition={{ duration: 0.3 }}
                     >
                       {getCategoryIcon(category)}
-                    </span>
-                    <span>{titleCase(category)}</span>
+                    </motion.span>
+                    <motion.span layout transition={{ duration: 0.3 }}>
+                      {titleCase(category)}
+                    </motion.span>
                   </motion.button>
                 ))}
               </div>
@@ -676,27 +683,12 @@ export const Search = () => {
                   className="h-full flex"
                   onClick={() => handlePersonSelect(item.id)}
                 >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      scale: isSelected ? 1.02 : 1,
-                    }}
-                    transition={{
-                      duration: 0.2,
-                      delay: 0.05 + index * 0.02,
-                    }}
-                    whileHover={{ scale: 1.02 }}
+                  <div
                     style={{
                       boxShadow:
                         "0px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 7px rgba(0, 0, 0, 0.08)",
                     }}
-                    className={`h-full w-full p-4 rounded-xl border ${
-                      isSelected
-                        ? "border-zinc-400 ring-2 ring-zinc-300 bg-white"
-                        : "border-zinc-200 bg-white hover:border-zinc-300"
-                    } cursor-pointer`}
+                    className={`h-full w-full p-4 rounded-xl border cursor-pointer bg-white`}
                   >
                     <div className="flex flex-col h-full">
                       <div>
@@ -731,7 +723,7 @@ export const Search = () => {
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
               );
             })}
