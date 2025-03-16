@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingScreen } from "@/components/LoadingScreen";
 import NavigationBar from "@/components/NavigationBar";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
@@ -17,6 +18,10 @@ export default function LayoutWrapper({
 
   return (
     <div className={cn(isFramePage && "min-h-screen flex flex-col")}>
+      {/* Hidden preloader to start loading Rive assets early */}
+      {/* <RivePreloader /> */}
+      {/* Full-screen loader that hides the entire app until Rive is ready */}
+      <LoadingScreen />
       <NavigationBar />
       <main className={cn(isFramePage && "flex-1 flex")}>{children}</main>
     </div>

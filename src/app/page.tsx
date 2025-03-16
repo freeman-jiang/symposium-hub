@@ -3,15 +3,16 @@ import FeatureCards from "@/components/FeatureCards";
 import { Footer } from "@/components/Footer";
 import { SocraticaLogo } from "@/components/icons/SocraticaLogo";
 import { InfoSection } from "@/components/InfoSection";
+import { Hero } from "@/components/rive/Hero";
 import { motion } from "motion/react";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-zinc-950 to-zinc-900 text-black">
+    <main className="min-h-screen bg-gradient-to-b text-black">
       {/* Header section with improved desktop spacing */}
-      <div className="bg-[#f8f3e3]">
+      <div className="bg-[#f8f3e3] pb-16">
         {/* Main content with improved desktop layout */}
-        <div className="max-w-7xl mx-auto mt-8 px-6 pb-16 md:pb-24 md:flex md:items-end md:justify-between">
+        <div className="max-w-7xl mx-auto mt-8 px-6 md:flex md:items-end md:justify-between">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -62,23 +63,20 @@ export default function Home() {
       </div>
 
       {/* Hero Section with Orbital Animation - improved height for desktop */}
-      <motion.section
+      {/* <motion.section
         className="relative h-[400px] md:h-[600px] lg:h-[700px] w-full overflow-hidden bg-indigo-700 flex items-center justify-center text-white"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease: "easeInOut" }}
       >
         Graphic
-      </motion.section>
-
-      {/* Feature Cards Section - Now using the FeatureCards component */}
-      <FeatureCards title="Welcome to the World's Best Demo Day." />
-
-      {/* Socratica Section using the InfoSection component */}
-      <InfoSection />
-
-      {/* Use the new Footer component */}
-      <Footer />
+      </motion.section> */}
+      <div className="bg-gradient-to-b from-black to-zinc-900">
+        <Hero />
+        <FeatureCards title="Welcome to the World's Best Demo Day." />
+        <InfoSection />
+        <Footer />
+      </div>
     </main>
   );
 }

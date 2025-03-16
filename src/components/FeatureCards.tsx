@@ -35,7 +35,7 @@ export default function FeatureCards({
   return (
     <section
       className={cn(
-        "container py-16 md:py-24 lg:py-32 text-white relative",
+        "container pb-16 md:pb-24 lg:pb-32 text-white relative sm:-mt-8 md:-mt-12 lg:-mt-20",
         className
       )}
       {...props}

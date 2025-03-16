@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col bg-zinc-950 min-h-[calc(100vh-64px)] text-white">
+    <div className="flex flex-col bg-black min-h-[calc(100vh-64px)] text-white">
       <main className="flex-1 flex items-center justify-center">
         <section className="container text-white relative py-16 md:py-24 flex flex-col items-center justify-center">
           {/* Stars background */}
