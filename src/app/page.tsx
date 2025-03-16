@@ -7,9 +7,16 @@ import { LoadingScreen } from "@/components/LoadingScreen";
 import { Hero } from "@/components/rive/Hero";
 import { useRiveStore } from "@/stores/riveStore";
 import { AnimatePresence, motion } from "motion/react";
+import { useEffect } from "react";
 
 export default function Home() {
-  const { isRiveLoaded } = useRiveStore();
+  const { isRiveLoaded, reset } = useRiveStore();
+
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  }, [reset]);
 
   return (
     <main className="min-h-screen bg-gradient-to-b text-black">
