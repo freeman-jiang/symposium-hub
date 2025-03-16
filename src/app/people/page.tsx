@@ -2,6 +2,7 @@
 
 import { SocraticaLogo } from "@/components/icons/SocraticaLogo";
 import { Search } from "@/components/Search";
+import ShopifyLogo from "@/components/svg/shopify-logo.svg";
 import { motion } from "motion/react";
 
 export default function PeoplePage() {
@@ -36,11 +37,12 @@ export default function PeoplePage() {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
               >
-                <img
+                {/* <img
                   src="/shopify-logo.svg"
                   alt="Shopify"
                   className="h-12 w-auto"
-                />
+                /> */}
+                <ShopifyLogo className="size-12" />
               </motion.div>
             </div>
 
