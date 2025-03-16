@@ -4,31 +4,31 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { titleCase } from "@/lib/utils";
 import Fuse from "fuse.js";
-import { useHotkeys } from "react-hotkeys-hook";
-import { motion } from "motion/react";
-import { useEffect, useState, useRef, useMemo, useCallback } from "react";
-import { 
-  Search as SearchIcon, 
-  Shuffle, 
+import {
   Bot,
-  Palette, 
-  Brain, 
-  GraduationCap, 
-  DollarSign, 
-  Gamepad2,
-  Code,
-  Utensils,
-  Music as MusicIcon,
-  Plane,
+  Brain,
   Briefcase,
-  Users,
+  Code,
+  DollarSign,
+  Gamepad2,
+  GraduationCap,
+  Laptop,
+  Music as MusicIcon,
+  Palette,
   Pen,
-  Laptop
+  Plane,
+  Search as SearchIcon,
+  Shuffle,
+  Users,
+  Utensils,
 } from "lucide-react";
+import { motion } from "motion/react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 
 // Import graphData from the public directory
 import graphData from "../../public/summarizedGraphData.json";
@@ -126,12 +126,13 @@ export const Search = () => {
   const [searchResults, setSearchResults] = useState<CustomNode[]>([]);
   const [allPeople, setAllPeople] = useState<CustomNode[]>(
     graphData.nodes
-      .filter((node: GraphDataNode) => 
-        // Filter out entries without responses or categories
-        node.data.summarizedResponse && 
-        node.data.summarizedResponse.trim() !== '' &&
-        node.data.categories &&
-        node.data.categories.length > 0
+      .filter(
+        (node: GraphDataNode) =>
+          // Filter out entries without responses or categories
+          node.data.summarizedResponse &&
+          node.data.summarizedResponse.trim() !== "" &&
+          node.data.categories &&
+          node.data.categories.length > 0
       )
       .map((node: GraphDataNode) => {
         const existingNode = nodeMap.get(node.id);
@@ -150,14 +151,14 @@ export const Search = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [visibleRange, setVisibleRange] = useState({ start: 0, end: 40 });
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
-  
+
   // Get unique categories from all nodes and sort them by frequency
   const allCategories = useMemo(() => {
     const categoryCount = new Map<string, number>();
-    
+
     // Count occurrences of each category
-    allPeople.forEach(person => {
-      person.data.categories?.forEach(category => {
+    allPeople.forEach((person) => {
+      person.data.categories?.forEach((category) => {
         categoryCount.set(category, (categoryCount.get(category) || 0) + 1);
       });
     });
@@ -170,7 +171,7 @@ export const Search = () => {
 
     // Add manual categories if they're not already included
     const manualCategories = ["Cooking", "Music", "Travel", "Robotics"];
-    manualCategories.forEach(category => {
+    manualCategories.forEach((category) => {
       if (!sortedCategories.includes(category)) {
         sortedCategories.push(category);
       }
@@ -224,30 +225,36 @@ export const Search = () => {
     }
   };
 
-  const fuseOptions = useMemo(() => ({
-    keys: [
-      "data.name",
-      "data.major",
-      "data.summarizedResponse",
-      "data.categories",
-      { name: 'data.categories', weight: 2 } // Give more weight to category matches
-    ],
-    includeScore: true,
-    isCaseSensitive: false,
-    findAllMatches: true,
-    threshold: 0.4,
-  }), []);
+  const fuseOptions = useMemo(
+    () => ({
+      keys: [
+        "data.name",
+        "data.major",
+        "data.summarizedResponse",
+        "data.categories",
+        { name: "data.categories", weight: 2 }, // Give more weight to category matches
+      ],
+      includeScore: true,
+      isCaseSensitive: false,
+      findAllMatches: true,
+      threshold: 0.4,
+    }),
+    []
+  );
 
-  const fuse = useMemo(() => new Fuse(allPeople, fuseOptions), [allPeople, fuseOptions]);
+  const fuse = useMemo(
+    () => new Fuse(allPeople, fuseOptions),
+    [allPeople, fuseOptions]
+  );
 
   // Filter people based on selected tag and search term
   const getFilteredPeople = useCallback(() => {
     let filtered = allPeople;
-    
+
     // Apply search filter
     if (searchTerm.trim() !== "") {
       const searchResults = fuse.search(searchTerm);
-      filtered = searchResults.map(result => ({
+      filtered = searchResults.map((result) => ({
         ...result.item,
         data: {
           ...result.item.data,
@@ -256,16 +263,16 @@ export const Search = () => {
         links: result.item.links || [],
       }));
     }
-    
+
     // Apply tag filter
     if (selectedTag && selectedTag !== "All") {
-      filtered = filtered.filter(person => 
-        person.data.categories?.some(category => 
-          category.toLowerCase() === selectedTag.toLowerCase()
+      filtered = filtered.filter((person) =>
+        person.data.categories?.some(
+          (category) => category.toLowerCase() === selectedTag.toLowerCase()
         )
       );
     }
-    
+
     return filtered;
   }, [allPeople, searchTerm, selectedTag, fuse]);
 
@@ -312,13 +319,17 @@ export const Search = () => {
   useEffect(() => {
     // Initialize all people on component mount
     setIsLoading(true);
-    
+
     // Simulate loading for a smoother experience and shuffle on client-side only
     setTimeout(() => {
-      setAllPeople(prev => [...prev].map(node => ({
-        ...node,
-        links: node.links || [],
-      })).sort(() => Math.random() - 0.5)); // Shuffle the array
+      setAllPeople((prev) =>
+        [...prev]
+          .map((node) => ({
+            ...node,
+            links: node.links || [],
+          }))
+          .sort(() => Math.random() - 0.5)
+      ); // Shuffle the array
       setIsLoading(false);
     }, 300);
   }, []);
@@ -328,17 +339,19 @@ export const Search = () => {
       // If search is empty, show all people
       setSearchResults([]);
     } else {
-      const results = fuse.search(debouncedSearchTerm).map((result: { item: GraphDataNode }) => {
-        const node = nodeMap.get(result.item.id);
-        return {
-          ...result.item,
-          data: {
-            ...result.item.data,
-            originalResponse: "",
-          },
-          links: node?.links || [],
-        };
-      });
+      const results = fuse
+        .search(debouncedSearchTerm)
+        .map((result: { item: GraphDataNode }) => {
+          const node = nodeMap.get(result.item.id);
+          return {
+            ...result.item,
+            data: {
+              ...result.item.data,
+              originalResponse: "",
+            },
+            links: node?.links || [],
+          };
+        });
       setSearchResults(results);
     }
   }, [debouncedSearchTerm, fuse]);
@@ -347,23 +360,25 @@ export const Search = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (!gridRef.current) return;
-      
-      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+      const { scrollTop, clientHeight, scrollHeight } =
+        document.documentElement;
       const bottomThreshold = 300; // px from bottom
-      
+
       if (scrollHeight - scrollTop - clientHeight < bottomThreshold) {
-        const displayedPeople = searchTerm.trim() === "" ? allPeople : searchResults;
+        const displayedPeople =
+          searchTerm.trim() === "" ? allPeople : searchResults;
         if (visibleRange.end < displayedPeople.length) {
-          setVisibleRange(prev => ({
+          setVisibleRange((prev) => ({
             start: prev.start,
-            end: Math.min(prev.end + 20, displayedPeople.length)
+            end: Math.min(prev.end + 20, displayedPeople.length),
           }));
         }
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [visibleRange, allPeople, searchResults, searchTerm]);
 
   // Focus search with keyboard shortcut
@@ -373,87 +388,115 @@ export const Search = () => {
   });
 
   // Navigate through grid with arrow keys
-  useHotkeys("down", () => {
-    const filtered = getFilteredPeople();
-    if (filtered.length === 0) return;
-    
-    if (selectedPersonId === null) {
-      handlePersonSelect(filtered[0].id);
-    } else {
-      const currentIndex = filtered.findIndex(p => p.id === selectedPersonId);
-      const nextIndex = Math.min(currentIndex + 4, filtered.length - 1);
+  useHotkeys(
+    "down",
+    () => {
+      const filtered = getFilteredPeople();
+      if (filtered.length === 0) return;
+
+      if (selectedPersonId === null) {
+        handlePersonSelect(filtered[0].id);
+      } else {
+        const currentIndex = filtered.findIndex(
+          (p) => p.id === selectedPersonId
+        );
+        const nextIndex = Math.min(currentIndex + 4, filtered.length - 1);
+        handlePersonSelect(filtered[nextIndex].id);
+
+        // Ensure the selected item is in view
+        ensureInView(nextIndex);
+      }
+    },
+    { preventDefault: true }
+  );
+
+  useHotkeys(
+    "up",
+    () => {
+      const filtered = getFilteredPeople();
+      if (selectedPersonId === null) return;
+
+      const currentIndex = filtered.findIndex((p) => p.id === selectedPersonId);
+      const nextIndex = Math.max(currentIndex - 4, 0);
       handlePersonSelect(filtered[nextIndex].id);
-      
+
       // Ensure the selected item is in view
       ensureInView(nextIndex);
-    }
-  }, { preventDefault: true });
+    },
+    { preventDefault: true }
+  );
 
-  useHotkeys("up", () => {
-    const filtered = getFilteredPeople();
-    if (selectedPersonId === null) return;
-    
-    const currentIndex = filtered.findIndex(p => p.id === selectedPersonId);
-    const nextIndex = Math.max(currentIndex - 4, 0);
-    handlePersonSelect(filtered[nextIndex].id);
-    
-    // Ensure the selected item is in view
-    ensureInView(nextIndex);
-  }, { preventDefault: true });
+  useHotkeys(
+    "right",
+    () => {
+      const filtered = getFilteredPeople();
+      if (filtered.length === 0) return;
 
-  useHotkeys("right", () => {
-    const filtered = getFilteredPeople();
-    if (filtered.length === 0) return;
-    
-    if (selectedPersonId === null) {
-      handlePersonSelect(filtered[0].id);
-    } else {
-      const currentIndex = filtered.findIndex(p => p.id === selectedPersonId);
-      const nextIndex = Math.min(currentIndex + 1, filtered.length - 1);
+      if (selectedPersonId === null) {
+        handlePersonSelect(filtered[0].id);
+      } else {
+        const currentIndex = filtered.findIndex(
+          (p) => p.id === selectedPersonId
+        );
+        const nextIndex = Math.min(currentIndex + 1, filtered.length - 1);
+        handlePersonSelect(filtered[nextIndex].id);
+
+        // Ensure the selected item is in view
+        ensureInView(nextIndex);
+      }
+    },
+    { preventDefault: true }
+  );
+
+  useHotkeys(
+    "left",
+    () => {
+      const filtered = getFilteredPeople();
+      if (selectedPersonId === null) return;
+
+      const currentIndex = filtered.findIndex((p) => p.id === selectedPersonId);
+      const nextIndex = Math.max(currentIndex - 1, 0);
       handlePersonSelect(filtered[nextIndex].id);
-      
+
       // Ensure the selected item is in view
       ensureInView(nextIndex);
-    }
-  }, { preventDefault: true });
+    },
+    { preventDefault: true }
+  );
 
-  useHotkeys("left", () => {
-    const filtered = getFilteredPeople();
-    if (selectedPersonId === null) return;
-    
-    const currentIndex = filtered.findIndex(p => p.id === selectedPersonId);
-    const nextIndex = Math.max(currentIndex - 1, 0);
-    handlePersonSelect(filtered[nextIndex].id);
-    
-    // Ensure the selected item is in view
-    ensureInView(nextIndex);
-  }, { preventDefault: true });
+  useHotkeys(
+    "enter",
+    () => {
+      if (selectedPersonId !== null) {
+        setIsDialogOpen(true);
+      }
+    },
+    { preventDefault: true }
+  );
 
-  useHotkeys("enter", () => {
-    if (selectedPersonId !== null) {
-      setIsDialogOpen(true);
-    }
-  }, { preventDefault: true });
-
-  useHotkeys("escape", () => {
-    if (isDialogOpen) {
-      setIsDialogOpen(false);
-    } else {
-      handleDialogClose();
-    }
-  }, { preventDefault: true });
+  useHotkeys(
+    "escape",
+    () => {
+      if (isDialogOpen) {
+        setIsDialogOpen(false);
+      } else {
+        handleDialogClose();
+      }
+    },
+    { preventDefault: true }
+  );
 
   // Ensure selected item is in view
   const ensureInView = (index: number) => {
     if (index < visibleRange.start) {
       setVisibleRange({
         start: Math.max(0, index - 10),
-        end: Math.max(40, index + 30)
+        end: Math.max(40, index + 30),
       });
     } else if (index >= visibleRange.end) {
       setVisibleRange({
         start: Math.max(0, index - 30),
-        end: index + 10
+        end: index + 10,
       });
     }
   };
@@ -471,19 +514,19 @@ export const Search = () => {
   // Get selected person
   const selectedPerson = useMemo(() => {
     if (!selectedPersonId) return null;
-    return allPeople.find(person => person.id === selectedPersonId);
+    return allPeople.find((person) => person.id === selectedPersonId);
   }, [selectedPersonId, allPeople]);
 
   // Function to shuffle people
   const shufflePeople = () => {
-    setAllPeople(prev => [...prev].sort(() => Math.random() - 0.5));
+    setAllPeople((prev) => [...prev].sort(() => Math.random() - 0.5));
     setVisibleRange({ start: 0, end: 40 });
   };
 
   // Function to truncate long program names
   const formatMajor = (major: string) => {
     if (major.length > 20) {
-      return major.substring(0, 18) + '...';
+      return major.substring(0, 18) + "...";
     }
     return major;
   };
@@ -493,7 +536,7 @@ export const Search = () => {
       <div ref={searchContainerRef}>
         <div className="relative max-w-6xl mx-auto">
           <div className="relative">
-            <motion.div 
+            <motion.div
               className="relative"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -510,7 +553,7 @@ export const Search = () => {
                 <SearchIcon className="h-5 w-5" />
               </div>
             </motion.div>
-            
+
             {/* Interest Tags */}
             <motion.div
               className="mt-4 overflow-x-auto pb-2"
@@ -532,16 +575,22 @@ export const Search = () => {
                     whileTap={{ scale: 0.95 }}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ 
-                      duration: 0.3, 
-                      delay: 0.1 + (index * 0.05),
-                      ease: "easeOut"
+                    transition={{
+                      duration: 0.3,
+                      delay: 0.1 + index * 0.05,
+                      ease: "easeOut",
                     }}
                   >
-                    <span className={`${selectedTag === category ? "text-zinc-800" : "text-zinc-500"}`}>
+                    <span
+                      className={`${
+                        selectedTag === category
+                          ? "text-zinc-800"
+                          : "text-zinc-500"
+                      }`}
+                    >
                       {getCategoryIcon(category)}
                     </span>
-                    <span>{category}</span>
+                    <span>{titleCase(category)}</span>
                   </motion.button>
                 ))}
               </div>
@@ -549,40 +598,48 @@ export const Search = () => {
           </div>
         </div>
       </div>
-      
+
       {isLoading ? (
         <div className="flex justify-center items-center h-64">
-          <motion.div 
+          <motion.div
             className="h-16 w-16 rounded-full border-t-4 border-b-4 border-zinc-500"
             animate={{ rotate: 360 }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
           />
         </div>
       ) : (
-        <motion.div 
+        <motion.div
           className="mt-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
         >
           <div className="flex justify-between items-center mb-4">
-            <motion.div 
+            <motion.div
               className="text-sm text-zinc-600 font-medium bg-[#f8f3e3] px-3 py-1 rounded-full"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
               {searchTerm.trim() !== "" ? (
-                <span>Found {getFilteredPeople().length} {getFilteredPeople().length === 1 ? 'person' : 'people'} matching &ldquo;{searchTerm}&rdquo;</span>
+                <span>
+                  Found {getFilteredPeople().length}{" "}
+                  {getFilteredPeople().length === 1 ? "person" : "people"}{" "}
+                  matching &ldquo;{searchTerm}&rdquo;
+                </span>
               ) : selectedTag ? (
-                <span>Showing {getFilteredPeople().length} people interested in {selectedTag}</span>
+                <span>
+                  Showing {getFilteredPeople().length} people interested in{" "}
+                  {titleCase(selectedTag)}
+                </span>
               ) : (
                 <span>
-                  Showing {visiblePeople.length} of {getFilteredPeople().length} people
+                  Showing {visiblePeople.length} of {getFilteredPeople().length}{" "}
+                  people
                 </span>
               )}
             </motion.div>
-            
+
             <motion.button
               className="text-sm flex items-center gap-1 bg-[#f8f3e3] hover:bg-[#f0e9d6] text-zinc-700 px-3 py-1 rounded-full transition-colors"
               whileHover={{ scale: 1.05 }}
@@ -596,17 +653,23 @@ export const Search = () => {
               Shuffle
             </motion.button>
           </div>
-          
+
           {/* People Grid */}
-          <div 
+          <div
             ref={gridRef}
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
           >
             {visiblePeople.map((item, index) => {
               const isSelected = selectedPersonId === item.id;
-              const major = item.data.major === "N/A" ? "Other" : titleCase(item.data.major || "");
-              const majorColor = majorColors.get(major) || majorColors.get("Other") || pastelColors[0];
-              
+              const major =
+                item.data.major === "N/A"
+                  ? "Other"
+                  : titleCase(item.data.major || "");
+              const majorColor =
+                majorColors.get(major) ||
+                majorColors.get("Other") ||
+                pastelColors[0];
+
               return (
                 <div
                   key={`entry-${item.id}`}
@@ -615,31 +678,35 @@ export const Search = () => {
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ 
-                      opacity: 1, 
+                    animate={{
+                      opacity: 1,
                       y: 0,
-                      scale: isSelected ? 1.02 : 1
+                      scale: isSelected ? 1.02 : 1,
                     }}
-                    transition={{ 
+                    transition={{
                       duration: 0.2,
-                      delay: 0.05 + (index * 0.02)
+                      delay: 0.05 + index * 0.02,
                     }}
                     whileHover={{ scale: 1.02 }}
                     style={{
-                      boxShadow: "0px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 7px rgba(0, 0, 0, 0.08)"
+                      boxShadow:
+                        "0px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 7px rgba(0, 0, 0, 0.08)",
                     }}
                     className={`h-full w-full p-4 rounded-xl border ${
-                      isSelected 
-                        ? "border-zinc-400 ring-2 ring-zinc-300 bg-white" 
+                      isSelected
+                        ? "border-zinc-400 ring-2 ring-zinc-300 bg-white"
                         : "border-zinc-200 bg-white hover:border-zinc-300"
                     } cursor-pointer`}
                   >
                     <div className="flex flex-col h-full">
                       <div>
                         <h3 className="font-tiempos text-lg font-medium text-zinc-900">
-                          {item.data.name}
+                          {titleCase(item.data.name)}
                         </h3>
-                        <span className={`text-xs px-2 py-0.5 rounded-full ${majorColor} inline-block mt-1 max-w-full truncate`} title={major}>
+                        <span
+                          className={`text-xs px-2 py-0.5 rounded-full ${majorColor} inline-block mt-1 max-w-full truncate`}
+                          title={major}
+                        >
                           {formatMajor(major)}
                         </span>
                       </div>
@@ -651,11 +718,11 @@ export const Search = () => {
                       <div className="mt-3 pt-2 border-t border-zinc-100">
                         <div className="flex flex-wrap gap-1.5">
                           {item.data.categories?.map((category, idx) => (
-                            <span 
+                            <span
                               key={`${item.id}-${category}-${idx}`}
                               className="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-600 rounded-full"
                             >
-                              {category}
+                              {titleCase(category)}
                             </span>
                           ))}
                         </div>
@@ -669,16 +736,18 @@ export const Search = () => {
               );
             })}
           </div>
-          
+
           {/* Load more indicator */}
-          {visibleRange.end < getFilteredPeople().length && (
+          {/* {visibleRange.end < getFilteredPeople().length && (
             <div className="flex justify-center mt-8">
               <motion.button
                 className="px-4 py-2 bg-[#f8f3e3] hover:bg-[#f0e9d6] text-zinc-700 rounded-full text-sm font-medium"
-                onClick={() => setVisibleRange(prev => ({
-                  start: prev.start,
-                  end: Math.min(prev.end + 20, getFilteredPeople().length)
-                }))}
+                onClick={() =>
+                  setVisibleRange((prev) => ({
+                    start: prev.start,
+                    end: Math.min(prev.end + 20, getFilteredPeople().length),
+                  }))
+                }
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, y: 10 }}
@@ -688,141 +757,176 @@ export const Search = () => {
                 Load more
               </motion.button>
             </div>
-          )}
+          )} */}
         </motion.div>
       )}
 
       {/* Separate Dialog component */}
-      <Dialog 
-        open={selectedPerson !== null} 
+      <Dialog
+        open={selectedPerson !== null}
         onOpenChange={(open) => {
           if (!open) handleDialogClose();
         }}
       >
         <DialogContent className="sm:max-w-2xl">
-          {selectedPerson && (() => {
-            const node = nodeMap.get(selectedPerson.id);
-            const major = selectedPerson.data.major === "N/A" ? "Other" : titleCase(selectedPerson.data.major || "");
-            const majorColor = majorColors.get(major) || majorColors.get("Other") || pastelColors[0];
+          {selectedPerson &&
+            (() => {
+              const node = nodeMap.get(selectedPerson.id);
+              const major =
+                selectedPerson.data.major === "N/A"
+                  ? "Other"
+                  : titleCase(selectedPerson.data.major || "");
+              const majorColor =
+                majorColors.get(major) ||
+                majorColors.get("Other") ||
+                pastelColors[0];
 
-            return (
-              <>
-                <DialogHeader>
-                  <DialogTitle className="font-tiempos text-2xl">
-                    {selectedPerson.data.name}
-                  </DialogTitle>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className={`text-xs px-2 py-0.5 rounded-full ${majorColor} inline-block`}>
-                      {major}
-                    </span>
-                  </div>
-                </DialogHeader>
-                
-                <div className="mt-4">
-                  <h3 className="text-sm font-medium text-zinc-500 mb-1">Response:</h3>
-                  <p className="text-zinc-700">
-                    {selectedPerson.data.summarizedResponse}
-                  </p>
-                  {selectedPerson.data.categories?.length > 0 && (
-                    <div className="mt-4">
-                      <h3 className="text-sm font-medium text-zinc-500 mb-2">Categories:</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedPerson.data.categories.map((category, idx) => (
-                          <span 
-                            key={`dialog-${selectedPerson.id}-${category}-${idx}`}
-                            className="text-sm px-3 py-1 bg-zinc-100 text-zinc-700 rounded-full"
-                          >
-                            {category}
-                          </span>
-                        ))}
-                      </div>
+              return (
+                <>
+                  <DialogHeader>
+                    <DialogTitle className="font-tiempos text-2xl">
+                      {titleCase(selectedPerson.data.name)}
+                    </DialogTitle>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span
+                        className={`text-xs px-2 py-0.5 rounded-full ${majorColor} inline-block`}
+                      >
+                        {major}
+                      </span>
                     </div>
-                  )}
-                </div>
-                
-                {node && node.links.length > 0 && (() => {
-                  // Create a Set to track unique connected node IDs
-                  const uniqueConnections = new Set<string>();
-                  const uniqueLinks = node.links.filter(link => {
-                    const connectedNodeId = link.source === selectedPerson.id ? link.target : link.source;
-                    if (uniqueConnections.has(connectedNodeId)) {
-                      return false;
-                    }
-                    uniqueConnections.add(connectedNodeId);
-                    return true;
-                  });
+                  </DialogHeader>
 
-                  return (
-                    <div className="mt-6">
-                      <h3 className="text-sm font-medium text-zinc-500 mb-3">
-                        All Connections ({uniqueConnections.size}):
-                      </h3>
-                      <div className="max-h-[300px] overflow-y-auto pr-2">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          {uniqueLinks.map((link, linkIndex) => {
-                            const connectedNodeId = link.source === selectedPerson.id ? link.target : link.source;
-                            const connectedNode = nodeMap.get(connectedNodeId);
-                            
-                            if (!connectedNode) return null;
-                            
-                            const connectedMajor = connectedNode.data.major === "N/A" ? "Other" : titleCase(connectedNode.data.major || "");
-                            const connectedColor = majorColors.get(connectedMajor) || majorColors.get("Other") || pastelColors[0];
-                            
-                            return (
-                              <motion.div
-                                key={`connection-${connectedNode.id}-${selectedPerson.id}-${linkIndex}`}
-                                className="p-3 bg-opacity-30 rounded-lg border border-zinc-200 hover:border-zinc-300 cursor-pointer transition-all"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ 
-                                  duration: 0.3, 
-                                  delay: 0.1 + (Math.min(linkIndex, 5) * 0.1),
-                                  ease: "easeOut"
-                                }}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  handlePersonSelect(connectedNodeId);
-                                }}
+                  <div className="mt-4">
+                    <h3 className="text-sm font-medium text-zinc-500 mb-1">
+                      Response:
+                    </h3>
+                    <p className="text-zinc-700">
+                      {selectedPerson.data.summarizedResponse}
+                    </p>
+                    {selectedPerson.data.categories?.length > 0 && (
+                      <div className="mt-4">
+                        <h3 className="text-sm font-medium text-zinc-500 mb-2">
+                          Categories:
+                        </h3>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedPerson.data.categories.map(
+                            (category, idx) => (
+                              <span
+                                key={`dialog-${selectedPerson.id}-${category}-${idx}`}
+                                className="text-sm px-3 py-1 bg-zinc-100 text-zinc-700 rounded-full"
                               >
-                                <div className="flex flex-col">
-                                  <h4 className="font-medium text-zinc-900">
-                                    {connectedNode.data.name}
-                                  </h4>
-                                  <span className={`text-xs px-2 py-0.5 rounded-full ${connectedColor} inline-block w-fit mt-1`}>
-                                    {connectedMajor}
-                                  </span>
-                                </div>
-                                <div className="mt-2">
-                                  <p className="text-sm text-zinc-600">
-                                    {connectedNode.data.summarizedResponse}
-                                  </p>
-                                  {connectedNode.data.categories?.length > 0 && (
-                                    <div className="mt-2 flex flex-wrap gap-1.5">
-                                      {connectedNode.data.categories.map((category, idx) => (
-                                        <span 
-                                          key={`connection-category-${connectedNode.id}-${category}-${idx}`}
-                                          className="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-600 rounded-full"
-                                        >
-                                          {category}
-                                        </span>
-                                      ))}
-                                    </div>
-                                  )}
-                                </div>
-                              </motion.div>
-                            );
-                          })}
+                                {titleCase(category)}
+                              </span>
+                            )
+                          )}
                         </div>
                       </div>
-                    </div>
-                  );
-                })()}
-              </>
-            );
-          })()}
+                    )}
+                  </div>
+
+                  {node &&
+                    node.links.length > 0 &&
+                    (() => {
+                      // Create a Set to track unique connected node IDs
+                      const uniqueConnections = new Set<string>();
+                      const uniqueLinks = node.links.filter((link) => {
+                        const connectedNodeId =
+                          link.source === selectedPerson.id
+                            ? link.target
+                            : link.source;
+                        if (uniqueConnections.has(connectedNodeId)) {
+                          return false;
+                        }
+                        uniqueConnections.add(connectedNodeId);
+                        return true;
+                      });
+
+                      return (
+                        <div className="mt-6">
+                          <h3 className="text-sm font-medium text-zinc-500 mb-3">
+                            All Connections ({uniqueConnections.size}):
+                          </h3>
+                          <div className="max-h-[300px] overflow-y-auto pr-2">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              {uniqueLinks.map((link, linkIndex) => {
+                                const connectedNodeId =
+                                  link.source === selectedPerson.id
+                                    ? link.target
+                                    : link.source;
+                                const connectedNode =
+                                  nodeMap.get(connectedNodeId);
+
+                                if (!connectedNode) return null;
+
+                                const connectedMajor =
+                                  connectedNode.data.major === "N/A"
+                                    ? "Other"
+                                    : titleCase(connectedNode.data.major || "");
+                                const connectedColor =
+                                  majorColors.get(connectedMajor) ||
+                                  majorColors.get("Other") ||
+                                  pastelColors[0];
+
+                                return (
+                                  <motion.div
+                                    key={`connection-${connectedNode.id}-${selectedPerson.id}-${linkIndex}`}
+                                    className="p-3 bg-opacity-30 rounded-lg border border-zinc-200 hover:border-zinc-300 cursor-pointer transition-all"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{
+                                      duration: 0.3,
+                                      delay: 0.1 + Math.min(linkIndex, 5) * 0.1,
+                                      ease: "easeOut",
+                                    }}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                      handlePersonSelect(connectedNodeId);
+                                    }}
+                                  >
+                                    <div className="flex flex-col">
+                                      <h4 className="font-medium text-zinc-900">
+                                        {connectedNode.data.name}
+                                      </h4>
+                                      <span
+                                        className={`text-xs px-2 py-0.5 rounded-full ${connectedColor} inline-block w-fit mt-1`}
+                                      >
+                                        {connectedMajor}
+                                      </span>
+                                    </div>
+                                    <div className="mt-2">
+                                      <p className="text-sm text-zinc-600">
+                                        {connectedNode.data.summarizedResponse}
+                                      </p>
+                                      {connectedNode.data.categories?.length >
+                                        0 && (
+                                        <div className="mt-2 flex flex-wrap gap-1.5">
+                                          {connectedNode.data.categories.map(
+                                            (category, idx) => (
+                                              <span
+                                                key={`connection-category-${connectedNode.id}-${category}-${idx}`}
+                                                className="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-600 rounded-full"
+                                              >
+                                                {category}
+                                              </span>
+                                            )
+                                          )}
+                                        </div>
+                                      )}
+                                    </div>
+                                  </motion.div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                </>
+              );
+            })()}
         </DialogContent>
       </Dialog>
     </div>
   );
-}; 
+};
