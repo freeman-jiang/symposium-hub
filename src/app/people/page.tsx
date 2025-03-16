@@ -36,12 +36,16 @@ export default function PeoplePage() {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
               >
-                <img src="/shopify-logo.svg" alt="Shopify" className="h-12 w-auto" />
+                <img
+                  src="/shopify-logo.svg"
+                  alt="Shopify"
+                  className="h-12 w-auto"
+                />
               </motion.div>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-tiempos tracking-tight font-normal">
-              The People of Symposium
+              People of Symposium
             </h1>
             <div className="mt-4 font-5by7 font-bold uppercase tracking-wider opacity-90 text-[0.95rem] md:text-base">
               {/* <motion.div
