@@ -169,7 +169,7 @@ export const Search = () => {
       .map(([category]) => category);
 
     // Add manual categories if they're not already included
-    const manualCategories = ["Food", "Music", "Travel", "Robotics"];
+    const manualCategories = ["Cooking", "Music", "Travel", "Robotics"];
     manualCategories.forEach(category => {
       if (!sortedCategories.includes(category)) {
         sortedCategories.push(category);
@@ -203,7 +203,7 @@ export const Search = () => {
       case "programming":
         return <Code className="h-4 w-4" />;
       // New icons
-      case "food":
+      case "cooking":
         return <Utensils className="h-4 w-4" />;
       case "music":
         return <MusicIcon className="h-4 w-4" />;
