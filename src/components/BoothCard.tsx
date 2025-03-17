@@ -15,7 +15,7 @@ export default function BoothCard({
   ...props
 }: BoothCardProps) {
   const truncatedDescription =
-    description.length > 200 ? description.slice(0, 200) + "..." : description;
+    description.length > 300 ? description.slice(0, 300) + "..." : description;
 
   return (
     <div className={cn("", className)} {...props}>
