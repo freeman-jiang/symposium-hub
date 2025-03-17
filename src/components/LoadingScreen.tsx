@@ -54,7 +54,7 @@ export const LoadingScreen = () => {
               delay: 0.2,
             }}
           >
-            SYMPOSIUM W25
+            SYMPOSIUM
           </motion.p>
           {/* <motion.p
             className="text-white text-2xl font-5by7 mt-2 font-medium uppercase tracking-widest"
