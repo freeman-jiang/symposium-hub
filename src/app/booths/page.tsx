@@ -42,7 +42,7 @@ const Page = () => {
       <Ticker text="EXHIBITION BOOTHS" className="mt-8" />
 
       <div className="py-8 md:py-16 bg-zinc-950">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-items-center gap-12 md:gap-0 px-28 mb-28">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-items-center gap-12 md:gap-0 mb-28 max-w-[73rem]">
           {booths.map((booth, i) => (
             <motion.div
               key={booth.title}

@@ -708,7 +708,7 @@ export const Search = () => {
             ref={gridRef}
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="sync">
               {visiblePeople.map((item) => {
                 // const isSelected = selectedPersonId === item.id;
                 const major =
