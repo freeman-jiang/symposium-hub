@@ -14,10 +14,10 @@ import Rikard from "@/components/svg/demos/rikard.svg";
 import Rishi from "@/components/svg/demos/rishi.svg";
 import Santiago from "@/components/svg/demos/santiago.svg";
 import Ticker from "@/components/Ticker";
+import { BLUR_CONTENT } from "@/flags";
 import { motion } from "motion/react";
 
 // Flag to control blurring of demo content
-const BLUR_CONTENT = true;
 
 const DEMO_DATA: DemoCardProps[] = [
   {

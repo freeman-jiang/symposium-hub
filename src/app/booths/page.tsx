@@ -1,8 +1,10 @@
 "use client";
 
+import AnnouncementBanner from "@/components/AnnouncementBanner";
 import BoothCard from "@/components/BoothCard";
 import { Footer } from "@/components/Footer";
 import Ticker from "@/components/Ticker";
+import { BLUR_CONTENT } from "@/flags";
 import boothData from "@/public/boothData.json";
 import { motion } from "motion/react";
 
@@ -42,6 +44,8 @@ const Page = () => {
       <Ticker text="EXHIBITION BOOTHS" className="mt-8" />
 
       <div className="py-8 md:py-16 bg-zinc-950">
+        <AnnouncementBanner />
+
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-items-center gap-12 md:gap-0 mb-28 max-w-[73rem]">
           {booths.map((booth, i) => (
             <motion.div
@@ -56,6 +60,7 @@ const Page = () => {
                 title={booth.title}
                 description={booth.description}
                 members={booth.members}
+                blurContent={BLUR_CONTENT}
               />
             </motion.div>
           ))}
