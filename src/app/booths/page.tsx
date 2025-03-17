@@ -25,7 +25,7 @@ const Page = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
         >
-          Exhibition Booths
+          Booth Demos
         </motion.h1>
         <motion.h2
           className="text-lg tracking-tight mt-2"
