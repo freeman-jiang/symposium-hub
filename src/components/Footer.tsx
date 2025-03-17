@@ -95,33 +95,40 @@ export function Footer() {
           transition={{ duration: 0.7, delay: 0.35 }}
         >
           <p className="text-xs md:text-sm">
-            DEV{" "}
+            PRODUCT OF{" "}
             <a
               href="https://twitter.com/freemanjiangg"
               target="_blank"
-              rel="noopener noreferrer"
               className="font-semibold relative inline-block transition-colors hover:text-zinc-500/90"
             >
               <span className="relative inline-block">FREEMAN</span>
             </a>{" "}
-            &{" "}
+            ✗{" "}
+            <a
+              href="https://twitter.com/userisgrotesque"
+              target="_blank"
+              className="font-semibold relative inline-block transition-colors hover:text-zinc-500/90"
+            >
+              <span className="relative inline-block">AILEEN</span>
+            </a>{" "}
+            <br />
+            with{" "}
             <a
               href="https://twitter.com/_rajanagarwal"
               target="_blank"
-              rel="noopener noreferrer"
               className="font-semibold relative inline-block transition-colors hover:text-zinc-500/90"
             >
               <span className="relative inline-block">RAJAN</span>
             </a>{" "}
-            ✗ DESIGN{" "}
+            &{" "}
             <a
-              href="https://twitter.com/userisgrotesque"
+              className="font-semibold relative inline-block"
+              href="https://x.com/_chloeyan"
               target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold relative inline-block transition-colors hover:text-zinc-500/90"
             >
-              <span className="relative inline-block">AILEEN</span>
-            </a>
+              CHLOE
+            </a>{" "}
+            ♡
           </p>
         </motion.div>
       </footer>
