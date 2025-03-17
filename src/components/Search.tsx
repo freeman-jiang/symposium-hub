@@ -567,7 +567,7 @@ export const Search = () => {
                   <motion.button
                     key={category}
                     className={cn(
-                      "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors",
+                      "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors cursor-pointer",
                       selectedTag === category
                         ? "bg-zinc-800 text-zinc-50 border border-zinc-300"
                         : "bg-white text-zinc-700 border border-zinc-200"

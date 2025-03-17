@@ -3,15 +3,10 @@ import { cn } from "../lib/utils";
 
 interface ButtonProps extends HTMLAttributes<HTMLDivElement> {
   icon?: ReactNode;
-  text?: string;
+  text: string;
 }
 
-export const Button = ({
-  icon,
-  text = "Get tickets",
-  className,
-  ...props
-}: ButtonProps) => {
+export const Button = ({ icon, text, className, ...props }: ButtonProps) => {
   return (
     <div
       className={cn(

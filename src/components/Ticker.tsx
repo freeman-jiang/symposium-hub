@@ -33,7 +33,7 @@ export default function Ticker({
   return (
     <div
       className={cn(
-        "w-full pb-3 pt-[1.5px] overflow-hidden bg-zinc-950",
+        "w-full pb-3 pt-[0.5px] overflow-hidden bg-zinc-950",
         className
       )}
       {...props}
