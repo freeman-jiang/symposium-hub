@@ -18,7 +18,7 @@ interface FeatureCardsProps extends HTMLAttributes<HTMLDivElement> {
 const FEATURES = [
   {
     title: "Find People",
-    description: "Short blurb.",
+    description: "Find your matches.",
     icon: FindPeopleSvg,
     buttonIcon: Users,
     buttonText: "Find people",
@@ -28,7 +28,7 @@ const FEATURES = [
   },
   {
     title: "Stage Demos",
-    description: "Short blurb.",
+    description: "Lights, camera, action!",
     icon: StageDemosSvg,
     buttonIcon: Sparkles,
     buttonText: "Stage Demos",
@@ -38,7 +38,7 @@ const FEATURES = [
   },
   {
     title: "Garden",
-    description: "Short blurb.",
+    description: "See what people are working on!",
     icon: MatchmakingGraphSvg,
     buttonIcon: SproutIcon,
     buttonText: "Garden",
@@ -48,7 +48,7 @@ const FEATURES = [
   },
   {
     title: "Booth Demos",
-    description: "Short blurb.",
+    description: "Meet the makers",
     icon: BoothDemosSvg,
     buttonIcon: Presentation,
     buttonText: "Booth Demos",

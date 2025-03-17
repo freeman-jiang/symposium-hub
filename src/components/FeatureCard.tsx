@@ -48,7 +48,6 @@ export default function FeatureCard({
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.7 }}
       onHoverStart={() => setHovered(true)}
-      onTap={() => setHovered(!hovered)}
       {...props}
     >
       <motion.div
