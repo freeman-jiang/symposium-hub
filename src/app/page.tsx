@@ -7,16 +7,25 @@ import { LoadingScreen } from "@/components/LoadingScreen";
 import { Hero } from "@/components/rive/Hero";
 import { useRiveStore } from "@/stores/riveStore";
 import { AnimatePresence, motion } from "motion/react";
+import { usePostHog } from "posthog-js/react";
 import { useEffect } from "react";
 
 export default function Home() {
   const { isRiveLoaded, reset } = useRiveStore();
+  const posthog = usePostHog();
 
   useEffect(() => {
     return () => {
       reset();
     };
   }, [reset]);
+
+  const handleWatchLivestreamClick = () => {
+    posthog.capture("livestream_button_clicked", {
+      location: "homepage",
+      source: "hero_section",
+    });
+  };
 
   return (
     <main className="min-h-screen bg-gradient-to-b text-black">
@@ -64,6 +73,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.63, duration: 0.5, ease: "easeOut" }}
             href="https://www.youtube.com/waterloo"
+            onClick={handleWatchLivestreamClick}
           >
             <motion.div
               whileTap={{ y: 1 }}
