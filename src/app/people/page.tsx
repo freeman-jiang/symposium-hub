@@ -63,14 +63,7 @@ export default function PeoplePage() {
               >
                 WATERLOO, ON, CANADA
               </motion.div> */}
-              <motion.div
-                className="text-zinc-500 text-balance"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-              >
-                BROWSE AND SEARCH ALL PARTICIPANTS
-              </motion.div>
+
               <motion.div
                 className="text-zinc-500 text-balance"
                 initial={{ opacity: 0 }}
