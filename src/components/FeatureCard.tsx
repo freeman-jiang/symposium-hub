@@ -65,7 +65,7 @@ export default function FeatureCard({
       <div className="mt-5 text-center md:text-left w-full">
         <h3 className="font-tiempos text-xl md:text-2xl">{title}</h3>
         <p className="mt-2 text-zinc-300">{description}</p>
-        <Link href={href}>
+        <Link href={href} scroll={true}>
           <Button
             icon={<ButtonIcon className="size-4" />}
             text={buttonText}

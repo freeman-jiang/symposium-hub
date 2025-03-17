@@ -1,5 +1,4 @@
 import { Presentation, Sparkles, SproutIcon, Users } from "lucide-react";
-import { motion } from "motion/react";
 import { HTMLAttributes } from "react";
 import { cn } from "../lib/utils";
 
@@ -60,14 +59,14 @@ const FEATURES = [
 ];
 
 export default function FeatureCards({
-  title = "Welcome to the World's Best Demo Day.",
+  // title = "Welcome to the World's Best Demo Day.",
   className,
   ...props
 }: FeatureCardsProps) {
   return (
     <section
       className={cn(
-        "container pb-16 md:pb-24 lg:pb-32 text-white relative sm:-mt-8 md:-mt-12 lg:-mt-20",
+        "container pb-16 md:pb-24 lg:pb-32 text-white relative sm:-mt-8 md:-mt-12 lg:-mt-16",
         className
       )}
       {...props}
@@ -75,7 +74,7 @@ export default function FeatureCards({
       {/* Stars background */}
       <StarsBackground />
 
-      {title && (
+      {/* {title && (
         <motion.h2
           className="font-tiempos text-3xl md:text-4xl lg:text-5xl text-center mb-16 md:mb-24 relative z-10"
           initial={{ opacity: 0, y: 30 }}
@@ -85,7 +84,7 @@ export default function FeatureCards({
         >
           {title}
         </motion.h2>
-      )}
+      )} */}
       <div className="flex w-full justify-center relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 md:gap-8 max-w-7xl mx-auto">
           {FEATURES.map((feature) => (

@@ -4,8 +4,13 @@ import { SocraticaLogo } from "@/components/icons/SocraticaLogo";
 import { Search } from "@/components/Search";
 import ShopifyLogo from "@/components/svg/shopify-logo.svg";
 import { motion } from "motion/react";
+import { useEffect } from "react";
 
 export default function PeoplePage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-zinc-950 to-zinc-900 text-black">
       <div className="bg-[#f8f3e3]">
