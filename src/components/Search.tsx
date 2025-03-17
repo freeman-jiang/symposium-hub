@@ -71,9 +71,18 @@ interface GraphDataNode extends Node {
   data: NodeData;
 }
 
+// Type definition for graphData
+interface GraphDataStructure {
+  nodes: GraphDataNode[];
+  links: GraphLink[];
+}
+
+// Cast imported data to the correct type
+const typedGraphData = graphData as unknown as GraphDataStructure;
+
 // Create hashmap of id -> node and attach links to each node
 const nodeMap = new Map<string, CustomNode>();
-graphData.nodes.forEach((node: GraphDataNode) => {
+typedGraphData.nodes.forEach((node: GraphDataNode) => {
   nodeMap.set(node.id, {
     ...node,
     data: {
@@ -84,7 +93,7 @@ graphData.nodes.forEach((node: GraphDataNode) => {
   });
 });
 
-graphData.links.forEach((link: GraphLink) => {
+typedGraphData.links.forEach((link: GraphLink) => {
   const sourceNode = nodeMap.get(link.source);
   const targetNode = nodeMap.get(link.target);
 
@@ -113,7 +122,7 @@ const pastelColors = [
 ];
 
 // Assign colors to majors
-graphData.nodes.forEach((node: GraphDataNode) => {
+typedGraphData.nodes.forEach((node: GraphDataNode) => {
   const major = node.data.major === "N/A" ? "Other" : node.data.major;
   if (!majorColors.has(major)) {
     const colorIndex = majorColors.size % pastelColors.length;
@@ -126,7 +135,7 @@ export const Search = () => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<CustomNode[]>([]);
   const [allPeople, setAllPeople] = useState<CustomNode[]>(
-    graphData.nodes
+    typedGraphData.nodes
       .filter(
         (node: GraphDataNode) =>
           // Filter out entries without responses or categories
@@ -782,7 +791,15 @@ export const Search = () => {
                             ))}
                           </div>
                           <div className="mt-2 text-xs text-zinc-400">
-                            {item.links.length || 0} connections
+                            {(() => {
+                              // Count unique connections
+                              const uniqueConnections = new Set<string>();
+                              item.links.forEach(link => {
+                                const connectedNodeId = link.source === item.id ? link.target : link.source;
+                                uniqueConnections.add(connectedNodeId);
+                              });
+                              return uniqueConnections.size;
+                            })()} connections
                           </div>
                         </div>
                       </div>
