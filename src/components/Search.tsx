@@ -627,8 +627,20 @@ export const Search = () => {
                 ease: "linear",
               }}
             >
-              <SocraticaLogo className="text-zinc-800 w-8 h-8" />
+              <SocraticaLogo className="text-zinc-800 size-5" />
             </motion.div>
+            <motion.p
+              className="text-zinc-950 ml-2 font-5by7 uppercase tracking-wide"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              People finding...
+            </motion.p>
           </motion.div>
           {/* <motion.p
             className="text-zinc-800 text-xl font-conte mt-4"
