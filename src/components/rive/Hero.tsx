@@ -2,11 +2,12 @@
 import { useRiveStore } from "@/stores/riveStore";
 import { useRive } from "@rive-app/react-canvas";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const Hero = () => {
   const { setRiveLoaded, isRiveLoaded } = useRiveStore();
   const [isMobile, setIsMobile] = useState(false);
+  const loadStartTimeRef = useRef(Date.now());
 
   // Check screen size on mount and when window resizes
   useEffect(() => {
@@ -30,7 +31,17 @@ export const Hero = () => {
       autoplay: true,
       onLoad: () => {
         console.log(`${isMobile ? "Mobile" : "Desktop"} Rive component loaded`);
-        setRiveLoaded(true);
+        const loadTime = Date.now() - loadStartTimeRef.current;
+        const remainingTime = Math.max(0, 300 - loadTime);
+
+        console.log("waiting: ", remainingTime);
+        if (remainingTime > 0) {
+          setTimeout(() => {
+            setRiveLoaded(true);
+          }, remainingTime);
+        } else {
+          setRiveLoaded(true);
+        }
       },
     },
     {
