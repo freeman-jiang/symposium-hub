@@ -41,9 +41,9 @@ export const LoadingScreen = () => {
               opacity: { delay: 0.1 },
             }}
           >
-            <SocraticaLogo className="text-white w-24 h-24 md:w-32 md:h-32" />
+            <SocraticaLogo className="text-[#fcfaf2] w-12 h-12 md:w-16 md:h-16" />
           </motion.div>
-          <motion.p
+          {/* <motion.p
             className="text-white text-3xl font-conte mt-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: [0.3, 0.8, 0.3] }}
@@ -55,7 +55,7 @@ export const LoadingScreen = () => {
             }}
           >
             SYMPOSIUM
-          </motion.p>
+          </motion.p> */}
           {/* <motion.p
             className="text-white text-2xl font-5by7 mt-2 font-medium uppercase tracking-widest"
             initial={{ opacity: 0 }}
