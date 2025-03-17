@@ -22,6 +22,7 @@ const DEMO_DATA: DemoCardProps[] = [
     description:
       "The humorous story of putting googly eyes on a train to raise awareness for public transit, and possibly the story of starting 3+ Socratica nodes.",
     icon: Arielle,
+    href: "https://x.com/ariellelok",
   },
   {
     title: "Bracket Bots",
@@ -29,6 +30,7 @@ const DEMO_DATA: DemoCardProps[] = [
     description:
       "BracketBot: An open source robotics kit, the interesting and humorous story behind them.",
     icon: Brian,
+    href: "https://x.com/sincethestudy",
   },
   {
     title: "Human Powered Exoskeleton",
@@ -36,6 +38,7 @@ const DEMO_DATA: DemoCardProps[] = [
     description:
       "A fully body exoskeleton, and the inspirational story behind becoming an inventor, how baby steps can lead to a big project.",
     icon: Santiago,
+    href: "https://x.com/SantiagoDs_001",
   },
   {
     title: "Photo Book of Waterloo",
@@ -43,6 +46,7 @@ const DEMO_DATA: DemoCardProps[] = [
     description:
       "A photobook of Waterloo, and the interesting story behind a long gone historian of Waterloo. Will be showing off a lot of interesting photographs.",
     icon: Kevin,
+    href: "https://www.kevinistaking.pictures/",
   },
   {
     title: "HackerFab",
@@ -50,6 +54,7 @@ const DEMO_DATA: DemoCardProps[] = [
     description:
       "A group of students who are fabricating their own computer chips (an incredibly challenging feat), and the humorous story of starting in an apartment and now a full design team on campus.",
     icon: HackerFab,
+    href: "https://x.com/waterloofab",
   },
   {
     title: "Alternative Proteins",
@@ -57,6 +62,7 @@ const DEMO_DATA: DemoCardProps[] = [
     description:
       "The humorous yet awe-inspiring story behind conducting research in lab-grown/cell-based meat for the last 2+ years, and a discussion of alternative proteins and their necessity for our future.",
     icon: Rikard,
+    href: "#",
   },
   {
     title: "Art Progression",
@@ -64,6 +70,7 @@ const DEMO_DATA: DemoCardProps[] = [
     description:
       "The inspirational journey of pursuing art over the years, taking risks, and making things that are intrinsic to oneself, regardless of technical perfection.",
     icon: Jasmine,
+    href: "#",
   },
   {
     title: "Writing Journey",
@@ -71,6 +78,7 @@ const DEMO_DATA: DemoCardProps[] = [
     description:
       "The inspirational story of pursuing writing, and finding what one is truly passionate about.",
     icon: Georgia,
+    href: "https://hotfemoid.substack.com/",
   },
   {
     title: "Arterial",
@@ -78,6 +86,7 @@ const DEMO_DATA: DemoCardProps[] = [
     description:
       "The inspirational story of starting a company that is modernizing urban planning and policy, and bringing more awareness to the importance of this field.",
     icon: Rishi,
+    href: "https://www.arterial.design/",
   },
   {
     title: "PRISM Collective",
@@ -85,6 +94,7 @@ const DEMO_DATA: DemoCardProps[] = [
     description:
       "The inspirational story of starting a new collective in the combination of art+tech at Waterloo, and challenges encountered along the way.",
     icon: Prism,
+    href: "https://www.instagram.com/prismcollectiv_/",
   },
 ];
 
@@ -125,12 +135,7 @@ export default function Page() {
               transition={{ duration: 0.7, delay: i < 4 ? i * 0.15 : 0.15 }}
               className="h-full"
             >
-              <DemoCard
-                title={demo.title}
-                author={demo.author}
-                description={demo.description}
-                icon={demo.icon}
-              />
+              <DemoCard {...demo} />
             </motion.div>
           ))}
         </div>
