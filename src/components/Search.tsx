@@ -556,7 +556,7 @@ export const Search = () => {
 
             {/* Interest Tags */}
             <motion.div
-              className="mt-4 overflow-x-auto pb-2"
+              className="mt-4 pb-2"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
@@ -566,9 +566,9 @@ export const Search = () => {
                   <motion.button
                     key={category}
                     className={cn(
-                      "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium",
+                      "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors",
                       selectedTag === category
-                        ? "bg-[#f8f3e3] text-zinc-800 border border-zinc-300"
+                        ? "bg-zinc-800 text-zinc-50 border border-zinc-300"
                         : "bg-white text-zinc-700 border border-zinc-200"
                     )}
                     onClick={() => handleTagSelect(category)}
@@ -582,21 +582,18 @@ export const Search = () => {
                     }}
                     layout
                   >
-                    <motion.span
+                    <span
                       className={cn(
+                        "transition-colors",
                         selectedTag === category
-                          ? "text-zinc-800"
+                          ? "text-white"
                           : "text-zinc-500"
                       )}
-                      animate={{
-                        color: selectedTag === category ? "#27272a" : "#71717a",
-                      }}
-                      transition={{ duration: 0.3 }}
                     >
                       {getCategoryIcon(category)}
-                    </motion.span>
+                    </span>
                     <motion.span layout transition={{ duration: 0.3 }}>
-                      {titleCase(category)}
+                      {category}
                     </motion.span>
                   </motion.button>
                 ))}
