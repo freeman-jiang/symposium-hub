@@ -66,8 +66,8 @@ export default function Home() {
             href="https://www.youtube.com/waterloo"
           >
             <motion.div
-              whileTap={{ scale: 0.98 }}
-              whileHover={{ scale: 1.01 }}
+              whileTap={{ y: 1 }}
+              whileHover={{ y: -3 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               <div className="glassmorphic-light-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12 md:px-16 flex items-center">
