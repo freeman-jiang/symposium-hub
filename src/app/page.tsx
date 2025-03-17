@@ -60,7 +60,7 @@ export default function Home() {
           </motion.div>
 
           <motion.a
-            className="mt-10 md:mt-0"
+            className="mt-10 md:mt-0 block"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.63, duration: 0.5, ease: "easeOut" }}
@@ -73,7 +73,7 @@ export default function Home() {
             >
               <div className="glassmorphic-light-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12 md:px-16 flex items-center">
                 <SocraticaLogo className="w-[16px] md:w-[20px] text-white" />
-                <div className="text-[#F5F1E2] tracking-widest font-5by7 font-bold uppercase text-[11px] sm:text-[16px]">
+                <div className="text-[#F5F1E2] tracking-widest font-5by7 font-bold uppercase text-sm">
                   Get tickets
                 </div>
               </div>

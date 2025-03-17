@@ -86,7 +86,7 @@ export default function FeatureCards({
         </motion.h2>
       )} */}
       <div className="flex w-full justify-center relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-12 md:gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-12 md:gap-8 max-w-7xl mx-auto space-y-0 xl:space-y-0 md:space-y-8">
           {FEATURES.map((feature) => (
             <FeatureCard
               key={feature.title}
