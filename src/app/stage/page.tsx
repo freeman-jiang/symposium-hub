@@ -15,6 +15,9 @@ import Santiago from "@/components/svg/demos/santiago.svg";
 import Ticker from "@/components/Ticker";
 import { motion } from "motion/react";
 
+// Flag to control blurring of demo content
+const BLUR_CONTENT = true;
+
 const DEMO_DATA: DemoCardProps[] = [
   {
     title: "Arterial",
@@ -125,6 +128,33 @@ export default function Page() {
       <Ticker text="STAGE DEMOS" className="mt-8" />
 
       <div className="py-8 md:py-16 bg-zinc-950 px-8">
+        <motion.div
+          className="max-w-5xl mx-auto text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.h2
+            className="text-4xl md:text-6xl text-white font-conte tracking-tight mb-4"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            To be announced.
+          </motion.h2>
+          <motion.p
+            className="text-zinc-400 text-xl max-w-md mx-auto font-5by7 uppercase tracking-widest"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+          >
+            19/03/2025
+          </motion.p>
+        </motion.div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 items-center max-w-5xl mx-auto gap-8 md:gap-12 justify-items-center mb-28">
           {DEMO_DATA.map((demo, i) => (
             <motion.div
@@ -135,7 +165,7 @@ export default function Page() {
               transition={{ duration: 0.7, delay: i < 4 ? i * 0.15 : 0.15 }}
               className="h-full"
             >
-              <DemoCard {...demo} />
+              <DemoCard {...demo} blurContent={BLUR_CONTENT} />
             </motion.div>
           ))}
         </div>

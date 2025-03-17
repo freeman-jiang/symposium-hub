@@ -8,6 +8,7 @@ export interface DemoCardProps extends HTMLAttributes<HTMLDivElement> {
   description: string;
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   href: string;
+  blurContent?: boolean;
 }
 
 export default function DemoCard({
@@ -17,11 +18,16 @@ export default function DemoCard({
   href,
   icon: Icon = BlueGuy,
   className,
+  blurContent,
   ...props
 }: DemoCardProps) {
   return (
     <div className={cn("", className)} {...props}>
-      <a href={href} target="_blank">
+      <a
+        href={href}
+        target="_blank"
+        className={cn("", blurContent && "blur-sm")}
+      >
         <Icon className="w-28" />
       </a>
 
@@ -29,15 +35,32 @@ export default function DemoCard({
         <a
           target="_blank"
           href={href}
-          className="text-[1.7rem] font-tiempos mb-2 text-white block"
+          className={cn(
+            "text-[1.7rem] font-tiempos mb-2 text-white block",
+            blurContent && "blur-sm select-none"
+          )}
           style={{
             lineHeight: "1.15",
           }}
         >
           {title}
         </a>
-        <p className="mb-4 text-zinc-100">{author}</p>
-        <p className="text-sm text-zinc-400">{description}</p>
+        <p
+          className={cn(
+            "mb-4 text-zinc-100",
+            blurContent && "blur-sm select-none"
+          )}
+        >
+          {author}
+        </p>
+        <p
+          className={cn(
+            "text-sm text-zinc-400",
+            blurContent && "blur-sm select-none"
+          )}
+        >
+          {description}
+        </p>
       </div>
     </div>
   );
