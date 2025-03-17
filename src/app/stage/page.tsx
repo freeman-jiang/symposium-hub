@@ -108,7 +108,7 @@ export default function Page() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, delay: 0.1 }}
         >
-          12 demos spanning art, tech, and engineering.
+          10 demos spanning art, tech, and engineering.
         </motion.h2>
       </div>
 
