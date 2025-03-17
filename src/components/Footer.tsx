@@ -122,7 +122,7 @@ export function Footer() {
             </a>{" "}
             &{" "}
             <a
-              className="font-semibold relative inline-block"
+              className="font-semibold relative inline-block transition-colors hover:text-zinc-500/90"
               href="https://x.com/_chloeyan"
               target="_blank"
             >
