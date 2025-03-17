@@ -61,7 +61,7 @@ const conte = localFont({
 export const metadata: Metadata = {
   title: "Socratica Symposium",
   description:
-    "MARCH 19, 2025 | WATERLOO REC CENTER | We booked out a hockey arena to host the world's greatest demo day: 70+ passion projects, from Iron Man suits to art installations!",
+    "We booked out a hockey arena to host the world's greatest demo day: 70+ passion projects, from Iron Man suits to art installations!",
 };
 
 export default function RootLayout({
