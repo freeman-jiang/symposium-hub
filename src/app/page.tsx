@@ -86,9 +86,13 @@ export default function Home() {
       </motion.section> */}
       <div className="bg-gradient-to-b from-black to-zinc-900">
         <Hero />
-        <FeatureCards title="Welcome to the World's Best Demo Day." />
-        <InfoSection />
-        <Footer />
+        {isRiveLoaded && (
+          <>
+            <FeatureCards title="Welcome to the World's Best Demo Day." />
+            <InfoSection />
+            <Footer />
+          </>
+        )}
       </div>
     </main>
   );
