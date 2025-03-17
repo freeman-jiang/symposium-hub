@@ -740,6 +740,10 @@ export const Search = () => {
                         0.2
                       ),
                     }}
+                    whileHover={{
+                      y: -3,
+                      transition: { duration: 0.15, ease: "easeInOut" },
+                    }}
                     layout
                   >
                     <div
@@ -747,7 +751,7 @@ export const Search = () => {
                         boxShadow:
                           "0px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 7px rgba(0, 0, 0, 0.08)",
                       }}
-                      className={`h-full w-full p-4 rounded-xl border cursor-pointer bg-white`}
+                      className={`h-full w-full p-4 rounded-xl border cursor-pointer bg-white transition-all duration-200`}
                     >
                       <div className="flex flex-col h-full">
                         <div>

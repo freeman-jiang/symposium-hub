@@ -21,7 +21,7 @@ export default function BoothCard({
     <div className={cn("", className)} {...props}>
       <div className="hover:bg-zinc-900/80 transition-colors text-white max-w-md rounded mt-4 md:p-8 w-full h-full duration-300">
         <h3
-          className="text-[1.7rem] font-tiempos mb-2 text-white"
+          className="text-[1.5rem] font-tiempos mb-2 text-white"
           style={{
             lineHeight: "1.15",
           }}
