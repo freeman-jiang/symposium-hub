@@ -54,7 +54,7 @@ const DEMO_DATA: DemoCardProps[] = [
     description:
       "The inspirational journey of pursuing art over the years, taking risks, and making things that are intrinsic to oneself, regardless of technical perfection.",
     icon: Jasmine,
-    href: "#",
+    href: "https://x.com/roastriceo",
   },
   {
     title: "Alternative Proteins",
@@ -62,7 +62,7 @@ const DEMO_DATA: DemoCardProps[] = [
     description:
       "The humorous yet awe-inspiring story behind conducting research in lab-grown/cell-based meat for the last 2+ years, and a discussion of alternative proteins and their necessity for our future.",
     icon: Rikard,
-    href: "#",
+    href: "https://canadaaltprotein.ca/",
   },
   {
     title: "Eyes on the T",
