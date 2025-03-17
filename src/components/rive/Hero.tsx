@@ -6,12 +6,12 @@ import { motion } from "motion/react";
 export const Hero = () => {
   const { setRiveLoaded, isRiveLoaded } = useRiveStore();
 
-  const { RiveComponent } = useRive(
+  const { RiveComponent: RiveDesktop } = useRive(
     {
-      src: "/riv/desktop.riv",
+      src: "/riv/big_up.riv",
       autoplay: true,
       onLoad: () => {
-        console.log("Hero Rive component loaded");
+        console.log("Desktop Rive component loaded");
         setTimeout(() => {
           setRiveLoaded(true);
         }, 200); // TODO: max max of this and actual
@@ -22,6 +22,20 @@ export const Hero = () => {
     }
   );
 
+  const { RiveComponent: RiveMobile } = useRive(
+    {
+      src: "/riv/mobiel.riv",
+      autoplay: true,
+      onLoad: () => {
+        console.log("Mobile Rive component loaded");
+        setTimeout(() => {
+          setRiveLoaded(true);
+        }, 200); // TODO: max max of this and actual
+      },
+    },
+    { fitCanvasToArtboardHeight: true }
+  );
+
   return (
     <motion.section
       className="relative w-full h-full overflow-hidden bg-indigo-700 flex items-center justify-center text-white"
@@ -29,7 +43,8 @@ export const Hero = () => {
       animate={{ opacity: isRiveLoaded ? 1 : 0 }}
       transition={{ duration: 1.5, ease: "easeInOut" }}
     >
-      <RiveComponent className="w-full h-full" />
+      <RiveDesktop className="w-full h-full hidden sm:block" />
+      <RiveMobile className="w-full h-full block sm:hidden" />
     </motion.section>
   );
 };
