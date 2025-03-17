@@ -5,7 +5,7 @@ import { cn } from "../lib/utils";
 // Svgs
 import BoothDemosSvg from "@/components/svg/BoothDemos.svg";
 import FindPeopleSvg from "@/components/svg/FindPeople.svg";
-import MatchmakingGraphSvg from "@/components/svg/MatchmakingGraph.svg";
+import Garden from "@/components/svg/Garden.svg";
 import StageDemosSvg from "@/components/svg/StageDemos.svg";
 import FeatureCard from "./FeatureCard";
 import { StarsBackground } from "./StarsBackground";
@@ -39,7 +39,7 @@ const FEATURES = [
   {
     title: "Garden",
     description: "See what people are working on!",
-    icon: MatchmakingGraphSvg,
+    icon: Garden,
     buttonIcon: SproutIcon,
     buttonText: "Garden",
     href: "/garden",
