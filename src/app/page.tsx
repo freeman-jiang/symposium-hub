@@ -90,9 +90,9 @@ export default function Home() {
       >
         Graphic
       </motion.section> */}
-      <div className="bg-gradient-to-b from-black to-zinc-900">
+      <div className="bg-gradient-to-b from-black to-zinc-800">
         <div className="relative">
-          <div className="absolute inset-0 bg-[url('/dither.png')] bg-cover opacity-25 z-0"></div>
+          {/* <div className="absolute inset-0 bg-[url('/dither.png')] bg-cover opacity-25 z-0"></div> */}
           <div className="relative z-10">
             <Hero />
             {isRiveLoaded && (
