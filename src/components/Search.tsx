@@ -690,7 +690,7 @@ export const Search = () => {
             </motion.div>
 
             <motion.button
-              className="text-sm flex items-center gap-1 bg-[#f8f3e3] hover:bg-[#f0e9d6] text-zinc-700 px-3 py-1 rounded-full transition-colors"
+              className="text-sm flex items-center gap-1 bg-[#f8f3e3] hover:bg-[#f0e9d6] text-zinc-700 px-3 py-1 rounded-full transition-colors cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={shufflePeople}
