@@ -1,3 +1,4 @@
+import { BLUR_CONTENT } from "@/flags";
 import { motion } from "motion/react";
 
 interface AnnouncementBannerProps {
@@ -11,6 +12,10 @@ export default function AnnouncementBanner({
   date = "19/03/2025",
   className,
 }: AnnouncementBannerProps) {
+  if (!BLUR_CONTENT) {
+    return null; // Don't render if blur content is disabled
+  }
+
   return (
     <motion.div
       className={`max-w-5xl mx-auto text-center mb-16 ${className}`}
