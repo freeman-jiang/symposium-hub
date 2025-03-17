@@ -39,7 +39,10 @@ export default function FeatureCard({
 
   return (
     <motion.div
-      className={cn("flex flex-col items-center md:items-start", className)}
+      className={cn(
+        "flex flex-col items-center md:items-start px-6 md:px-4 ",
+        className
+      )}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -57,10 +60,10 @@ export default function FeatureCard({
         }}
         whileHover={{ rotate: 0 }}
       >
-        <Icon className="px-8 md:px-6 w-full max-w-[300px]" />
+        <Icon className="w-full px-1" />
       </motion.div>
       <div className="mt-5 text-center md:text-left w-full">
-        <h3 className="font-tiempos text-2xl md:text-3xl">{title}</h3>
+        <h3 className="font-tiempos text-xl md:text-2xl">{title}</h3>
         <p className="mt-2 text-zinc-300">{description}</p>
         <Link href={href}>
           <Button
