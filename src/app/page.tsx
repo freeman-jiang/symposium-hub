@@ -21,7 +21,6 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b text-black">
       <AnimatePresence>{!isRiveLoaded && <LoadingScreen />}</AnimatePresence>
-
       {/* Header section with improved desktop spacing */}
       <div className="bg-[#f8f3e3] pb-16">
         {/* Main content with improved desktop layout */}
@@ -92,14 +91,19 @@ export default function Home() {
         Graphic
       </motion.section> */}
       <div className="bg-gradient-to-b from-black to-zinc-900">
-        <Hero />
-        {isRiveLoaded && (
-          <>
-            <FeatureCards title="Welcome to the World's Best Demo Day." />
-            <InfoSection />
-            <Footer />
-          </>
-        )}
+        <div className="relative">
+          <div className="absolute inset-0 bg-[url('/dither.png')] bg-cover opacity-25 z-0"></div>
+          <div className="relative z-10">
+            <Hero />
+            {isRiveLoaded && (
+              <>
+                <FeatureCards title="Welcome to the World's Best Demo Day." />
+                <InfoSection />
+                <Footer />
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </main>
   );
