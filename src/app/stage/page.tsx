@@ -1,5 +1,6 @@
 "use client";
 
+import AnnouncementBanner from "@/components/AnnouncementBanner";
 import DemoCard, { DemoCardProps } from "@/components/DemoCard";
 import { Footer } from "@/components/Footer";
 import Arielle from "@/components/svg/demos/arielle.svg";
@@ -128,32 +129,7 @@ export default function Page() {
       <Ticker text="STAGE DEMOS" className="mt-8" />
 
       <div className="py-8 md:py-16 bg-zinc-950 px-8">
-        <motion.div
-          className="max-w-5xl mx-auto text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.h2
-            className="text-4xl md:text-6xl text-white font-conte tracking-tight mb-4"
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            To be announced.
-          </motion.h2>
-          <motion.p
-            className="text-zinc-400 text-xl max-w-md mx-auto font-5by7 uppercase tracking-widest"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-          >
-            19/03/2025
-          </motion.p>
-        </motion.div>
+        <AnnouncementBanner />
 
         <div className="grid grid-cols-1 md:grid-cols-2 items-center max-w-5xl mx-auto gap-8 md:gap-12 justify-items-center mb-28">
           {DEMO_DATA.map((demo, i) => (

@@ -22,12 +22,15 @@ export default function DemoCard({
   ...props
 }: DemoCardProps) {
   return (
-    <div className={cn("", className)} {...props}>
-      <a
-        href={href}
-        target="_blank"
-        className={cn("", blurContent && "blur-sm")}
-      >
+    <div
+      className={cn(
+        "",
+        className,
+        blurContent && "pointer-events-none select-none blur-sm"
+      )}
+      {...props}
+    >
+      <a href={href} target="_blank" className="">
         <Icon className="w-28" />
       </a>
 
@@ -35,32 +38,15 @@ export default function DemoCard({
         <a
           target="_blank"
           href={href}
-          className={cn(
-            "text-[1.7rem] font-tiempos mb-2 text-white block",
-            blurContent && "blur-sm select-none"
-          )}
+          className="text-[1.7rem] font-tiempos mb-2 text-white block"
           style={{
             lineHeight: "1.15",
           }}
         >
           {title}
         </a>
-        <p
-          className={cn(
-            "mb-4 text-zinc-100",
-            blurContent && "blur-sm select-none"
-          )}
-        >
-          {author}
-        </p>
-        <p
-          className={cn(
-            "text-sm text-zinc-400",
-            blurContent && "blur-sm select-none"
-          )}
-        >
-          {description}
-        </p>
+        <p className="mb-4 text-zinc-100">{author}</p>
+        <p className="text-sm text-zinc-400">{description}</p>
       </div>
     </div>
   );
