@@ -8,7 +8,7 @@ export const Hero = () => {
 
   const { RiveComponent } = useRive(
     {
-      src: "/hero.riv",
+      src: "/riv/desktop.riv",
       autoplay: true,
       onLoad: () => {
         console.log("Hero Rive component loaded");
