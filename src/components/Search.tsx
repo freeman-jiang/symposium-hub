@@ -32,6 +32,7 @@ import { useHotkeys } from "react-hotkeys-hook";
 
 // Import graphData from the public directory
 import graphData from "../../public/summarizedGraphData.json";
+import { SocraticaLogo } from "./icons/SocraticaLogo";
 
 // Define interfaces for the data structure
 interface NodeData {
@@ -604,12 +605,44 @@ export const Search = () => {
       </div>
 
       {isLoading ? (
-        <div className="flex justify-center items-center h-64">
+        <div className="flex flex-col justify-center items-center h-64">
           <motion.div
-            className="h-16 w-16 rounded-full border-t-4 border-b-4 border-zinc-500"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-          />
+            className="flex items-center justify-center"
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{
+              scale: [0.95, 1.05, 0.95],
+              opacity: [0.8, 1, 0.8],
+            }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              <SocraticaLogo className="text-zinc-800 w-8 h-8" />
+            </motion.div>
+          </motion.div>
+          {/* <motion.p
+            className="text-zinc-800 text-xl font-conte mt-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0.3, 0.8, 0.3] }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.2,
+            }}
+          >
+            LOADING
+          </motion.p> */}
         </div>
       ) : (
         <motion.div
