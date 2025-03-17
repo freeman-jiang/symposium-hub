@@ -72,7 +72,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.63, duration: 0.5, ease: "easeOut" }}
-            href="https://www.youtube.com/waterloo"
+            href="https://www.youtube.com/live/mkJjbCQC_Qs"
             onClick={handleWatchLivestreamClick}
           >
             <motion.div
