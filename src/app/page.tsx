@@ -59,19 +59,26 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <motion.div
+          <motion.a
             className="mt-10 md:mt-0"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.63, duration: 0.5, ease: "easeOut" }}
+            href="https://lu.ma/waterloo"
           >
-            <div className="glassmorphic-light-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12 md:px-16 transition-transform">
-              <SocraticaLogo className="w-[16px] md:w-[20px] text-white" />
-              <div className="text-[#F5F1E2] tracking-widest font-5by7 font-bold uppercase text-[11px] sm:text-[16px]">
-                Get tickets
+            <motion.div
+              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.01 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              <div className="glassmorphic-light-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12 md:px-16 flex items-center">
+                <SocraticaLogo className="w-[16px] md:w-[20px] text-white" />
+                <div className="text-[#F5F1E2] tracking-widest font-5by7 font-bold uppercase text-[11px] sm:text-[16px]">
+                  Get tickets
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </motion.a>
         </div>
       </div>
 
