@@ -10,32 +10,32 @@ export const infoLinks: InfoLinkItem[] = [
   {
     title: "Getting to Waterloo",
     description: "In-person & Virtual",
-    url: "https://www.google.com",
+    url: "https://socratica.notion.site/Getting-to-Waterloo-b4b6f67fc3eb4dcfabea862c009d43e7",
   },
   {
     title: "Accommodation",
     description: "Places to stay in Waterloo.",
-    url: "https://www.google.com",
+    url: "https://socratica.notion.site/Accommodation-5e13ba353eae4bc7aa6c05cf100e9794",
   },
   {
     title: "Calendar",
     description: "Events board",
-    url: "https://calendar.symposium.com",
+    url: "https://socratica.notion.site/Calendar-00cf0c4d9ae14418aacad7595ff81684",
   },
   {
     title: "Local Attractions & Dining",
     description: "Things to do and eat in Waterloo.",
-    url: "https://local.symposium.com",
+    url: "https://socratica.notion.site/Local-Attractions-Dining-dc12461476404bb8b678bf2d677ac081",
   },
   {
     title: "About Socratica",
     description: "Learn more about Socratica and the Socratica Commons",
-    url: "https://socratica.org",
+    url: "https://socratica.notion.site/About-Socratica-39b7caa3bc3e45e2a3004850aa667511",
   },
   {
     title: "Our Code of Conduct",
     description: "Set of guidelines you'll need to adhere to at our events.",
-    url: "https://symposium.com/code-of-conduct",
+    url: "https://www.notion.so/socratica/Code-of-Conduct-69733ed2cadc4d27b770a9a5dc98f5b9",
   },
 ];
 

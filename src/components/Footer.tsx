@@ -19,6 +19,7 @@ export function Footer() {
         </motion.p>
         <motion.a
           href="https://shopify.com"
+          target="_blank"
           className="inline-block"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -103,8 +104,7 @@ export function Footer() {
             >
               <span className="relative inline-block">FREEMAN</span>
             </a>{" "}
-            &
-            {" "}
+            &{" "}
             <a
               href="https://twitter.com/_rajanagarwal"
               target="_blank"
