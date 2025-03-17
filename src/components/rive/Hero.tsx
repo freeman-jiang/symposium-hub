@@ -2,38 +2,40 @@
 import { useRiveStore } from "@/stores/riveStore";
 import { useRive } from "@rive-app/react-canvas";
 import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 
 export const Hero = () => {
   const { setRiveLoaded, isRiveLoaded } = useRiveStore();
+  const [isMobile, setIsMobile] = useState(false);
 
-  const { RiveComponent: RiveDesktop } = useRive(
+  // Check screen size on mount and when window resizes
+  useEffect(() => {
+    // Default to desktop for SSR
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 640); // 'sm' breakpoint in Tailwind
+    };
+
+    // Set initial value
+    checkScreenSize();
+
+    // Add resize listener
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // Only create one Rive instance based on screen size
+  const { RiveComponent } = useRive(
     {
-      src: "/riv/big_up.riv",
+      src: isMobile ? "/riv/mobiel.riv" : "/riv/big_up.riv",
       autoplay: true,
       onLoad: () => {
-        console.log("Desktop Rive component loaded");
-        setTimeout(() => {
-          setRiveLoaded(true);
-        }, 200); // TODO: max max of this and actual
+        console.log(`${isMobile ? "Mobile" : "Desktop"} Rive component loaded`);
+        setRiveLoaded(true);
       },
     },
     {
       fitCanvasToArtboardHeight: true,
     }
-  );
-
-  const { RiveComponent: RiveMobile } = useRive(
-    {
-      src: "/riv/mobiel.riv",
-      autoplay: true,
-      onLoad: () => {
-        console.log("Mobile Rive component loaded");
-        setTimeout(() => {
-          setRiveLoaded(true);
-        }, 200); // TODO: max max of this and actual
-      },
-    },
-    { fitCanvasToArtboardHeight: true }
   );
 
   return (
@@ -43,8 +45,7 @@ export const Hero = () => {
       animate={{ opacity: isRiveLoaded ? 1 : 0 }}
       transition={{ duration: 1.5, ease: "easeInOut" }}
     >
-      <RiveDesktop className="w-full h-full hidden sm:block" />
-      <RiveMobile className="w-full h-full block sm:hidden" />
+      <RiveComponent className="w-full h-full" />
     </motion.section>
   );
 };
