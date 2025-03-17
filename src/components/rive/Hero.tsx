@@ -25,7 +25,7 @@ export const Hero = () => {
   return (
     <motion.section
       className="relative w-full h-full overflow-hidden bg-indigo-700 flex items-center justify-center text-white"
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 0.25 }}
       animate={{ opacity: isRiveLoaded ? 1 : 0 }}
       transition={{ duration: 1.5, ease: "easeInOut" }}
     >
