@@ -26,7 +26,7 @@ import {
   Users,
   Utensils,
 } from "lucide-react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 
@@ -667,7 +667,7 @@ export const Search = () => {
               ) : selectedTag ? (
                 <span>
                   Showing {getFilteredPeople().length} people interested in{" "}
-                  {titleCase(selectedTag)}
+                  {selectedTag}
                 </span>
               ) : (
                 <span>
@@ -696,67 +696,85 @@ export const Search = () => {
             ref={gridRef}
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
           >
-            {visiblePeople.map((item) => {
-              // const isSelected = selectedPersonId === item.id;
-              const major =
-                item.data.major === "N/A"
-                  ? "Other"
-                  : titleCase(item.data.major || "");
-              const majorColor =
-                majorColors.get(major) ||
-                majorColors.get("Other") ||
-                pastelColors[0];
+            <AnimatePresence mode="wait">
+              {visiblePeople.map((item) => {
+                // const isSelected = selectedPersonId === item.id;
+                const major =
+                  item.data.major === "N/A"
+                    ? "Other"
+                    : titleCase(item.data.major || "");
+                const majorColor =
+                  majorColors.get(major) ||
+                  majorColors.get("Other") ||
+                  pastelColors[0];
 
-              return (
-                <div
-                  key={`entry-${item.id}`}
-                  className="h-full flex"
-                  onClick={() => handlePersonSelect(item.id)}
-                >
-                  <div
-                    style={{
-                      boxShadow:
-                        "0px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 7px rgba(0, 0, 0, 0.08)",
+                return (
+                  <motion.div
+                    key={`entry-${item.id}`}
+                    className="h-full flex"
+                    onClick={() => handlePersonSelect(item.id)}
+                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{
+                      opacity: 0,
+                      y: -10,
+                      transition: { duration: 0.15 },
                     }}
-                    className={`h-full w-full p-4 rounded-xl border cursor-pointer bg-white`}
+                    transition={{
+                      duration: 0.35,
+                      ease: [0.22, 1, 0.36, 1],
+                      delay: Math.min(
+                        0.05 * (visiblePeople.indexOf(item) % 8),
+                        0.2
+                      ),
+                    }}
+                    layout
                   >
-                    <div className="flex flex-col h-full">
-                      <div>
-                        <h3 className="font-tiempos text-lg font-medium text-zinc-900">
-                          {titleCase(item.data.name)}
-                        </h3>
-                        <span
-                          className={`text-xs px-2 py-0.5 rounded-full ${majorColor} inline-block mt-1 max-w-full truncate`}
-                          title={major}
-                        >
-                          {formatMajor(major)}
-                        </span>
-                      </div>
-                      <div className="mt-2 flex-grow">
-                        <p className="text-sm text-zinc-600 line-clamp-4">
-                          {item.data.summarizedResponse}
-                        </p>
-                      </div>
-                      <div className="mt-3 pt-2 border-t border-zinc-100">
-                        <div className="flex flex-wrap gap-1.5">
-                          {item.data.categories?.map((category, idx) => (
-                            <span
-                              key={`${item.id}-${category}-${idx}`}
-                              className="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-600 rounded-full"
-                            >
-                              {titleCase(category)}
-                            </span>
-                          ))}
+                    <div
+                      style={{
+                        boxShadow:
+                          "0px 4px 0px rgba(0, 0, 0, 0.04), 0px 4px 7px rgba(0, 0, 0, 0.08)",
+                      }}
+                      className={`h-full w-full p-4 rounded-xl border cursor-pointer bg-white`}
+                    >
+                      <div className="flex flex-col h-full">
+                        <div>
+                          <h3 className="font-tiempos text-lg font-medium text-zinc-900">
+                            {titleCase(item.data.name)}
+                          </h3>
+                          <span
+                            className={`text-xs px-2 py-0.5 rounded-full ${majorColor} inline-block mt-1 max-w-full truncate`}
+                            title={major}
+                          >
+                            {formatMajor(major)}
+                          </span>
                         </div>
-                        <div className="mt-2 text-xs text-zinc-400">
-                          {item.links.length || 0} connections
+                        <div className="mt-2 flex-grow">
+                          <p className="text-sm text-zinc-600 line-clamp-4">
+                            {item.data.summarizedResponse}
+                          </p>
+                        </div>
+                        <div className="mt-3 pt-2 border-t border-zinc-100">
+                          <div className="flex flex-wrap gap-1.5">
+                            {item.data.categories?.map((category, idx) => (
+                              <span
+                                key={`${item.id}-${category}-${idx}`}
+                                className="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-600 rounded-full"
+                              >
+                                {titleCase(category)}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="mt-2 text-xs text-zinc-400">
+                            {item.links.length || 0} connections
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
           </div>
 
           {/* Load more indicator */}
