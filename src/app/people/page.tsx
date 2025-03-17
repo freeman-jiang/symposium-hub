@@ -27,7 +27,7 @@ export default function PeoplePage() {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
-                <SocraticaLogo className="size-12" />
+                <SocraticaLogo className="size-10" />
               </motion.div>
               <motion.div
                 initial={{ scale: 0.4, opacity: 0 }}
