@@ -115,7 +115,7 @@ export default function Page() {
       <Ticker text="STAGE DEMOS" className="mt-8" />
 
       <div className="py-8 md:py-16 bg-zinc-950 px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 items-center max-w-5xl mx-auto gap-8 md:gap-12 justify-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center max-w-5xl mx-auto gap-8 md:gap-12 justify-items-center mb-28">
           {DEMO_DATA.map((demo, i) => (
             <motion.div
               key={demo.title}
