@@ -22,7 +22,7 @@ export default function Home() {
     <main className="min-h-screen bg-gradient-to-b text-black">
       <AnimatePresence>{!isRiveLoaded && <LoadingScreen />}</AnimatePresence>
       {/* Header section with improved desktop spacing */}
-      <div className="bg-[#f8f3e3] pb-16">
+      <div className="bg-[#f8f3e3] pb-8 md:pb-16">
         {/* Main content with improved desktop layout */}
         <div className="max-w-7xl mx-auto mt-8 px-6 md:flex md:items-end md:justify-between">
           <motion.div
@@ -63,17 +63,11 @@ export default function Home() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.63, duration: 0.5, ease: "easeOut" }}
-            href="https://www.youtube.com/watch?v=mkJjbCQC_Qs"
+            href="https://www.youtube.com/waterloo"
           >
             <motion.div
               whileTap={{ scale: 0.98 }}
-              whileHover={{
-                scale: 1.01,
-                transition: {
-                  ease: "easeOut",
-                  duration: 0.1,
-                },
-              }}
+              whileHover={{ scale: 1.01 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               <div className="glassmorphic-light-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12 md:px-16 flex items-center">
