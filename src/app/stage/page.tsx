@@ -112,7 +112,7 @@ export default function Page() {
           Stage Demos
         </motion.h1>
         <motion.h2
-          className="text-lg tracking-tight mt-2"
+          className="text-lg mt-2"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
