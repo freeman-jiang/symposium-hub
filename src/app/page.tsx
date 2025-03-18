@@ -75,18 +75,16 @@ export default function Home() {
             href="https://www.youtube.com/live/mkJjbCQC_Qs"
             onClick={handleWatchLivestreamClick}
           >
-            <motion.div
-              whileTap={{ y: 1 }}
-              whileHover={{ y: -3 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            >
-              <div className="glassmorphic-light-button border-[1px] border-[#FFFFFF52] bg-zinc-950 gap-3 justify-center px-12 md:px-16 flex items-center">
+            <button className="glassmorphic-light-button">
+              <span className="shadow"></span>
+              <span className="edge"></span>
+              <span className="front">
                 <SocraticaLogo className="w-[16px] md:w-[20px] text-white" />
-                <div className="text-[#F5F1E2] tracking-widest font-5by7 font-bold uppercase text-sm">
+                <div className="text-[#F5F1E2] tracking-widest font-5by7 font-bold uppercase text-sm py-5">
                   Watch livestream
                 </div>
-              </div>
-            </motion.div>
+              </span>
+            </button>
           </motion.a>
         </div>
       </div>

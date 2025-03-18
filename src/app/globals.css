@@ -123,7 +123,34 @@
       @apply transition-all duration-200 shadow-[0_4px_0_rgba(255,255,255,0.24)] backdrop-blur-[24px] before:absolute before:inset-0 before:shadow-[inset_0_2px_24px_rgba(255,255,255,0.16)] active:shadow-[0_0px_0px_rgb(0,0,0)] active:translate-y-[4px] border-2 border-[#FFFFFF24] flex flex-row px-[24px] py-[16px] items-center relative cursor-pointer;
     }
     .glassmorphic-light-button {
-      @apply transition-all duration-200 backdrop-blur-[24px] border-2 border-[#00000024] flex flex-row px-[24px] py-[16px] items-center relative cursor-pointer;
+      @apply relative bg-transparent border-none p-0 cursor-pointer outline-offset-4 transition-[filter] duration-250;
+    }
+    .glassmorphic-light-button .shadow {
+      @apply absolute top-0 left-0 w-full h-full rounded-md bg-black/25 will-change-transform translate-y-[2px] transition-transform duration-600 ease-[cubic-bezier(0.3,0.7,0.4,1)];
+    }
+    .glassmorphic-light-button .edge {
+      @apply absolute top-0 left-0 w-full h-full rounded-md bg-zinc-900/80;
+    }
+    .glassmorphic-light-button .front {
+      @apply relative flex items-center gap-3 justify-center px-12 md:px-16 border-[1px] border-[#FFFFFF52] bg-zinc-950 rounded-md will-change-transform -translate-y-[4px] transition-transform duration-600 ease-[cubic-bezier(0.3,0.7,0.4,1)];
+    }
+    .glassmorphic-light-button:hover {
+      @apply filter brightness-110;
+    }
+    .glassmorphic-light-button:hover .front {
+      @apply -translate-y-[6px] transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)];
+    }
+    .glassmorphic-light-button:active .front {
+      @apply -translate-y-[2px] transition-transform duration-[34ms];
+    }
+    .glassmorphic-light-button:hover .shadow {
+      @apply translate-y-[4px] transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)];
+    }
+    .glassmorphic-light-button:active .shadow {
+      @apply translate-y-[1px] transition-transform duration-[34ms];
+    }
+    .glassmorphic-light-button:focus:not(:focus-visible) {
+      @apply outline-none;
     }
     .canvas-date {
       @apply transition-all duration-200 shadow-[0_2px_0_rgba(255,255,255,0.08)] backdrop-blur-[24px] before:absolute before:inset-0 before:shadow-[inset_0_2px_24px_rgba(255,255,255,0.25)] active:shadow-[0_4px_24px_rgb(0,0,0)] active:translate-y-[4px] border-2 border-[#FFFFFF24] flex flex-row px-[24px] py-[16px] items-center relative cursor-pointer;
