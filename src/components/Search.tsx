@@ -767,12 +767,6 @@ export const Search = () => {
                           <h3 className="font-tiempos text-lg font-medium text-zinc-900">
                             {titleCase(item.data.name)}
                           </h3>
-                          <span
-                            className={`text-xs px-2 py-0.5 rounded-full ${majorColor} inline-block mt-1 max-w-full truncate`}
-                            title={major}
-                          >
-                            {formatMajor(major)}
-                          </span>
                         </div>
                         <div className="mt-2 flex-grow">
                           <p className="text-sm text-zinc-600 line-clamp-4">
