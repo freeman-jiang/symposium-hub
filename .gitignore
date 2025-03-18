@@ -43,6 +43,7 @@ next-env.d.ts
 
 graphData.json
 summarizedGraphData.json
+fixedGraphData.json
 boothData.json
 *.csv
 

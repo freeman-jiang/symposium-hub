@@ -31,7 +31,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 
 // Import graphData from the public directory
-import graphData from "../../public/summarizedGraphData.json";
+import graphData from "../../public/fixedGraphData.json";
 import { SocraticaLogo } from "./icons/SocraticaLogo";
 
 // Define interfaces for the data structure
