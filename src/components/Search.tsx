@@ -150,14 +150,19 @@ export const Search = () => {
     typedGraphData.nodes
       .filter(
         (node: GraphDataNode) =>
-          // Filter out entries without responses or categories
-          node.data.summarizedResponse &&
-          node.data.summarizedResponse.trim() !== "" &&
-          node.data.categories &&
-          node.data.categories.length > 0
+          // Include anyone with either summarizedResponse OR response, categories are now optional
+          (node.data.summarizedResponse && node.data.summarizedResponse.trim() !== "") || 
+          (node.data.response && node.data.response.trim() !== "")
       )
       .map((node: GraphDataNode) => {
         const existingNode = nodeMap.get(node.id);
+        // Ensure categories is always an array
+        if (!node.data.categories) {
+          node.data.categories = ["Uncategorized"];
+        } else if (node.data.categories.length === 0) {
+          node.data.categories = ["Uncategorized"];
+        }
+        
         return {
           ...node,
           data: {
@@ -180,9 +185,11 @@ export const Search = () => {
 
     // Count occurrences of each category
     allPeople.forEach((person) => {
-      person.data.categories?.forEach((category) => {
-        categoryCount.set(category, (categoryCount.get(category) || 0) + 1);
-      });
+      if (person.data.categories && person.data.categories.length > 0) {
+        person.data.categories.forEach((category) => {
+          categoryCount.set(category, (categoryCount.get(category) || 0) + 1);
+        });
+      }
     });
 
     // Convert to array, sort by count, and take top 6
@@ -198,6 +205,12 @@ export const Search = () => {
         sortedCategories.push(category);
       }
     });
+
+    // Make sure we have an Uncategorized category if needed
+    if (allPeople.some(person => !person.data.categories || person.data.categories.length === 0) &&
+        !sortedCategories.includes("Uncategorized")) {
+      sortedCategories.push("Uncategorized");
+    }
 
     return ["All", ...sortedCategories].sort((a, b) => {
       if (a === "All") return -1;
@@ -253,6 +266,7 @@ export const Search = () => {
         "data.name",
         "data.major",
         "data.summarizedResponse",
+        "data.response",
         "data.categories",
         { name: "data.categories", weight: 2 }, // Give more weight to category matches
       ],
@@ -288,11 +302,20 @@ export const Search = () => {
 
     // Apply tag filter
     if (selectedTag && selectedTag !== "All") {
-      filtered = filtered.filter((person) =>
-        person.data.categories?.some(
-          (category) => category.toLowerCase() === selectedTag.toLowerCase()
-        )
-      );
+      if (selectedTag === "Uncategorized") {
+        // Special handling for Uncategorized
+        filtered = filtered.filter((person) =>
+          !person.data.categories || person.data.categories.length === 0 || 
+          person.data.categories.includes("Uncategorized")
+        );
+      } else {
+        // Normal category filter
+        filtered = filtered.filter((person) =>
+          person.data.categories?.some(
+            (category) => category.toLowerCase() === selectedTag.toLowerCase()
+          )
+        );
+      }
     }
 
     return filtered;
@@ -344,14 +367,17 @@ export const Search = () => {
 
     // Simulate loading for a smoother experience and shuffle on client-side only
     setTimeout(() => {
-      setAllPeople((prev) =>
-        [...prev]
+      setAllPeople((prev) => {
+        // Log how many people we have
+        console.log(`Loaded ${prev.length} people`);
+        
+        return [...prev]
           .map((node) => ({
             ...node,
             links: node.links || [],
           }))
-          .sort(() => Math.random() - 0.5)
-      ); // Shuffle the array
+          .sort(() => Math.random() - 0.5);
+      }); // Shuffle the array
       setIsLoading(false);
     }, 300);
   }, []);
@@ -543,6 +569,30 @@ export const Search = () => {
   const shufflePeople = () => {
     setAllPeople((prev) => [...prev].sort(() => Math.random() - 0.5));
     setVisibleRange({ start: 0, end: 40 });
+  };
+
+  // Function to truncate long program names
+  const formatMajor = (major: string) => {
+    if (major.length > 20) {
+      return major.substring(0, 18) + "...";
+    }
+    return major;
+  };
+
+  // Function to truncate long text
+  const truncateText = (text: string, maxLength: number = 20) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength - 2) + "...";
+    }
+    return text;
+  };
+
+  // Helper function to get display text (summarizedResponse or fallback to response)
+  const getDisplayText = (node: CustomNode | GraphDataNode) => {
+    if (node.data.summarizedResponse && node.data.summarizedResponse.trim() !== "") {
+      return node.data.summarizedResponse;
+    }
+    return node.data.response || "";
   };
 
   return (
@@ -766,7 +816,7 @@ export const Search = () => {
                         </div>
                         <div className="mt-2 flex-grow">
                           <p className="text-sm text-zinc-600 line-clamp-4">
-                            {item.data.summarizedResponse}
+                            {getDisplayText(item)}
                           </p>
                         </div>
                         <div className="mt-3 pt-2 border-t border-zinc-100">
@@ -862,7 +912,7 @@ export const Search = () => {
                       Response:
                     </h3>
                     <p className="text-zinc-700">
-                      {selectedPerson.data.summarizedResponse}
+                      {getDisplayText(selectedPerson)}
                     </p>
                     {selectedPerson.data.categories?.length > 0 && (
                       <div className="mt-4">
@@ -950,7 +1000,7 @@ export const Search = () => {
                                     </div>
                                     <div className="mt-2">
                                       <p className="text-sm text-zinc-600">
-                                        {connectedNode.data.summarizedResponse}
+                                        {getDisplayText(connectedNode)}
                                       </p>
                                       {connectedNode.data.categories?.length >
                                         0 && (
