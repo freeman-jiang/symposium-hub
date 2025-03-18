@@ -130,6 +130,18 @@ typedGraphData.nodes.forEach((node: GraphDataNode) => {
   }
 });
 
+// Create a map for category colors
+const categoryColors = new Map<string, string>();
+
+// Function to get consistent color for a category
+const getCategoryColor = (category: string) => {
+  if (!categoryColors.has(category)) {
+    const colorIndex = categoryColors.size % pastelColors.length;
+    categoryColors.set(category, pastelColors[colorIndex]);
+  }
+  return categoryColors.get(category) || pastelColors[0];
+};
+
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
@@ -541,6 +553,14 @@ export const Search = () => {
     return major;
   };
 
+  // Function to truncate long text
+  const truncateText = (text: string, maxLength: number = 20) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength - 2) + "...";
+    }
+    return text;
+  };
+
   return (
     <div className="font-sans max-w-6xl w-full mx-auto">
       <div ref={searchContainerRef}>
@@ -778,9 +798,11 @@ export const Search = () => {
                             {item.data.categories?.map((category, idx) => (
                               <span
                                 key={`${item.id}-${category}-${idx}`}
-                                className="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-600 rounded-full"
+                                className={`text-xs px-2 py-0.5 rounded-full ${getCategoryColor(
+                                  category
+                                )}`}
                               >
-                                {titleCase(category)}
+                                {category}
                               </span>
                             ))}
                           </div>
@@ -788,12 +810,16 @@ export const Search = () => {
                             {(() => {
                               // Count unique connections
                               const uniqueConnections = new Set<string>();
-                              item.links.forEach(link => {
-                                const connectedNodeId = link.source === item.id ? link.target : link.source;
+                              item.links.forEach((link) => {
+                                const connectedNodeId =
+                                  link.source === item.id
+                                    ? link.target
+                                    : link.source;
                                 uniqueConnections.add(connectedNodeId);
                               });
                               return uniqueConnections.size;
-                            })()} connections
+                            })()}{" "}
+                            connections
                           </div>
                         </div>
                       </div>
@@ -854,16 +880,16 @@ export const Search = () => {
                     <DialogTitle className="font-tiempos text-2xl">
                       {titleCase(selectedPerson.data.name)}
                     </DialogTitle>
-                    <div className="flex items-center gap-2 mt-1">
+                    {/* <div className="flex items-center gap-2 mt-1">
                       <span
                         className={`text-xs px-2 py-0.5 rounded-full ${majorColor} inline-block`}
                       >
                         {major}
                       </span>
-                    </div>
+                    </div> */}
                   </DialogHeader>
 
-                  <div className="mt-4">
+                  <div className="mt-0">
                     <h3 className="text-sm font-medium text-zinc-500 mb-1">
                       Response:
                     </h3>
@@ -880,9 +906,11 @@ export const Search = () => {
                             (category, idx) => (
                               <span
                                 key={`dialog-${selectedPerson.id}-${category}-${idx}`}
-                                className="text-sm px-3 py-1 bg-zinc-100 text-zinc-700 rounded-full"
+                                className={`text-sm px-3 py-1 rounded-full ${getCategoryColor(
+                                  category
+                                )}`}
                               >
-                                {titleCase(category)}
+                                {category}
                               </span>
                             )
                           )}
@@ -955,11 +983,11 @@ export const Search = () => {
                                       <h4 className="font-medium text-zinc-900">
                                         {connectedNode.data.name}
                                       </h4>
-                                      <span
+                                      {/* <span
                                         className={`text-xs px-2 py-0.5 rounded-full ${connectedColor} inline-block w-fit mt-1`}
                                       >
                                         {connectedMajor}
-                                      </span>
+                                      </span> */}
                                     </div>
                                     <div className="mt-2">
                                       <p className="text-sm text-zinc-600">
@@ -972,7 +1000,9 @@ export const Search = () => {
                                             (category, idx) => (
                                               <span
                                                 key={`connection-category-${connectedNode.id}-${category}-${idx}`}
-                                                className="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-600 rounded-full"
+                                                className={`text-xs px-2 py-0.5 rounded-full ${getCategoryColor(
+                                                  category
+                                                )}`}
                                               >
                                                 {category}
                                               </span>
