@@ -545,22 +545,6 @@ export const Search = () => {
     setVisibleRange({ start: 0, end: 40 });
   };
 
-  // Function to truncate long program names
-  const formatMajor = (major: string) => {
-    if (major.length > 20) {
-      return major.substring(0, 18) + "...";
-    }
-    return major;
-  };
-
-  // Function to truncate long text
-  const truncateText = (text: string, maxLength: number = 20) => {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength - 2) + "...";
-    }
-    return text;
-  };
-
   return (
     <div className="font-sans max-w-6xl w-full mx-auto">
       <div ref={searchContainerRef}>
@@ -740,14 +724,6 @@ export const Search = () => {
             <AnimatePresence mode="sync">
               {visiblePeople.map((item) => {
                 // const isSelected = selectedPersonId === item.id;
-                const major =
-                  item.data.major === "N/A"
-                    ? "Other"
-                    : titleCase(item.data.major || "");
-                const majorColor =
-                  majorColors.get(major) ||
-                  majorColors.get("Other") ||
-                  pastelColors[0];
 
                 return (
                   <motion.div
@@ -865,14 +841,6 @@ export const Search = () => {
           {selectedPerson &&
             (() => {
               const node = nodeMap.get(selectedPerson.id);
-              const major =
-                selectedPerson.data.major === "N/A"
-                  ? "Other"
-                  : titleCase(selectedPerson.data.major || "");
-              const majorColor =
-                majorColors.get(major) ||
-                majorColors.get("Other") ||
-                pastelColors[0];
 
               return (
                 <>
@@ -952,15 +920,6 @@ export const Search = () => {
                                   nodeMap.get(connectedNodeId);
 
                                 if (!connectedNode) return null;
-
-                                const connectedMajor =
-                                  connectedNode.data.major === "N/A"
-                                    ? "Other"
-                                    : titleCase(connectedNode.data.major || "");
-                                const connectedColor =
-                                  majorColors.get(connectedMajor) ||
-                                  majorColors.get("Other") ||
-                                  pastelColors[0];
 
                                 return (
                                   <motion.div
