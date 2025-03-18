@@ -151,7 +151,8 @@ export const Search = () => {
       .filter(
         (node: GraphDataNode) =>
           // Include anyone with either summarizedResponse OR response, categories are now optional
-          (node.data.summarizedResponse && node.data.summarizedResponse.trim() !== "") || 
+          (node.data.summarizedResponse &&
+            node.data.summarizedResponse.trim() !== "") ||
           (node.data.response && node.data.response.trim() !== "")
       )
       .map((node: GraphDataNode) => {
@@ -162,7 +163,7 @@ export const Search = () => {
         } else if (node.data.categories.length === 0) {
           node.data.categories = ["Uncategorized"];
         }
-        
+
         return {
           ...node,
           data: {
@@ -207,8 +208,13 @@ export const Search = () => {
     });
 
     // Make sure we have an Uncategorized category if needed
-    if (allPeople.some(person => !person.data.categories || person.data.categories.length === 0) &&
-        !sortedCategories.includes("Uncategorized")) {
+    if (
+      allPeople.some(
+        (person) =>
+          !person.data.categories || person.data.categories.length === 0
+      ) &&
+      !sortedCategories.includes("Uncategorized")
+    ) {
       sortedCategories.push("Uncategorized");
     }
 
@@ -304,9 +310,11 @@ export const Search = () => {
     if (selectedTag && selectedTag !== "All") {
       if (selectedTag === "Uncategorized") {
         // Special handling for Uncategorized
-        filtered = filtered.filter((person) =>
-          !person.data.categories || person.data.categories.length === 0 || 
-          person.data.categories.includes("Uncategorized")
+        filtered = filtered.filter(
+          (person) =>
+            !person.data.categories ||
+            person.data.categories.length === 0 ||
+            person.data.categories.includes("Uncategorized")
         );
       } else {
         // Normal category filter
@@ -370,7 +378,7 @@ export const Search = () => {
       setAllPeople((prev) => {
         // Log how many people we have
         console.log(`Loaded ${prev.length} people`);
-        
+
         return [...prev]
           .map((node) => ({
             ...node,
@@ -572,24 +580,27 @@ export const Search = () => {
   };
 
   // Function to truncate long program names
-  const formatMajor = (major: string) => {
-    if (major.length > 20) {
-      return major.substring(0, 18) + "...";
-    }
-    return major;
-  };
+  // const formatMajor = (major: string) => {
+  //   if (major.length > 20) {
+  //     return major.substring(0, 18) + "...";
+  //   }
+  //   return major;
+  // };
 
-  // Function to truncate long text
-  const truncateText = (text: string, maxLength: number = 20) => {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength - 2) + "...";
-    }
-    return text;
-  };
+  // // Function to truncate long text
+  // const truncateText = (text: string, maxLength: number = 20) => {
+  //   if (text.length > maxLength) {
+  //     return text.substring(0, maxLength - 2) + "...";
+  //   }
+  //   return text;
+  // };
 
   // Helper function to get display text (summarizedResponse or fallback to response)
   const getDisplayText = (node: CustomNode | GraphDataNode) => {
-    if (node.data.summarizedResponse && node.data.summarizedResponse.trim() !== "") {
+    if (
+      node.data.summarizedResponse &&
+      node.data.summarizedResponse.trim() !== ""
+    ) {
       return node.data.summarizedResponse;
     }
     return node.data.response || "";
