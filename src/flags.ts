@@ -1,1 +1,1 @@
-export const BLUR_CONTENT = true;
+export const BLUR_CONTENT = false;
