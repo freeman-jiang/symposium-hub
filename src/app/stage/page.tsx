@@ -94,7 +94,7 @@ const DEMO_DATA: DemoCardProps[] = [
   },
   {
     title: "PRISM Collective",
-    author: "Binalpreet Kalra, Olivia Zheng, and Team",
+    author: "Sophie Liu, Olivia Zheng, Maisha Thasin, Binalpreet Kalra ",
     description:
       "The inspirational story of starting a new collective in the combination of art+tech at Waterloo, and challenges encountered along the way.",
     icon: Prism,
