@@ -12,6 +12,7 @@ interface Booth {
   title: string;
   description: string;
   members: string[];
+  link_text: string;
 }
 
 const Page = () => {
@@ -60,6 +61,7 @@ const Page = () => {
                 title={booth.title}
                 description={booth.description}
                 members={booth.members}
+                linkText={booth.link_text}
                 blurContent={BLUR_CONTENT}
               />
             </motion.div>

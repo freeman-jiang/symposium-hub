@@ -17,6 +17,8 @@ def process_csv(file_path):
             
             # Process members - split by comma and capitalize each name
             members_raw = row.get("Name(s) of all members of your group", "")
+
+            link_text = row.get("Any links you wanna share with others about the project or you? (websites, links, personal social handles, etc.)")
             members = []
             
             for name in members_raw.split(','):
@@ -31,13 +33,14 @@ def process_csv(file_path):
             result.append({
                 "title": title,
                 "description": description,
-                "members": members
+                "members": members,
+                "link_text": link_text
             })
     
     return result
 
 # Process the CSV file
-data = process_csv("W25 Symposium Demoer Master Sheet - BACKUP BOOTH DEMOS FINAL.csv")
+data = process_csv("booths.csv")
 
 # Save the result to a JSON file
 with open("boothData.json", "w", encoding='utf-8') as json_file:

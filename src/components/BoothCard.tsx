@@ -1,3 +1,9 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { HTMLAttributes } from "react";
 import { cn } from "../lib/utils";
 
@@ -6,6 +12,7 @@ export interface BoothCardProps extends HTMLAttributes<HTMLDivElement> {
   description: string;
   members: string[];
   blurContent?: boolean;
+  linkText?: string;
 }
 
 export default function BoothCard({
@@ -14,6 +21,7 @@ export default function BoothCard({
   members,
   className,
   blurContent = false,
+  linkText,
   ...props
 }: BoothCardProps) {
   const truncatedDescription =
@@ -22,23 +30,40 @@ export default function BoothCard({
   return (
     <div
       className={cn(
-        "",
+        "h-full flex flex-col",
         className,
         blurContent && "pointer-events-none select-none blur-sm"
       )}
       {...props}
     >
-      <div className="hover:bg-zinc-900/80 transition-colors text-white max-w-md rounded mt-4 md:p-8 w-full h-full duration-300">
-        <h3
-          className="text-[1.5rem] font-tiempos mb-2 text-white"
-          style={{
-            lineHeight: "1.15",
-          }}
-        >
-          {title}
-        </h3>
-        <p className="mb-4 text-zinc-100">{members.join(", ")}</p>
-        <p className="text-sm text-zinc-400">{truncatedDescription}</p>
+      <div className="transition-colors text-white max-w-md rounded mt-4 md:p-8 w-full flex flex-col flex-grow duration-300">
+        <div>
+          <h3
+            className="text-[1.5rem] font-tiempos mb-2 text-white"
+            style={{
+              lineHeight: "1.15",
+            }}
+          >
+            {title}
+          </h3>
+          <p className="mb-4 text-zinc-100">{members.join(", ")}</p>
+          <p className="text-sm text-zinc-400">{truncatedDescription}</p>
+        </div>
+
+        <div className="mt-auto">
+          {linkText && (
+            <Accordion type="single" collapsible className="mt-4">
+              <AccordionItem value="links" className="border-zinc-800">
+                <AccordionTrigger className="text-xs text-zinc-400 py-2 cursor-pointer">
+                  Links
+                </AccordionTrigger>
+                <AccordionContent className="text-xs text-zinc-400">
+                  {linkText}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          )}
+        </div>
       </div>
     </div>
   );
