@@ -1,4 +1,5 @@
 import BlueGuy from "@/components/svg/blueguy.svg";
+import { ExternalLink } from "lucide-react";
 import { HTMLAttributes } from "react";
 import { cn } from "../lib/utils";
 
@@ -21,6 +22,8 @@ export default function DemoCard({
   blurContent,
   ...props
 }: DemoCardProps) {
+  const domain = href ? new URL(href).hostname.replace(/^www\./, "") : "";
+
   return (
     <div
       className={cn(
@@ -47,6 +50,14 @@ export default function DemoCard({
         </a>
         <p className="mb-4 text-zinc-100">{author}</p>
         <p className="text-sm text-zinc-400">{description}</p>
+        <a
+          href={href}
+          target="_blank"
+          className="flex items-center gap-2 mt-3 cursor-pointer"
+        >
+          <ExternalLink className="w-4 h-4" />
+          <p className="text-sm text-zinc-400">{domain}</p>
+        </a>
       </div>
     </div>
   );
