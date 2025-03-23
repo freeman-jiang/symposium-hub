@@ -37,7 +37,7 @@ export default function BoothCard({
       {...props}
     >
       <div className="transition-colors text-white max-w-md rounded mt-4 md:p-8 w-full flex flex-col flex-grow duration-300">
-        <div>
+        <div className="flex-1">
           <h3
             className="text-[1.5rem] font-tiempos mb-2 text-white"
             style={{
@@ -50,18 +50,20 @@ export default function BoothCard({
           <p className="text-sm text-zinc-400">{truncatedDescription}</p>
         </div>
 
-        <div className="mt-auto">
+        <div className="mt-4">
           {linkText && (
-            <Accordion type="single" collapsible className="mt-4">
-              <AccordionItem value="links" className="border-zinc-800">
-                <AccordionTrigger className="text-xs text-zinc-400 py-2 cursor-pointer">
-                  Links
-                </AccordionTrigger>
-                <AccordionContent className="text-xs text-zinc-400">
-                  {linkText}
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+            <div className="min-h-[40px]">
+              <Accordion type="single" collapsible>
+                <AccordionItem value="links" className="border-zinc-800">
+                  <AccordionTrigger className="text-xs text-zinc-400 py-2 cursor-pointer">
+                    Links
+                  </AccordionTrigger>
+                  <AccordionContent className="text-xs text-zinc-400 flex flex-col items-start pt-2">
+                    {linkText}
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
           )}
         </div>
       </div>
